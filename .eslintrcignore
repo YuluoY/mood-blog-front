@@ -13,6 +13,8 @@ dist
 .es7intrc.js
 prettier.config.js
 /src/mock/*
+/src/types/*
+/src/**/types/*
 
 # Logs
 lags

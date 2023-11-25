@@ -56,6 +56,20 @@ module.exports = {
         "no-param-reassign": 0,
         "vue/multi-word-component-names": 0,
         "vue/attribute-hyphenation": 0,
-        "vue/v-on-event-hyphenation": 0
+        "vue/v-on-event-hyphenation": 0,
+        'no-unused-vars': 'off',
+        'no-console': process.env.NODE_ENV === 'production' ? 2 : 0,
+        'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+        'arrow-body-style': 'off',
+        "import/prefer-default-export": 'off',
+        'vue/no-v-for-template-key': 'off', // vue3  v-for 中template 可以设置key
+        '@typescript-eslint/no-explicit-any': 'off', // 表示禁用此规则，允许使用 any 类型
+        '@typescript-eslint/no-var-requires': 'off', // 禁止使用 require() 导入。off 表示禁用此规则，允许使用 require()。
+        "eqeqeq": ['error', 'always'], // 要求使用恒等（===）而不是等于（==）进行比较，否则报错。
+        'vue/no-multiple-template-root': 'off', // vue3 模板可以有多个根结点
+        'vue/custom-event-name-casing': 'off', // 自定义 Vue.js 事件名称的大小写规则。off 表示禁用此规则。
+        'no-use-before-define': 'error', // 禁止在定义之前使用变量。error 表示将此视为错误
+        'guard-for-in': 'error', // 要求在 for-in 循环中使用 hasOwnProperty 方法进行条件过滤，否则报错。
+        'consistent-this': ['error', '_this', 'that', 'self'], // 要求在代码中使用指定的别名代替 this（_this、that、self），否则报错。
     }
 }

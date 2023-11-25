@@ -1,0 +1,9 @@
+#nprogress .bar {
+ // 修改进度条样式
+ background: var(--el-color-primary) !important;
+}
+
+#nprogress .peg{
+  // 修改进度条阴影样式
+  box-shadow: 0 0 10px var(--el-color-primary), 0 0 5px var(--el-color-primary) !important;
+}

@@ -6,30 +6,47 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vue-tsc && vite build",
+    "build:pre": "vue-tsc --noEmit && vite build --mode staging",
+    "build:pro": "vue-tsc --noEmit && vite build --mode production",
     "preview": "vite preview",
     "prepare": "husky install",
     "lint:create": "eslint --init",
     "lint:css": "stylelint **/*.{vue,css,sass,scss} --fix",
     "lint": "eslint \"src/**/*.{js,vue,ts,jsx,tsx}\" --fix",
-    "format": "prettier --config .prettierrc.cjs \"src/**/*.{vue,js,ts,jsx,tsx}\" --write"
+    "format": "prettier --config .prettierrc.cjs \"src/**/*.{vue,js,ts,jsx,tsx}\" --write",
+    "release": "standard-version"
   },
   "dependencies": {
-    "vue": "^3.3.8"
+    "axios": "^1.6.2",
+    "dayjs": "^1.11.10",
+    "element-plus": "^2.4.2",
+    "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
+    "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.0",
+    "qs": "^6.11.2",
+    "unplugin-vue-setup-extend-plus": "^1.0.0",
+    "vue": "^3.3.8",
+    "vue-i18n": "^9.4.1",
+    "vue-router": "^4.2.5"
   },
   "lint-staged": {
     "*.{js,jsx,vue,ts,tsx}": [
       "npm run lint",
       "npm run format"
     ],
-    "*.{vue,sass,scss,css}":[
+    "*.{vue,sass,scss,css}": [
       "npm run lint:css"
     ]
   },
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
+    "@types/axios": "^0.14.0",
     "@types/eslint": "^8.44.7",
     "@types/node": "^20.10.0",
+    "@types/nprogress": "^0.2.3",
+    "@types/qs": "^6.9.10",
     "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",
     "@vitejs/plugin-vue": "^4.5.0",
@@ -45,11 +62,15 @@
     "postcss": "^8.4.31",
     "postcss-html": "^1.5.0",
     "prettier": "^3.1.0",
+    "sass": "^1.69.5",
+    "standard-version": "^9.5.0",
     "stylelint": "^15.11.0",
     "stylelint-config-recommended-vue": "^1.5.0",
     "stylelint-config-standard": "^34.0.0",
     "stylelint-config-standard-scss": "^11.1.0",
     "typescript": "^5.3.2",
+    "unplugin-auto-import": "^0.17.1",
+    "unplugin-vue-components": "^0.25.2",
     "vite": "^5.0.0",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-stylelint": "^5.2.1",

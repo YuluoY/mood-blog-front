@@ -1,0 +1,39 @@
+/*
+ * @Author: huyongle 568055454@qq.com
+ * @Date: 2023-11-25 17:22:47
+ * @LastEditors: huyongle 568055454@qq.com
+ * @LastEditTime: 2023-11-25 19:54:29
+ * @FilePath: \mood-blog-front\src\assets\styles\bem.scss
+ * @Description: BEN架构规范
+ * 
+ * Copyright (c) 2023 by 雨落, All Rights Reserved. 
+ */
+
+$namespace: "yl" !default;
+$block-sel: "-" !default;
+$elem-sel: '__' !default;
+$modi-sel: '--' !default;
+
+@mixin b($name) {
+  @at-root {
+    .#{$namespace}#{$block-sel}#{$name} {
+      @content;
+    }
+  }
+}
+
+@mixin e($name) {
+  @at-root {
+    &.#{$namespace}#{$elem-sel}#{$name} {
+      @content;
+    }
+  } 
+}
+
+@mixin m($name) {
+  @at-root {
+    &.#{$namespace}#{$modi-sel}#{$name} {
+      @content;
+    }
+  }
+}
