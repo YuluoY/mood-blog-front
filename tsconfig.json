@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    // 打包成es最新的版本代码
+    // 编译成es最新的版本代码
     "target": "ESNext",
     "useDefineForClassFields": true,
     "module": "ESNext",
