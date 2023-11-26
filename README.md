@@ -1,12 +1,14 @@
-# Vite + Ts + Vue3构建企业级项目模板
+# Vite + Ts + Vue3企业级项目搭建
 
-## Power by
 <p align="center">
   <a href="https://github.com/vuejs/core">
     <img src="https://img.shields.io/badge/Vue3-3.3.8-brightgreen.svg" alt="vue3">
   </a>
   <a href="https://github.com/element-plus/element-plus">
     <img src="https://img.shields.io/badge/Element Plus-2.4.2-brightgreen.svg" alt="element-plus">
+  </a>
+  <a href="http://makeapullrequest.com">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat" alt="PRs Welcome">
   </a>
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT">
