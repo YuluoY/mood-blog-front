@@ -2,14 +2,14 @@
  * @Author: huyongle 568055454@qq.com
  * @Date: 2023-11-25 17:22:47
  * @LastEditors: huyongle 568055454@qq.com
- * @LastEditTime: 2023-11-25 19:54:29
+ * @LastEditTime: 2023-11-26 12:27:24
  * @FilePath: \mood-blog-front\src\assets\styles\bem.scss
  * @Description: BEN架构规范
  * 
  * Copyright (c) 2023 by 雨落, All Rights Reserved. 
  */
 
-$namespace: "yl" !default;
+$namespace: "y" !default;
 $block-sel: "-" !default;
 $elem-sel: '__' !default;
 $modi-sel: '--' !default;
@@ -24,7 +24,7 @@ $modi-sel: '--' !default;
 
 @mixin e($name) {
   @at-root {
-    &.#{$namespace}#{$elem-sel}#{$name} {
+    &#{$elem-sel}#{$name} {
       @content;
     }
   } 
@@ -32,7 +32,7 @@ $modi-sel: '--' !default;
 
 @mixin m($name) {
   @at-root {
-    &.#{$namespace}#{$modi-sel}#{$name} {
+    &#{$modi-sel}#{$name} {
       @content;
     }
   }

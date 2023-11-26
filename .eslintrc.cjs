@@ -52,16 +52,21 @@ module.exports = {
     },
     // 自定义规则， 覆盖上面extends继承的第三方库的规则，根据组内成员灵活定义
     "rules": {
-        "import/no-extraneous-dependencies": 0,
-        "no-param-reassign": 0,
-        "vue/multi-word-component-names": 0,
-        "vue/attribute-hyphenation": 0,
-        "vue/v-on-event-hyphenation": 0,
-        'no-unused-vars': 'off',
+        "import/no-extraneous-dependencies": 0, // 允许引入devDependencies
+        "no-param-reassign": 0, // 允许对函数参数进行重新赋值
+        "vue/multi-word-component-names": 0, // 组件名驼峰
+        "vue/attribute-hyphenation": 0, // 属性名驼峰 
+        "vue/v-on-event-hyphenation": 0, // 事件名驼峰
+        'no-unused-vars': 'off', // 允许定义未使用的变量
         'no-console': process.env.NODE_ENV === 'production' ? 2 : 0,
         'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-        'arrow-body-style': 'off',
-        "import/prefer-default-export": 'off',
+        // 允许空样式表
+        'vue/valid-v-slot': ['error', {
+            allowModifiers: true,
+        }],
+        'vue/no-empty-script': 'off',   // 允许空的script标签
+        'arrow-body-style': 'off', // 箭头函数体风格，off 表示禁用此规则，允许使用非必要的括号
+        "import/prefer-default-export": 'off', // 当模块只有一个导出时，是否使用默认导出。off 表示禁用此规则，允许使用非默认导出
         'vue/no-v-for-template-key': 'off', // vue3  v-for 中template 可以设置key
         '@typescript-eslint/no-explicit-any': 'off', // 表示禁用此规则，允许使用 any 类型
         '@typescript-eslint/no-var-requires': 'off', // 禁止使用 require() 导入。off 表示禁用此规则，允许使用 require()。
