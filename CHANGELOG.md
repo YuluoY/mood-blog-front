@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### Bug Fixes
+
+* 修复BEM架构问题 ([ba6eb9f](https://github.com/YuluoY/mood-blog-front/commit/ba6eb9f90f109742cf1fc02656cd3b34a132169b))
+
 ## [1.1.0](https://github.com/YuluoY/mood-blog-front/compare/v0.0.1...v1.1.0) (2023-11-25)
 
 

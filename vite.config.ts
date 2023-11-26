@@ -9,6 +9,7 @@ import vueSetupExtend from 'unplugin-vue-setup-extend-plus/vite'
 import eslintPlugin from 'vite-plugin-eslint'
 import stylelintPlugin from 'vite-plugin-stylelint'
 import path from 'path'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 const resolve = (dir: string) => path.resolve(__dirname, dir)
 
@@ -17,7 +18,13 @@ export default defineConfig({
   base: './',
   plugins: [
     vue(),
+    createSvgIconsPlugin({
+      iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
+      symbolId: 'icon-[dir]-[name]',
+    }),
     AutoImport({
+      imports: ['vue', 'vue-router', 'pinia', 'vue-i18n'],
+      dts: 'src/auto-import.d.ts',
       resolvers: [ElementPlusResolver()],
     }),
     Components({
