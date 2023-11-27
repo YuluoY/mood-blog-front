@@ -6,6 +6,4 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import Layout from '@/components/Layout/index.vue'
-</script>
+<script setup lang="ts" name="Home"></script>

@@ -28,19 +28,20 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
     Components({
+      dts: 'src/components.d.ts',
       resolvers: [ElementPlusResolver()],
     }),
     eslintPlugin(),
     stylelintPlugin({ fix: true }),
     vueSetupExtend({}),
   ],
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@import "@/assets/styles/index.scss";`,
-      },
-    },
-  },
+  // css: {
+  //   preprocessorOptions: {
+  //     scss: {
+  //       additionalData: `@import "@/assets/styles/index.scss";`,
+  //     },
+  //   },
+  // },
   resolve: {
     alias: {
       '@': resolve('src'),
@@ -48,15 +49,13 @@ export default defineConfig({
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
   },
   server: {
-    host: '127.0.0.1',
     port: 8080,
     open: true,
     cors: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'http://localhost:8080',
         changeOrigin: true,
-        ws: true,
         // eslint-disable-next-line no-shadow
         rewrite: (path: string) => path.replace(/^\/api/, ''),
       },

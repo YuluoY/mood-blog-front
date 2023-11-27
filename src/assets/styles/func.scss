@@ -1,0 +1,7 @@
+@mixin simple-generator($classname, $key, $value) {
+  @if $classname != null and $key != null and $value != null {
+    @include b($classname) {
+      $key: $value;
+    }
+  }
+}

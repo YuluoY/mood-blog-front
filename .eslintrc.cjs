@@ -8,7 +8,8 @@ module.exports = {
     "extends": [
         "plugin:vue/vue3-strongly-recommended",
         "airbnb-base",
-        "prettier"
+        "prettier",
+        "./.eslintrc-auto-import.json"
     ],
     // ESlint会对代码校验，parser的作用是将代码转换成ESTree（AST语法树）进行代码校验
     "parser": "vue-eslint-parser",

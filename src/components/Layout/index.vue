@@ -10,8 +10,4 @@
   </el-container>
 </template>
 
-<script setup lang="ts">
-import Head from './Head/index.vue'
-import Foot from './Foot/index.vue'
-import Main from './Main/index.vue'
-</script>
+<script setup lang="ts" name="Layout"></script>

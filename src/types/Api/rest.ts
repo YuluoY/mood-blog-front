@@ -26,4 +26,6 @@ export declare interface IRest {
     page: number | string,
     pageSize: number | string
   ): Promise<AxiosResponse<IResponseTemplate<IPaginationResponse<T>>>>
+
+  getCode(): Promise<IResponseTemplate<any>>
 }
