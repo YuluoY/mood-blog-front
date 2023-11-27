@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/YuluoY/mood-blog-front/compare/v1.3.5...v1.4.0) (2023-11-27)
+
+
+### Features
+
+* 新增获取验证码功能，修复请求跨域问题 ([94e9f9d](https://github.com/YuluoY/mood-blog-front/commit/94e9f9d4864dff21927a756fc3b00681de36120d))
+
 ### [1.3.5](https://github.com/YuluoY/mood-blog-front/compare/v1.3.2...v1.3.5) (2023-11-26)
 
 ### [1.3.4](https://github.com/YuluoY/mood-blog-front/compare/v1.3.2...v1.3.4) (2023-11-26)
