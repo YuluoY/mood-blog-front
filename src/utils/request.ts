@@ -2,7 +2,7 @@
  * @Author: huyongle 568055454@qq.com
  * @Date: 2023-11-25 19:48:49
  * @LastEditors: huyongle 568055454@qq.com
- * @LastEditTime: 2023-11-26 00:25:33
+ * @LastEditTime: 2023-11-28 04:11:31
  * @FilePath: \mood-blog-front\src\utils\request.ts
  * @Description: 基于axios + qs的请求封装
  *
@@ -22,6 +22,7 @@ export default new (class Request {
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
     },
+    withCredentials: true,
     // paramsSerializer: params => Qs.stringify(params, { arrayFormat: 'brackets' }),
   }
 
@@ -92,19 +93,23 @@ export default new (class Request {
     )
   }
 
-  public get<T>(url: string, params?: object): Promise<AxiosResponse<T, any>> {
+  public get<T>(url: string, params?: object): Promise<any> {
     return this.instance.get<T>(url, { params })
   }
 
-  public post<T>(url: string, data?: object): Promise<AxiosResponse<T, any>> {
+  public post<T>(url: string, data?: object): Promise<any> {
     return this.instance.post<T>(url, data)
   }
 
-  public put<T>(url: string, data?: object): Promise<AxiosResponse<T, any>> {
+  public put<T>(url: string, data?: object): Promise<any> {
     return this.instance.put<T>(url, data)
   }
 
-  public delete<T>(url: string, params?: object): Promise<AxiosResponse<T, any>> {
+  public putch<T>(url: string, data?: object): Promise<any> {
+    return this.instance.put<T>(url, data)
+  }
+
+  public delete<T>(url: string, params?: object): Promise<any> {
     return this.instance.delete<T>(url, { params })
   }
 })()

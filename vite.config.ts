@@ -51,10 +51,9 @@ export default defineConfig({
   server: {
     port: 8080,
     open: true,
-    cors: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: 'http://localhost:3000',
         changeOrigin: true,
         // eslint-disable-next-line no-shadow
         rewrite: (path: string) => path.replace(/^\/api/, ''),

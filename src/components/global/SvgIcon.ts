@@ -5,11 +5,11 @@ export default defineComponent({
 
   props: {
     name: {
-      type: String,
+      type: String as PropType<string>,
       required: true,
     },
     iconClass: {
-      type: String,
+      type: String as PropType<string>,
       default: 'inner',
     },
     size: {
@@ -21,7 +21,7 @@ export default defineComponent({
       default: 'em',
     },
     color: {
-      type: String,
+      type: String as PropType<string>,
       default: '',
     },
   },

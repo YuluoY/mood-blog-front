@@ -3,6 +3,4 @@ const global = {
   i18nLocalStorageKey: 'mood-blog-lang',
 }
 
-// const localStorageGlobal =
-
 export default global

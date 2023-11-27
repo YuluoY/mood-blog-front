@@ -8,8 +8,8 @@ export declare interface IResponseTemplate<T> {
 // 定义响应数据基本字段
 export declare interface IResponseBaseData {
   id: number | string
-  createTime: string
-  updateTime: string
+  createdAt: string
+  updatedAt: string
 }
 
 // 状态
@@ -18,6 +18,7 @@ export declare const enum EnumStatus {
   Normal = 0, // 正常
   Disabled = 1, // 禁用
   Deleted = 2, // 删除
+  UnAudit = 3, // 审核中
 }
 
 // 角色
@@ -52,6 +53,7 @@ export declare const enum DatabaseTableName {
   Comment = 'comment',
   Role = 'role',
   Like = 'like',
+  Router = 'router',
 }
 
 // pagation 分页

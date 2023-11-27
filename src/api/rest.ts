@@ -16,4 +16,4 @@ export const getList: IRest['getList'] = (model) => request.get(`${prefix}/${mod
 export const getListByPage: IRest['getListByPage'] = (model, page, pageSize) =>
   request.get(`${prefix}/${model}/pagation/${page}/${pageSize}`)
 
-export const getCode: IRest['getCode'] = () => request.get('/code')
+export const getCode: IRest['getCode'] = () => request.get(`${prefix}/code`)

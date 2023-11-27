@@ -24,6 +24,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
   strict: true, // applies to all routes
+  linkExactActiveClass: 'router-link-exact-active',
 })
 
 export default router

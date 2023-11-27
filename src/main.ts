@@ -13,8 +13,9 @@ import router from './router/index.ts'
 // eslint-disable-next-line import/no-unresolved
 import 'virtual:svg-icons-register'
 import { globalComponents } from './components/global/index.ts'
+import directives from './directive/index.ts'
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
-createApp(App).use(i18n).use(globalComponents).use(router).use(pinia).use(ElementPlus).mount('#app')
+createApp(App).use(i18n).use(globalComponents).use(directives).use(router).use(pinia).use(ElementPlus).mount('#app')

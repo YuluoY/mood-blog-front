@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Layout>
-      <router-view></router-view>
+      <svg-captcha></svg-captcha>
     </Layout>
   </div>
 </template>
