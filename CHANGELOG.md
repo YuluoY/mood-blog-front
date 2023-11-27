@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/YuluoY/mood-blog-front/compare/v1.4.0...v1.5.0) (2023-11-27)
+
+
+### Features
+
+* 新增自定义指令，按钮级别的权限校验，修复获取验证码和请求问题 ([8923298](https://github.com/YuluoY/mood-blog-front/commit/8923298b8d1d78f5c14ad5af7544ef8ae74f2649))
+
 ## [1.4.0](https://github.com/YuluoY/mood-blog-front/compare/v1.3.5...v1.4.0) (2023-11-27)
 
 
