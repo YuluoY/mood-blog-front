@@ -1,4 +1,4 @@
-import { IRest } from '@/types/Api/rest.ts'
+import { IRest } from '@/types/api/rest.ts'
 import request from '@/utils/request.ts'
 
 export const prefix = '/rest'
@@ -17,3 +17,7 @@ export const getListByPage: IRest['getListByPage'] = (model, page, pageSize) =>
   request.get(`${prefix}/${model}/pagation/${page}/${pageSize}`)
 
 export const getCode: IRest['getCode'] = () => request.get(`${prefix}/code`)
+
+export const login: IRest['login'] = (data) => request.post(`${prefix}/login`, data)
+
+export const register: IRest['register'] = (data) => request.post(`${prefix}/register`, data)

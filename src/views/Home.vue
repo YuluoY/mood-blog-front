@@ -1,9 +1,5 @@
 <template>
-  <div class="home">
-    <Layout>
-      <svg-captcha></svg-captcha>
-    </Layout>
-  </div>
+  <div class="home"></div>
 </template>
 
 <script setup lang="ts" name="Home"></script>

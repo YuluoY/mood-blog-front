@@ -2,6 +2,8 @@
 
 <template>
   <Suspense>
-    <router-view></router-view>
+    <Layout>
+      <router-view></router-view>
+    </Layout>
   </Suspense>
 </template>

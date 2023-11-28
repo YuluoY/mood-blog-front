@@ -11,3 +11,6 @@
 a.router-link-exact-active {
   color: var(--el-color-primary);
 }
+
+@include simple-generator('flex', 'display', 'flex');
+@include generator-gap('flex', 'flex', 1, 10);

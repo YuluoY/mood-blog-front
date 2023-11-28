@@ -21,4 +21,10 @@ export declare interface IRest {
 
   // 验证码
   getCode(): Promise<IResponseTemplate<string>>
+
+  // 登录
+  login<D extends Object, T>(data: D): Promise<IResponseTemplate<T>>
+
+  // 注册
+  register<D extends Object, T>(data: D): Promise<IResponseTemplate<T>>
 }
