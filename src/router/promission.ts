@@ -1,12 +1,13 @@
 import nprogress from '@/plugins/nprogress/index.ts'
-import { RouteLocationNormalized } from 'vue-router'
-import router from './index.ts'
+import { RouteLocationNormalized, Router } from 'vue-router'
 
-router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next) => {
-  nprogress.start()
-  next()
-})
+export const promission = (router: Router) => {
+  router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next) => {
+    nprogress.start()
+    next()
+  })
 
-router.afterEach((to: RouteLocationNormalized, from: RouteLocationNormalized) => {
-  nprogress.done()
-})
+  router.afterEach((to: RouteLocationNormalized, from: RouteLocationNormalized) => {
+    nprogress.done()
+  })
+}
