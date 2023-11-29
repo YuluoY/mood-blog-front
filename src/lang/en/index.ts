@@ -1,4 +1,12 @@
 export default {
+  nav:{
+    Home:'Home',
+    Article:'Article',
+    Space:'Space',
+    Write:'Write',
+    About:'About',
+    Log:'Log'
+  },
   error404: {
     M000001: 'OOPS！',
     M000002: '404 Page Not Found',

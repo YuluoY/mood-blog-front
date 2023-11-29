@@ -35,13 +35,13 @@ export default defineConfig({
     stylelintPlugin({ fix: true }),
     vueSetupExtend({}),
   ],
-  // css: {
-  //   preprocessorOptions: {
-  //     scss: {
-  //       additionalData: `@import "@/assets/styles/index.scss";`,
-  //     },
-  //   },
-  // },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "@/assets/styles/var.scss";`,
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': resolve('src'),

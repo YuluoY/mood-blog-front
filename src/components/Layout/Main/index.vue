@@ -1,6 +1,5 @@
 <template>
-  <div class="main y-test">
-    我是主体
+  <div class="y-main">
     <slot></slot>
   </div>
 </template>

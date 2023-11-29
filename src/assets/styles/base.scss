@@ -1,3 +1,18 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-size: map-get($map: $base-styles, $key: 'font-size') * 1px;
+  font-family: map-get($map: $base-styles, $key: 'font-family');
+  font-weight: map-get($map: $base-styles, $key: 'font-weight');
+  line-height: map-get($map: $base-styles, $key: 'line-height');
+  box-sizing: border-box !important;
+}
+
+body, html {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 #nprogress .bar {
   // 修改进度条样式
   background: var(--el-color-primary) !important;
@@ -5,11 +20,41 @@
 
 #nprogress .peg {
   // 修改进度条阴影样式
-  box-shadow: 0 0 10px var(--el-color-primary), 0 0 5px var(--el-color-primary) !important;
+  box-shadow:
+    0 0 10px var(--el-color-primary),
+    0 0 5px var(--el-color-primary) !important;
 }
 
 a.router-link-exact-active {
   color: var(--el-color-primary);
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 定义滚动条的样式 */
+::-webkit-scrollbar {
+  width: 4px; /* 设置滚动条的宽度 */
+  transition: all 3s ease-in-out;
+}
+
+/* 定义滚动条轨道的样式 */
+::-webkit-scrollbar-track {
+  background-color: var(--el-fill-color); /* 设置滚动条轨道的背景色 */
+}
+
+/* 定义滚动条的滑块样式 */
+::-webkit-scrollbar-thumb {
+  background-color: var(--el-color-primary); /* 设置滚动条滑块的背景色 */
+  border-radius: map-get($base-styles, 'border-radius'); /* 设置滚动条滑块的圆角 */
+}
+
+/* 当滚动条处于活动状态时的样式 */
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--el-color-primary-light-3);
 }
 
 @include simple-generator('flex', 'display', 'flex');
@@ -33,7 +78,6 @@ a.router-link-exact-active {
   @include generator-gap('m#{$key}', 'margin-#{$value}', 1, 20, 2, 'px');
   @include generator-gap('p#{$key}', 'padding-#{$value}', 1, 20, 2, 'px');
 }
-
 
 @for $i from 1 through 20 {
   $i: $i * 2;

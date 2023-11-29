@@ -33,7 +33,7 @@
 @mixin simple-generator($classname, $key, $value) {
   @include is-not-null(($classname, $key, $value)) {
     @include b($classname) {
-      #{$key}: #{$value};
+      #{$key}: #{$value} !important;
     }
   }
 }

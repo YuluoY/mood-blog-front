@@ -32,6 +32,9 @@ dependencies:
   vue-i18n:
     specifier: ^9.4.1
     version: 9.4.1(vue@3.3.8)
+  vue-lazyload:
+    specifier: ^3.0.0
+    version: 3.0.0
   vue-router:
     specifier: ^4.2.5
     version: 4.2.5(vue@3.3.8)
@@ -6306,6 +6309,10 @@ packages:
       '@intlify/shared': 9.4.1
       '@vue/devtools-api': 6.5.1
       vue: 3.3.8(typescript@5.3.2)
+    dev: false
+
+  /vue-lazyload@3.0.0:
+    resolution: {integrity: sha512-h2keL/Rj550dLgesgOtXJS9qOiSMmuJNeVlfNAYV1/IYwOQYaWk5mFJlwRxmZDK9YC5gECcFLYYj7z1lKSf9ug==}
     dev: false
 
   /vue-router@4.2.5(vue@3.3.8):

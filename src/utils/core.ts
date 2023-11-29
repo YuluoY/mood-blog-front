@@ -30,3 +30,15 @@ export function throttle(fn: Function, delay: number = 500): Function {
     }, delay)
   }
 }
+
+/**
+ * @description: 获取图片地址
+ * @param {string} path 图片路径 例如：'logo.png' 或者 'http://xxx.com/logo.png'
+ * @return {string} {图片地址 
+ */
+export function getImageUrl(path: string): string {
+  if (path && /^(http|https|data):\/\//.test(path)) {
+    return new URL(path, import.meta.url).href;
+  }
+  return new URL(`../assets/images/${path}`, import.meta.url).href
+}

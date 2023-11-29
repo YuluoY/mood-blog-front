@@ -1,5 +1,12 @@
 export default {
-  hello: '你好，世界！',
+  nav:{
+    Home:'首页',
+    Article:'文章',
+    Space:'空间',
+    Write:'撰写',
+    About:'关于',
+    Log:'日志'
+  },
   error404: {
     M000001: '哎呀！',
     M000002: '404找不到页面',

@@ -4,6 +4,8 @@ import en from '@/lang/en/index.ts'
 
 const i18n = createI18n({
   locale: 'zh',
+  fallbackLocale: 'en',
+  legacy: false,
   messages: {
     zh,
     en,

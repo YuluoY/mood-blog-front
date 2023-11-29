@@ -1,6 +1,9 @@
 <template>
   <div class="home">
-    我是主页
+    <div v-for="i in 40" :key="i">
+      我是主页<br />
+    </div>
+   
   </div>
 </template>
 

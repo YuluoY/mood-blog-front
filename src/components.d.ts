@@ -7,14 +7,19 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ElBacktop: typeof import('element-plus/es')['ElBacktop']
+    ElButton: typeof import('element-plus/es')['ElButton']
     ElContainer: typeof import('element-plus/es')['ElContainer']
+    ElMenu: typeof import('element-plus/es')['ElMenu']
+    ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     Foot: typeof import('./components/Layout/Foot/index.vue')['default']
     Head: typeof import('./components/Layout/Head/index.vue')['default']
+    Hero: typeof import('./components/Layout/Hero/index.vue')['default']
     Layout: typeof import('./components/Layout/index.vue')['default']
     Main: typeof import('./components/Layout/Main/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Sider: typeof import('./components/Layout/Sider/index.vue')['default']
-    SvgCaptcha: typeof import('./components/SvgCaptcha.vue')['default']
+    SvgCaptcha: typeof import('./components/SvgCaptcha/src/SvgCaptcha.vue')['default']
   }
 }
