@@ -1,9 +1,9 @@
 @mixin is-not-null($value) {
   $all-not-null: true; // 假设所有元素都不为 null
 
-  @if type-of($value) == 'list' {
+  @if type-of($value)=='list' {
     @each $item in $value {
-      @if type-of($item) == 'list' {
+      @if type-of($item)=='list' {
         @include is-not-null($item);
       }
 
@@ -13,9 +13,9 @@
     }
   }
 
-  @if type-of($value) == 'map' {
+  @if type-of($value)=='map' {
     @each $key, $item in $value {
-      @if type-of($item) == 'list' {
+      @if type-of($item)=='list' {
         @include is-not-null($item);
       }
 
@@ -38,34 +38,61 @@
   }
 }
 
-
-
-// @mixin generator($classname, $value) {
-//   @if type-of($value: $value)=='list' {
-//     @include generator-list($classname, $value);
-//   } @else if type-of($value: $value)=='map' {
-//     @include generator-list($classname, map-pairs($value));
-//   } @else {
-//     @include simple-generator($classname, $classname, $value);
-//   }
-// }
-
-// 1、遍历map
-@mixin generatpr-map($map, $parent: null) {
+@mixin generator-map($map, $prop:'', $prefix:'', $suffix:'') {
   @if type-of($map) == 'map' {
     @each $key, $value in $map {
-      @include b {
-        #{$key}: #{$value};
+      $classname: $prop + '-' + $key;
+      @if $prefix != '' {
+        $classname: $prefix + '-' + $classname;
       }
+      @if $suffix != '' {
+        $classname: $classname + '-' + $suffix;
+      }
+      @include simple-generator($classname, $prop, $value);
     }
   }
 }
 
-// 2、遍历gap
-@mixin generator-gap($classname, $key, $start: 0, $end: 20, $unit: '') {
+
+@mixin generator-gap($classname, $key, $start: 0, $end: 20, $gap: 1, $unit: '') {
   @for $i from $start through $end {
-    @include b(#{$classname + $i}) {
-      #{$key}: #{$i}#{$unit};
+    $index: $i * $gap;
+
+    @include b(#{$classname + '-' + $index}) {
+      #{$key}: #{$index}#{$unit};
     }
   }
+}
+
+// 根据基本文字大小生成em
+@mixin generator-size-em($classname, $key, $value) {
+  $classname: $classname + '-' + $value;
+  @if unitless($value) {
+    $value: $value + 0em;
+  }
+
+  @if $value == 0em {
+    $value: 0;
+  }
+
+  @if $value == auto {
+    $value: 0;
+  }
+  $value: calc($value / map-get($base-styles, 'font-size'));
+
+  @include simple-generator($classname, $key, $value);
+}
+
+
+// 转换成px 将em or rem
+@function to-px($value, $base-size:'') {
+  @if $value == 0 or $value == 0em or  $value == auto{
+    @return 0;
+  }
+  
+  @if $base-size == '' {
+    $base-size: map-get($base-styles, 'font-size');
+  }
+  
+  @return $value * $base-size + 0px;
 }

@@ -13,4 +13,31 @@ a.router-link-exact-active {
 }
 
 @include simple-generator('flex', 'display', 'flex');
+@include simple-generator('f-row', 'flex-direction', 'row');
+@include simple-generator('f-col', 'flex-direction', 'column');
+@include simple-generator('f-wrap', 'flex-wrap', 'wrap');
+@include simple-generator('f-nowrap', 'flex-wrap', 'nowrap');
+@include simple-generator('f-wrap-reverse', 'flex-wrap', 'wrap-reverse');
+@include simple-generator('f-justify-start', 'justify-content', 'flex-start');
+@include simple-generator('f-justify-end', 'justify-content', 'flex-end');
+@include simple-generator('f-justify-center', 'justify-content', 'center');
+@include simple-generator('f-justify-between', 'justify-content', 'space-between');
+@include simple-generator('f-justify-around', 'justify-content', 'space-around');
+@include simple-generator('f-align-start', 'align-items', 'flex-start');
+@include simple-generator('f-align-end', 'align-items', 'flex-end');
+@include simple-generator('f-align-center', 'align-items', 'center');
+
 @include generator-gap('flex', 'flex', 1, 10);
+
+@each $key, $value in $directions {
+  @include generator-gap('m#{$key}', 'margin-#{$value}', 1, 20, 2, 'px');
+  @include generator-gap('p#{$key}', 'padding-#{$value}', 1, 20, 2, 'px');
+}
+
+
+@for $i from 1 through 20 {
+  $i: $i * 2;
+  @include generator-size-em('fs', 'font-size', $i);
+}
+
+@include generator-map($mouse-states, 'cursor');
