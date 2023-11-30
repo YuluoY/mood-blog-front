@@ -1,3 +1,3 @@
-import SpacePublishView from './src/SpacePublish.vue';
+import SpacePublishView from './src/SpacePublish.vue'
 
-export default SpacePublishView;
+export default SpacePublishView

@@ -26,6 +26,17 @@ export default defineConfig({
       imports: ['vue', 'vue-router', 'pinia', 'vue-i18n'],
       dts: 'src/auto-import.d.ts',
       resolvers: [ElementPlusResolver()],
+      include: [
+        /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+        /\.vue$/, /\.vue\?vue/, // .vue
+        /\.md$/, // .md
+      ],
+      eslintrc: {
+        // 这里先设置成true然后npm run dev 运行之后会生成 .eslintrc-auto-import.json 文件之后，在改为false
+        enabled: false,
+        filepath: './.eslintrc-auto-import.json', // 生成的文件路径
+        globalsPropValue: true,
+      }
     }),
     Components({
       dts: 'src/components.d.ts',
@@ -38,7 +49,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "@/assets/styles/var.scss";`,
+        additionalData: `@import "@/assets/styles/bem.scss";`,
       },
     },
   },
@@ -72,7 +83,7 @@ export default defineConfig({
     // 打包文件按照类型分文件夹显示
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'src/index.html'),
+        main: resolve('./index.html'),
       },
       output: {
         chunkFileNames: 'js/[name]-[hash].js',

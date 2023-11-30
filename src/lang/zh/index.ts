@@ -1,11 +1,18 @@
 export default {
-  nav:{
-    Home:'首页',
-    Article:'文章',
-    Space:'空间',
-    Write:'撰写',
-    About:'关于',
-    Log:'日志'
+  sider: {
+    theme: {
+      label: '主题',
+      on: '亮',
+      off: '暗',
+    },
+  },
+  nav: {
+    Home: '首页',
+    Article: '文章',
+    Space: '空间',
+    Write: '撰写',
+    About: '关于',
+    Log: '日志',
   },
   error404: {
     M000001: '哎呀！',

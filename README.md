@@ -20,6 +20,7 @@
 你需要在本地安装 [node](http://nodejs.org/) 和 [git](https://git-scm.com/)。本项目技术栈基于 [typescript](https://www.typescriptlang.org/)、[vue3](https://cn.vuejs.org/index.html)、[pinia](https://pinia.vuejs.org/zh/)、[vue-router4](https://router.vuejs.org/zh-cn/) 、[vite](https://cn.vitejs.dev/) 、[axios](https://github.com/axios/axios) 和 [element-plus](https://element-plus.org/zh-CN/)，提前了解和学习这些知识会对使用本项目有很大的帮助。
 
 ## 开发环境
+
 0. 开发编辑器：vscode-v1.84.2
 1. 包管理工具：pnpm -v8.10.5、npm-v10.2.3
 2. 脚手架：vite-v5.0.2
@@ -32,6 +33,8 @@
 9. 路由管理：vue-router-v4.2.5
 10. Ajax请求：axios-v1.6.2、@types/axios-v0.14.0
 11. 生成注释插件：koroFileHeader-v4.9.3  （文件快捷键：ctrl + win + i，函数快捷键：ctrl + win + t，随机搞笑图：ctrl + win + j）
+
+[更多](https://github.com/YuluoY/mood-blog-front/blob/main/package.json)
 
 ## 目录结构
 

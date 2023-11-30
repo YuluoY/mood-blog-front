@@ -1,11 +1,11 @@
 export default {
-  nav:{
-    Home:'Home',
-    Article:'Article',
-    Space:'Space',
-    Write:'Write',
-    About:'About',
-    Log:'Log'
+  nav: {
+    Home: 'Home',
+    Article: 'Article',
+    Space: 'Space',
+    Write: 'Write',
+    About: 'About',
+    Log: 'Log',
   },
   error404: {
     M000001: 'OOPS！',

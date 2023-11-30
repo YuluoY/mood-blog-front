@@ -4,13 +4,9 @@
   </div>
 </template>
 <script setup lang="ts" name="SvgCaptcha">
-import { useCaptcha } from '../hooks/index.ts';
+import { useCaptcha } from '../hooks/index.ts'
 
-const {
-  svgHTML,
-  init,
-  reflush
-} = useCaptcha();
+const { svgHTML, init, reflush } = useCaptcha()
 
-init();
+init()
 </script>

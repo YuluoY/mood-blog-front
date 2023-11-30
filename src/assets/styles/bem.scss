@@ -2,15 +2,15 @@
  * @Author: huyongle 568055454@qq.com
  * @Date: 2023-11-25 17:22:47
  * @LastEditors: huyongle 568055454@qq.com
- * @LastEditTime: 2023-11-30 03:57:47
+ * @LastEditTime: 2023-11-30 18:40:50
  * @FilePath: \mood-blog-front\src\assets\styles\bem.scss
  * @Description: BEN架构规范
  * 
  * Copyright (c) 2023 by 雨落, All Rights Reserved. 
  */
 
-$namespace: "y" !default;
-$block-sel: "-" !default;
+$namespace: 'y' !default;
+$block-sel: '-' !default;
 $elem-sel: '__' !default;
 $modi-sel: '--' !default;
 
@@ -27,13 +27,55 @@ $modi-sel: '--' !default;
     &#{$elem-sel}#{$name} {
       @content;
     }
-  } 
+  }
 }
 
 @mixin m($name) {
   @at-root {
     &#{$modi-sel}#{$name} {
       @content;
+    }
+  }
+}
+
+@mixin be($bname, $ename) {
+  @at-root {
+    @include b($bname) {
+      @include e($ename) {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin em($ename, $mname){
+  @at-root {
+    @include e($ename) {
+      @include m($mname) {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin bm($bname, $mname) {
+  @at-root {
+    @include b($bname) {
+      @include m($mname) {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin bem($bname, $ename, $mname){
+  @at-root {
+    @include b($bname) {
+      @include e($ename) {
+        @include m($mname) {
+          @content;
+        }
+      }
     }
   }
 }

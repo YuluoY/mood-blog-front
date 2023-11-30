@@ -1,3 +1,3 @@
-import ArticleView from "./src/Article.vue";
+import ArticleView from './src/Article.vue'
 
-export default ArticleView;
+export default ArticleView

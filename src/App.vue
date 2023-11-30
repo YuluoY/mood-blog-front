@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <Suspense>
     <Layout>
@@ -7,3 +5,5 @@
     </Layout>
   </Suspense>
 </template>
+
+<script setup lang="ts"></script>

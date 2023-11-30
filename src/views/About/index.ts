@@ -1,3 +1,3 @@
-import AboutView from './src/About.vue';
+import AboutView from './src/About.vue'
 
-export default AboutView;
+export default AboutView

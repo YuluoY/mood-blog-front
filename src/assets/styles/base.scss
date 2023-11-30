@@ -1,30 +1,42 @@
 * {
   padding: 0;
   margin: 0;
-  font-size: map-get($map: $base-styles, $key: 'font-size') * 1px;
+  // color: map-get($map: $base-styles, $key: 'color');
+  font-size: 1em;
   font-family: map-get($map: $base-styles, $key: 'font-family');
   font-weight: map-get($map: $base-styles, $key: 'font-weight');
   line-height: map-get($map: $base-styles, $key: 'line-height');
-  box-sizing: border-box !important;
+  transition: map-get($map: $base-styles, $key: 'transition');
+  box-sizing: border-box;
 }
 
-body, html {
+:root {
+  html.dark {
+    --el-bg-color: #1a1a1a;
+  }
+}
+
+body,
+html {
+  min-width: 100vw;
+  min-height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
 
+// 修改进度条样式
 #nprogress .bar {
-  // 修改进度条样式
   background: var(--el-color-primary) !important;
 }
 
+// 修改进度条阴影样式
 #nprogress .peg {
-  // 修改进度条阴影样式
   box-shadow:
     0 0 10px var(--el-color-primary),
     0 0 5px var(--el-color-primary) !important;
 }
 
+// router active
 a.router-link-exact-active {
   color: var(--el-color-primary);
 }
@@ -35,21 +47,31 @@ img {
   object-fit: cover;
 }
 
+.y-f-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* 定义滚动条的样式 */
 ::-webkit-scrollbar {
-  width: 4px; /* 设置滚动条的宽度 */
+  width: 4px;
+  /* 设置滚动条的宽度 */
   transition: all 3s ease-in-out;
 }
 
 /* 定义滚动条轨道的样式 */
 ::-webkit-scrollbar-track {
-  background-color: var(--el-fill-color); /* 设置滚动条轨道的背景色 */
+  background-color: var(--el-fill-color);
+  /* 设置滚动条轨道的背景色 */
 }
 
 /* 定义滚动条的滑块样式 */
 ::-webkit-scrollbar-thumb {
-  background-color: var(--el-color-primary); /* 设置滚动条滑块的背景色 */
-  border-radius: map-get($base-styles, 'border-radius'); /* 设置滚动条滑块的圆角 */
+  background-color: var(--el-color-primary);
+  /* 设置滚动条滑块的背景色 */
+  border-radius: 5px;
+  /* 设置滚动条滑块的圆角 */
 }
 
 /* 当滚动条处于活动状态时的样式 */
@@ -57,6 +79,7 @@ img {
   background-color: var(--el-color-primary-light-3);
 }
 
+// flex  example: y-flex  or  y-f-row
 @include simple-generator('flex', 'display', 'flex');
 @include simple-generator('f-row', 'flex-direction', 'row');
 @include simple-generator('f-col', 'flex-direction', 'column');
@@ -72,16 +95,21 @@ img {
 @include simple-generator('f-align-end', 'align-items', 'flex-end');
 @include simple-generator('f-align-center', 'align-items', 'center');
 
+// flex example: y-f-1
 @include generator-gap('flex', 'flex', 1, 10);
 
+// padding and margin  example：y-pt-10   y-ml-20
 @each $key, $value in $directions {
   @include generator-gap('m#{$key}', 'margin-#{$value}', 1, 20, 2, 'px');
   @include generator-gap('p#{$key}', 'padding-#{$value}', 1, 20, 2, 'px');
 }
 
+// font-size  y-fs-2 ...
 @for $i from 1 through 20 {
   $i: $i * 2;
   @include generator-size-em('fs', 'font-size', $i);
+  @include simple-generator('p-#{$i}', 'padding', $i + 0px);
+  @include simple-generator('m-#{$i}', 'margin', $i + 0px);
 }
 
 @include generator-map($mouse-states, 'cursor');

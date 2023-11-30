@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
 
-export declare const enum StoreNames {
+export const enum StoreNames {
   Main = 'mainStore',
 }

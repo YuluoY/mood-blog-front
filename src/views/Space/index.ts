@@ -1,3 +1,3 @@
-import SpaceView from './src/Space.vue';
+import SpaceView from './src/Space.vue'
 
-export default SpaceView;
+export default SpaceView
