@@ -63,3 +63,39 @@ export const switchLanguage = (language: string): void => {
   const { locale } = useI18n();
   locale.value = language;
 }
+
+/**
+ * @description: 判断是否是邮箱
+ * @param {string} email 邮箱
+ * @return {boolean}
+ */
+export const isEmail = (email: string): boolean => {
+  return /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(email)
+}
+
+/**
+ * @description: 判断是否是手机号
+ * @param {string} mobile 手机号
+ * @return {boolean}
+ */
+export const isMobile = (mobile: string): boolean => {
+  return /^1[3456789]\d{9}$/.test(mobile)
+}
+
+/**
+ * @description: 判断是否是外部链接
+ * @param {string} path 路径
+ * @return {boolean}
+ */
+export const isExternal = (path: string): boolean => {
+  return /^(https?:|mailto:|tel:)/.test(path)
+}
+
+/**
+ * @description: 判断是否是URL
+ * @param {string} path 路径
+ * @return {boolean}
+ */
+export const isUrl = (path: string): boolean => {
+  return /^https?:\/\//.test(path)
+}

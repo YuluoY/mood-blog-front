@@ -1,5 +1,5 @@
-import { getCode } from '@/api/rest'
-import { debounce } from '@/utils/core'
+import { getCode } from '@/api/rest.ts'
+import { debounce } from '@/utils/core.ts'
 
 export const useCaptcha = () => {
   const svgHTML = ref('')

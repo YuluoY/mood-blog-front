@@ -2,4 +2,5 @@
 
 export const enum StoreNames {
   Main = 'mainStore',
+  User = 'userStore',
 }

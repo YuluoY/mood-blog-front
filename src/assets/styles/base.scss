@@ -78,22 +78,17 @@ img {
 ::-webkit-scrollbar-thumb:hover {
   background-color: var(--el-color-primary-light-3);
 }
+@include generator-map($text-align, 'text-align', 'text');
+@include generator-map($text-decoration, 'text-decoration', 'text');
+@include generator-map($text-transform, 'text-transform', 'text');
 
 // flex  example: y-flex  or  y-f-row
-@include simple-generator('flex', 'display', 'flex');
-@include simple-generator('f-row', 'flex-direction', 'row');
-@include simple-generator('f-col', 'flex-direction', 'column');
-@include simple-generator('f-wrap', 'flex-wrap', 'wrap');
-@include simple-generator('f-nowrap', 'flex-wrap', 'nowrap');
-@include simple-generator('f-wrap-reverse', 'flex-wrap', 'wrap-reverse');
-@include simple-generator('f-justify-start', 'justify-content', 'flex-start');
-@include simple-generator('f-justify-end', 'justify-content', 'flex-end');
-@include simple-generator('f-justify-center', 'justify-content', 'center');
-@include simple-generator('f-justify-between', 'justify-content', 'space-between');
-@include simple-generator('f-justify-around', 'justify-content', 'space-around');
-@include simple-generator('f-align-start', 'align-items', 'flex-start');
-@include simple-generator('f-align-end', 'align-items', 'flex-end');
-@include simple-generator('f-align-center', 'align-items', 'center');
+@include simple-generator('display', 'flex', 'flex');
+
+@include generator-map($flex-direction, 'flex-direction', 'f');
+@include generator-map($flex-wrap, 'flex-wrap', 'f');
+@include generator-map($flex-justify-content, 'justify-content', 'f');
+@include generator-map($flex-align-items, 'align-items', 'f');
 
 // flex example: y-f-1
 @include generator-gap('flex', 'flex', 1, 10);
@@ -108,8 +103,7 @@ img {
 @for $i from 1 through 20 {
   $i: $i * 2;
   @include generator-size-em('fs', 'font-size', $i);
-  @include simple-generator('p-#{$i}', 'padding', $i + 0px);
-  @include simple-generator('m-#{$i}', 'margin', $i + 0px);
+  @include simple-generator('padding', $i + 0px, 'p-#{$i}');
+  @include simple-generator('margin', $i + 0px, 'm-#{$i}');
 }
 
-@include generator-map($mouse-states, 'cursor');

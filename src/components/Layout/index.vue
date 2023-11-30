@@ -1,7 +1,13 @@
 <template>
   <el-container class="y-layout" direction="vertical">
-
-    <Head></Head>
+    <Head :loginRef="loginRef">
+      <template #Nav="{ routes, currentRoute }">
+        <Nav :routes="routes" :currentRoute="currentRoute"></Nav>
+      </template>
+      <template #Login>
+        <Login ref="loginRef"></Login>
+      </template>
+    </Head>
     <el-container direction="vertical">
       <Hero></Hero>
       <Main>
@@ -17,6 +23,7 @@
 </template>
 
 <script setup lang="ts" name="Layout">
+const loginRef = ref<Ref | null>(null);
 
 </script>
 

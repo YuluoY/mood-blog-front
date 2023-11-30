@@ -1,9 +1,9 @@
 @mixin is-not-null($value) {
   $all-not-null: true; // 假设所有元素都不为 null
 
-  @if type-of($value)=='list' {
+  @if type-of($value) == 'list' {
     @each $item in $value {
-      @if type-of($item)=='list' {
+      @if type-of($item) == 'list' {
         @include is-not-null($item);
       }
 
@@ -13,9 +13,9 @@
     }
   }
 
-  @if type-of($value)=='map' {
+  @if type-of($value) == 'map' {
     @each $key, $item in $value {
-      @if type-of($item)=='list' {
+      @if type-of($item) == 'list' {
         @include is-not-null($item);
       }
 
@@ -30,29 +30,43 @@
   }
 }
 
-@mixin simple-generator($classname, $key, $value) {
-  @include is-not-null(($classname, $key, $value)) {
+@mixin simple-generator($key, $value, $classname) {
+  @if $classname == 1 {
+    $classname: $key;
+  }
+
+  @if $classname == 2 {
+    $classname: $value;
+  }
+
+  @if $classname == 3 {
+    $classname: $key + '-' + $value;
+  }
+
+  @include is-not-null(($key, $value, $classname)) {
     @include b($classname) {
       #{$key}: #{$value} !important;
     }
   }
 }
 
-@mixin generator-map($map, $prop:'', $prefix:'', $suffix:'') {
+@mixin generator-map($map, $prop: '', $prefix: '', $suffix: '') {
   @if type-of($map) == 'map' {
     @each $key, $value in $map {
-      $classname: $prop + '-' + $key;
+      $classname: $key;
+      @if $prefix == '' and $suffix == '' {
+        $classname: $prop + '-' + $key;
+      }
       @if $prefix != '' {
         $classname: $prefix + '-' + $classname;
       }
       @if $suffix != '' {
         $classname: $classname + '-' + $suffix;
       }
-      @include simple-generator($classname, $prop, $value);
+      @include simple-generator($prop, $value, $classname);
     }
   }
 }
-
 
 @mixin generator-gap($classname, $key, $start: 0, $end: 20, $gap: 1, $unit: '') {
   @for $i from $start through $end {
@@ -80,19 +94,18 @@
   }
   $value: calc($value / map-get($base-styles, 'font-size'));
 
-  @include simple-generator($classname, $key, $value);
+  @include simple-generator($key, $value, $classname);
 }
 
-
 // 转换成px 将em or rem
-@function to-px($value, $base-size:'') {
-  @if $value == 0 or $value == 0em or  $value == auto{
+@function to-px($value, $base-size: '') {
+  @if $value == 0 or $value == 0em or $value == auto {
     @return 0;
   }
-  
+
   @if $base-size == '' {
     $base-size: map-get($base-styles, 'font-size');
   }
-  
+
   @return $value * $base-size + 0px;
 }

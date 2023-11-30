@@ -29,3 +29,55 @@ $mouse-states: (
   's': 'scroll',
   'w': 'wait',
 );
+
+// flex
+$flex-direction: (
+  'r': 'row',
+  'c': 'column',
+  'r-r': 'row-reverse',
+  'c-r': 'column-reverse',
+);
+
+$flex-wrap: (
+  'w': 'wrap',
+  'nw': 'nowrap',
+  'w-r': 'wrap-reverse',
+);
+
+$flex-justify-content: (
+  'justify-start': 'flex-start',
+  'justify-end': 'flex-end',
+  'justify-center': 'center',
+  'justify-between': 'space-between',
+  'justify-around': 'space-around'
+);
+
+$flex-align-items: (
+  'align-start': 'flex-start',
+  'align-end': 'flex-end',
+  'align-center': 'center',
+  'align-baseline': 'baseline',
+  'align-stretch': 'stretch',
+);
+
+// text
+$text-align: (
+  'left': 'left',
+  'right': 'right',
+  'center': 'center',
+  'justify': 'justify',
+);
+
+$text-decoration: (
+  'underline': 'underline',
+  'overline': 'overline',
+  'line-through': 'line-through',
+  'decor-none': 'none',
+);
+
+$text-transform: (
+  'uppercase': 'uppercase',
+  'lowercase': 'lowercase',
+  'capitalize': 'capitalize',
+  'trans-none': 'none',
+);
