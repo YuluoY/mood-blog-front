@@ -3,7 +3,7 @@ import { StoreNames } from './namespace.ts'
 
 export const userStore = defineStore(StoreNames.User, {
   state: () => ({
-    username: '雨落'
+    username: ' yuluo '
   }),
   getters: {
 

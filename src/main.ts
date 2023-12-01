@@ -11,7 +11,7 @@ import 'normalize.css'
 import router from './router/index.ts'
 // eslint-disable-next-line import/no-unresolved
 import 'virtual:svg-icons-register'
-import { globalComponents } from './components/global/index.ts'
+// import { globalComponents } from './components/global/index.ts'
 import directives from './directive/index.ts'
 import VueLazy from './plugins/VueLazy/index.ts'
 
@@ -21,7 +21,7 @@ pinia.use(piniaPluginPersistedstate)
 createApp(App)
   .use(i18n)
   .use(VueLazy)
-  .use(globalComponents)
+  // .use(globalComponents)
   .use(directives)
   .use(router)
   .use(pinia)

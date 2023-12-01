@@ -1,34 +1,52 @@
-import { FormRules } from "element-plus";
+import { IYFormItemConfig } from "@/components/global/YForm/types/index.ts";
 
 export const useLogin = () => {
   const loginVisiable = ref(false);
   const { t } = useI18n();
 
-  interface IFromRule {
+  interface IFormRule {
+    [key: string]: string;
     email: string
     password: string
     captcha: string
   }
-  const loginForm = reactive<IFromRule>({
+
+  const loginForm = reactive<IFormRule>({
     email: '',
     password: '',
     captcha: '', // 验证码
   })
 
-  const rules = reactive<FormRules<IFromRule>>({
-    email: [
-      { required: true, message: t('head.login.emailPlaceholder'), trigger: 'blur' },
-      { type: 'email', message: t('head.login.emailRightPlaceholder'), trigger: ['blur', 'change'] }
-    ],
-    password: [
-      { required: true, message: t('head.login.passwordPlaceholder'), trigger: 'blur' },
-      { min: 6, max: 20, message: t('head.login.passwordRightPlaceholder'), trigger: 'blur' }
-    ],
-    captcha: [
-      { required: true, message: t('head.login.captchaPlaceholder'), trigger: 'blur' },
-      { min: 4, max: 4, message: t('head.login.captchaPlaceholder'), trigger: 'blur' }
-    ]
-  });
+  const formConfigures: Array<IYFormItemConfig> = [
+    {
+      prop: 'email',
+      label: t('head.login.email'),
+      labelWidth: '80',
+      placeholder: t('head.login.emailPlaceholder'),
+      rules: [
+        { required: true, type: 'email', message: t('head.login.emailRightPlaceholder'), trigger: ['blur'] }
+      ]
+    },
+    {
+      prop: 'password',
+      label: t('head.login.password'),
+      labelWidth: '80',
+      showPassword: true,
+      placeholder: t('head.login.passwordPlaceholder'),
+      rules: [
+        { required: true, min: 6, max: 20, message: t('head.login.passwordRightPlaceholder'), trigger: 'blur' }
+      ]
+    },
+    {
+      prop: 'captcha',
+      label: t('head.login.captcha'),
+      labelWidth: '80',
+      placeholder: t('head.login.captchaPlaceholder'),
+      rules: [
+        { required: true, min: 4, max: 4, message: t('head.login.captchaRightPlaceholder'), trigger: 'blur' }
+      ]
+    },
+  ]
 
 
   const showLogin = () => {
@@ -51,6 +69,6 @@ export const useLogin = () => {
 
     loginForm,
     submitFrom,
-    rules
+    formConfigures
   }
 }

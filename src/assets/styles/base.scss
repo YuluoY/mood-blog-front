@@ -78,13 +78,17 @@ img {
 ::-webkit-scrollbar-thumb:hover {
   background-color: var(--el-color-primary-light-3);
 }
+
+// cursor example: y-cursor-p
+@include generator-map($mouse-states, 'cursor');
+
+// text example: y-text-center
 @include generator-map($text-align, 'text-align', 'text');
 @include generator-map($text-decoration, 'text-decoration', 'text');
 @include generator-map($text-transform, 'text-transform', 'text');
 
 // flex  example: y-flex  or  y-f-row
 @include simple-generator('display', 'flex', 'flex');
-
 @include generator-map($flex-direction, 'flex-direction', 'f');
 @include generator-map($flex-wrap, 'flex-wrap', 'f');
 @include generator-map($flex-justify-content, 'justify-content', 'f');

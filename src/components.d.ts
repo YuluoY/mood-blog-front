@@ -24,6 +24,7 @@ declare module 'vue' {
     Foot: typeof import('./components/Layout/Foot/index.vue')['default']
     Head: typeof import('./components/Layout/Head/index.vue')['default']
     Hero: typeof import('./components/Layout/Hero/index.vue')['default']
+    HForm: typeof import('./components/global/HForm/src/HForm.vue')['default']
     Layout: typeof import('./components/Layout/index.vue')['default']
     Login: typeof import('./components/Login/src/Login.vue')['default']
     Main: typeof import('./components/Layout/Main/index.vue')['default']
@@ -32,5 +33,6 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     Sider: typeof import('./components/Layout/Sider/index.vue')['default']
     SvgCaptcha: typeof import('./components/SvgCaptcha/src/SvgCaptcha.vue')['default']
+    YForm: typeof import('./components/global/YForm/src/YForm.vue')['default']
   }
 }
