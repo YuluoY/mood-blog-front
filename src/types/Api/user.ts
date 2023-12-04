@@ -17,6 +17,9 @@ export declare interface IUserRegister extends IUserLogin {
   roles: EnumRole // 角色
   website?: string // 网站
   location?: string // 地址
+  ip?: string // IP
+  userAgent?: string // 浏览器
+  lastLoginAt?: Date // 最后登录
 }
 
 // 定义User

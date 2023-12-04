@@ -8,7 +8,7 @@ $base-styles: (
   'background-color': var(--el-bg-color),
   'border-color': var(--el-border-color),
   'border-radius': 4px,
-  'box-shadow': 0 1px 1px rgba(0, 0, 0, 0.05),
+  'box-shadow': 0 1px 10px rgba(0, 0, 0, 0.05),
   'transition': all .3s ease-in-out,
 );
 

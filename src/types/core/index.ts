@@ -15,10 +15,10 @@ export declare interface IResponseBaseData {
 // 状态
 // eslint-disable-next-line no-shadow
 export declare const enum EnumStatus {
-  Normal = 0, // 正常
-  Disabled = 1, // 禁用
-  Deleted = 2, // 删除
-  UnAudit = 3, // 审核中
+  Normal, // 正常
+  Disabled, // 禁用
+  Deleted, // 删除
+  UnAudit, // 审核中
 }
 
 // 角色

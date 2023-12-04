@@ -22,9 +22,6 @@ const {
 } = userStore();
 const { loginVisiable, showLogin, loginForm, submitFrom, formConfigures } = useLogin();
 
-console.log();
-
-
 defineExpose({
   loginVisiable,
   showLogin,

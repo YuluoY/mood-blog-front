@@ -24,7 +24,6 @@ declare module 'vue' {
     Foot: typeof import('./components/Layout/Foot/index.vue')['default']
     Head: typeof import('./components/Layout/Head/index.vue')['default']
     Hero: typeof import('./components/Layout/Hero/index.vue')['default']
-    HForm: typeof import('./components/global/HForm/src/HForm.vue')['default']
     Layout: typeof import('./components/Layout/index.vue')['default']
     Login: typeof import('./components/Login/src/Login.vue')['default']
     Main: typeof import('./components/Layout/Main/index.vue')['default']
