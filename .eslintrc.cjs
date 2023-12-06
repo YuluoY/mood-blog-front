@@ -65,6 +65,7 @@ module.exports = {
         'vue/valid-v-slot': ['error', {
             allowModifiers: true,
         }],
+        'no-useless-return': 'off', // 允许在return语句中使用unless
         'vue/no-empty-script': 'off',   // 允许空的script标签
         'arrow-body-style': 'off', // 箭头函数体风格，off 表示禁用此规则，允许使用非必要的括号
         "import/prefer-default-export": 'off', // 当模块只有一个导出时，是否使用默认导出。off 表示禁用此规则，允许使用非默认导出

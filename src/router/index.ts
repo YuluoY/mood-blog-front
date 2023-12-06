@@ -7,6 +7,8 @@ const SpaceView = () => import('@/views/Space/index.ts')
 const WriteView = () => import('@/views/Write/index.ts')
 const AboutView = () => import('@/views/About/index.ts')
 const LogView = () => import('@/views/Log/index.ts')
+const SettingView = () => import('@/views/Setting/index.ts')
+
 const Page404View = () => import('@/views/404.vue')
 
 const ArticleReadView = () => import('@/views/Article/components/Read/index.ts')
@@ -73,6 +75,12 @@ export const staticRoutes: Readonly<RouteRecordRaw[]> = [
     meta: { roles: all, title: 'Log', icon: 'log-view', affix: true },
   },
   {
+    path: '/setting',
+    name: 'Setting',
+    component: SettingView,
+    meta: { roles: noVisitor, title: 'Setting', icon: 'setting-view', affix: true },
+  },
+  {
     path: '/404',
     name: 'page404',
     component: Page404View,
@@ -84,7 +92,8 @@ const router = createRouter({
   history: createWebHistory(),
   routes: staticRoutes,
   strict: true, // applies to all routes
-  linkExactActiveClass: 'router-link-exact-active',
+  // linkActiveClass:'router-link-active',
+  // linkExactActiveClass: 'router-link-exact-active',
 })
 
 // 权限校验

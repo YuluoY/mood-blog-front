@@ -2,14 +2,16 @@
 export declare interface IResponseTemplate<T> {
   code: number
   data: T
-  message: string
+  success: boolean
+  message?: string
 }
 
 // 定义响应数据基本字段
 export declare interface IResponseBaseData {
-  id: number | string
-  createdAt: string
-  updatedAt: string
+  id?: string
+  createdAt?: string
+  updatedAt?: string
+  deletedAt?: string
 }
 
 // 状态

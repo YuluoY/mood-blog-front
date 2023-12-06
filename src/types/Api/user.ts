@@ -14,15 +14,16 @@ export declare interface IUserRegister extends IUserLogin {
   avatar?: string // 头像
   status: EnumStatus // 状态
   bio?: string // 描述
-  roles: EnumRole // 角色
+  role: EnumRole // 角色
   website?: string // 网站
   location?: string // 地址
   ip?: string // IP
   userAgent?: string // 浏览器
-  lastLoginAt?: Date // 最后登录
+  lastLoginAt?: string // 最后登录
 }
 
 // 定义User
 export declare interface IUser extends IResponseBaseData, IUserRegister {
+  [key: string]: any
   token: string // token
 }

@@ -37,8 +37,14 @@ html {
 }
 
 // router active
-a.router-link-exact-active {
-  color: var(--el-color-primary);
+.is-active {
+  color: var(--el-color-primary) !important;
+  fill: var(--el-color-primary) !important;
+}
+
+path {
+  transition: none !important;
+  fill: inherit !important;
 }
 
 img {
@@ -96,6 +102,8 @@ img {
 
 // flex example: y-f-1
 @include generator-gap('flex', 'flex', 1, 10);
+
+@include generator-gap('w', 'width', 0, 10, 10, '%');
 
 // padding and margin  example：y-pt-10   y-ml-20
 @each $key, $value in $directions {

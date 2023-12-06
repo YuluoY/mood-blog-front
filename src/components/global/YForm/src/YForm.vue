@@ -8,7 +8,7 @@
                 :label-width="item.labelWidth || '100px'"
                 :rules="item.rules"
                 >
-                <div v-if="item.prop === 'captcha'" class="y-flex y-align-center">
+                <div v-if="item.prop === 'code'" class="y-flex y-align-center">
                     <el-input 
                         :placeholder="item.placeholder"
                         :on-blur="item.onBlur"

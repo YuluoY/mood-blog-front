@@ -6,5 +6,6 @@
 <script setup lang="ts" name="SvgCaptcha">
 import { useCaptcha } from '../hooks/index.ts'
 
-const { svgHTML,  reflush } = useCaptcha()
+const { svgHTML,  reflush } = useCaptcha();
+
 </script>

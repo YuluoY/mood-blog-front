@@ -5,11 +5,12 @@ export const useCaptcha = () => {
   const svgHTML = ref('')
 
   const init = () => {
-    getCode().then((res) => {
+    getCode().then(res => {
       svgHTML.value = res.data
     })
   }
-  const reflush = debounce(() => init())
+
+  const reflush = debounce(init)
 
   init();
   return {

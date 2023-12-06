@@ -2,7 +2,7 @@
  * @Author: huyongle 568055454@qq.com
  * @Date: 2023-11-25 19:48:49
  * @LastEditors: huyongle 568055454@qq.com
- * @LastEditTime: 2023-11-28 04:11:31
+ * @LastEditTime: 2023-12-07 03:08:29
  * @FilePath: \mood-blog-front\src\utils\request.ts
  * @Description: 基于axios + qs的请求封装
  *
@@ -12,6 +12,7 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse, AxiosRequestConfig } from 'axios'
 import Qs from 'qs'
 import { ElMessage } from 'element-plus'
+import { IResponseTemplate } from '@/types/core/index.ts'
 
 export default new (class Request {
   public instance: AxiosInstance
@@ -40,7 +41,7 @@ export default new (class Request {
           config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
           config.data = Qs.stringify(config.data)
         }
-        config.headers.Authorization = localStorage.getItem('token') || ''
+        config.headers.Authorization = `Bearer ${localStorage.getItem('token') || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI5MDhiOTViLWE2NDEtNGMxMC05MmZhLTYzOTRlYzA5OTlmZSIsInVzZXJuYW1lIjoieXVsdW8iLCJlbWFpbCI6IjU2ODA1NTQ1NEBxcS5jb20iLCJyb2xlIjoic3VwZXJBZG1pbiIsImlhdCI6MTcwMTc5OTg1OCwiZXhwIjo4NjQwMDE3MDE3MTM0NTh9.74Mv71OT_EUGUSjEhkULOe60g8AdosOhWycGOLwheOA'}`
         return config
       },
       (error) => Promise.reject(error)
@@ -48,11 +49,16 @@ export default new (class Request {
 
     this.instance.interceptors.response.use(
       (response: AxiosResponse) => {
+        if (response.data.code !== 200) ElMessage.error(response.data.message);
         return Promise.resolve(response.data)
       },
       (error) => {
+        const { data } = error.response.data as IResponseTemplate<string>;
         if (error.response && error.response.status) {
           switch (error.response.status) {
+            case 400:
+              ElMessage.error(data)
+              break
             case 401:
               ElMessage.error('登录状态失效，请重新登录')
               localStorage.removeItem('token')

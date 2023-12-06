@@ -1,4 +1,7 @@
-import { IYFormItemConfig } from "@/components/global/YForm/types/index.ts";
+import { ElMessage } from "element-plus";
+import { login } from "@/api/user.ts";
+import { isEmail, debounce } from "@/utils/core.ts";
+import { IUser } from "@/types/api/user.ts";
 
 export const useLogin = () => {
   const loginVisiable = ref(false);
@@ -6,48 +9,16 @@ export const useLogin = () => {
 
   interface IFormRule {
     [key: string]: string;
-    email: string
+    unique: string
     password: string
-    captcha: string
+    code: string
   }
 
   const loginForm = reactive<IFormRule>({
-    email: '',
+    unique: '',
     password: '',
-    captcha: '', // 验证码
+    code: '', // 验证码
   })
-
-  const formConfigures: Array<IYFormItemConfig> = [
-    {
-      prop: 'email',
-      label: t('head.login.email'),
-      labelWidth: '80',
-      placeholder: t('head.login.emailPlaceholder'),
-      rules: [
-        { required: true, type: 'email', message: t('head.login.emailRightPlaceholder'), trigger: ['blur'] }
-      ]
-    },
-    {
-      prop: 'password',
-      label: t('head.login.password'),
-      labelWidth: '80',
-      showPassword: true,
-      placeholder: t('head.login.passwordPlaceholder'),
-      rules: [
-        { required: true, min: 6, max: 20, message: t('head.login.passwordRightPlaceholder'), trigger: 'blur' }
-      ]
-    },
-    {
-      prop: 'captcha',
-      label: t('head.login.captcha'),
-      labelWidth: '80',
-      placeholder: t('head.login.captchaPlaceholder'),
-      rules: [
-        { required: true, min: 4, max: 4, message: t('head.login.captchaRightPlaceholder'), trigger: 'blur' }
-      ]
-    },
-  ]
-
 
   const showLogin = () => {
     loginVisiable.value = true;
@@ -57,8 +28,19 @@ export const useLogin = () => {
     loginVisiable.value = false;
   }
 
-  const submitFrom = () => {
-    console.log(loginForm);
+  const submitFrom = async () => {
+    if (!loginForm.unique || !loginForm.password || !loginForm.code) {
+      ElMessage.info(t('head.login.completeTips'));
+      return;
+    }
+    const newLoginForm = { ...loginForm };
+    newLoginForm[isEmail(newLoginForm.unique) ? 'email' : 'username'] = newLoginForm.unique;
+    delete newLoginForm.unique;
+    const res = await login<any, IUser>(newLoginForm);
+    if(res.success){
+      ElMessage.success(t('head.login.success'));
+      hideLogin();
+    }
   }
 
 
@@ -68,7 +50,7 @@ export const useLogin = () => {
     hideLogin,
 
     loginForm,
-    submitFrom,
-    formConfigures
+    submitFrom: debounce(submitFrom),
+    // formConfigures
   }
 }
