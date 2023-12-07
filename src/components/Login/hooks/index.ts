@@ -2,6 +2,7 @@ import { ElMessage } from "element-plus";
 import { login } from "@/api/user.ts";
 import { isEmail, debounce } from "@/utils/core.ts";
 import { IUser } from "@/types/api/user.ts";
+import { useUserStore } from "@/store/userStore.ts";
 
 export const useLogin = () => {
   const loginVisiable = ref(false);
@@ -28,6 +29,12 @@ export const useLogin = () => {
     loginVisiable.value = false;
   }
 
+  const initLoginForm = () => {
+    loginForm.code = '';
+    loginForm.password = '';
+    loginForm.unique = '';
+  }
+
   const submitFrom = async () => {
     if (!loginForm.unique || !loginForm.password || !loginForm.code) {
       ElMessage.info(t('head.login.completeTips'));
@@ -40,9 +47,10 @@ export const useLogin = () => {
     if(res.success){
       ElMessage.success(t('head.login.success'));
       hideLogin();
+      useUserStore().setUser(res.data);
+      initLoginForm();
     }
   }
-
 
   return {
     loginVisiable,
@@ -51,6 +59,5 @@ export const useLogin = () => {
 
     loginForm,
     submitFrom: debounce(submitFrom),
-    // formConfigures
   }
 }

@@ -53,7 +53,7 @@ export function getImageUrl(path: string): string {
 export const switchTheme = (theme: string): void => {
   const html = document.querySelector('html')
   html.className = ''
-  if (theme) html.classList.add(theme)
+  if (theme) html.classList.add(theme);
 }
 
 /**

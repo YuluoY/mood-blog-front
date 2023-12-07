@@ -44,7 +44,7 @@ html {
 
 path {
   transition: none !important;
-  fill: inherit !important;
+  fill: inherit;
 }
 
 img {
@@ -104,6 +104,8 @@ img {
 @include generator-gap('flex', 'flex', 1, 10);
 
 @include generator-gap('w', 'width', 0, 10, 10, '%');
+
+@include generator-gap('b-radius', 'border-radius', 0, 10, 5, '%');
 
 // padding and margin  example：y-pt-10   y-ml-20
 @each $key, $value in $directions {

@@ -16,8 +16,8 @@
             <el-switch
               v-model="changeThemeFlag"
               class="mt-2"
-              :active-text="$t('sider.theme.on')"
-              :inactive-text="$t('sider.theme.off')"
+              :active-text="$t('sider.theme.off')"
+              :inactive-text="$t('sider.theme.on')"
               inline-prompt
               size="large"
             />

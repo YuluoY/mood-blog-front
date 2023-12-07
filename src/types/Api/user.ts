@@ -8,14 +8,19 @@ export declare interface IUserLogin {
   password: string // 密码
 }
 
+export interface IUserSocializes {
+  [key: string]: string
+}
+
 // 定义UserRegister
 export declare interface IUserRegister extends IUserLogin {
   nickname?: string // 昵称
   avatar?: string // 头像
+  cover?: string // 封面
   status: EnumStatus // 状态
   bio?: string // 描述
   role: EnumRole // 角色
-  website?: string // 网站
+  socializes?: IUserSocializes // 网站
   location?: string // 地址
   ip?: string // IP
   userAgent?: string // 浏览器

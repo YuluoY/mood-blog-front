@@ -1,24 +1,30 @@
 import { defineStore } from 'pinia'
-import { IUser } from '@/types/api/user.ts'
+import { IUser, IUserSocializes } from '@/types/api/user.ts'
 import { StoreNames } from './namespace.ts'
 
-export const userStore = defineStore(StoreNames.User, {
+export const useUserStore = defineStore(StoreNames.User, {
   state: () => ({
-    id:'',
+    id: '',
     username: '',
-    bio:'',
+    bio: '',
     email: '',
-    avatar: '',
+    avatar: 'avatar.jpg',
+    cover: 'cover.jpg',
     role: '',
     status: '',
     createdAt: '',
     updatedAt: '',
-    ip:'',
-    lastLoginAt:'',
-    location:'',
-    nickname:'',
-    phone:'',
-    token:'',
+    ip: '',
+    lastLoginAt: '',
+    location: '',
+    nickname: '',
+    phone: '',
+    csrfToken: '',
+    socializes: {
+      GitHub: 'https://github.com/',
+      CSDN: 'https://www.csdn.net/',
+      ZhiHu: 'https://www.zhihu.com/'
+    } as IUserSocializes,
   }),
   getters: {
 
@@ -33,6 +39,7 @@ export const userStore = defineStore(StoreNames.User, {
       this.bio = user.bio
       this.email = user.email
       this.avatar = user.avatar
+      this.cover = user.cover
       this.role = user.role
       this.status = user.status as any
       this.createdAt = user.createdAt
@@ -42,11 +49,12 @@ export const userStore = defineStore(StoreNames.User, {
       this.location = user.location
       this.nickname = user.nickname
       this.phone = user.phone
-      this.token = user.token
+      this.csrfToken = user.csrfToken
+      this.socializes = user.socializes
     }
   },
   persist: {
-    key: StoreNames.User,
+    key: `mood-${StoreNames.User}`,
     storage: localStorage,
   },
 })

@@ -3,8 +3,21 @@
 </template>
 <script setup lang="ts" name="Hero">
 import { getImageUrl } from '@/utils/core.ts'
+import { useUserStore } from '@/store/userStore.ts';
 
-const cover = `url(${getImageUrl('cover.jpg')})`
+const props = defineProps<{
+  imageUrl?: string
+}>()
+const userStore = useUserStore()
+const cover = ref(`url(${props.imageUrl || getImageUrl(userStore.cover)})`)
+
+const coverWatchEffect = watchEffect(() => {
+  cover.value = `url(${props.imageUrl || getImageUrl(userStore.cover)})`
+})
+
+onUnmounted(() => {
+  coverWatchEffect()
+})
 
 </script>
 
@@ -16,5 +29,9 @@ const cover = `url(${getImageUrl('cover.jpg')})`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.y-hero-dark{
+  filter: brightness(0.5);
 }
 </style>

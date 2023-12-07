@@ -1,23 +1,25 @@
 <template>
-  <el-affix :offset="0">
-    <div class="y-head y-pl-20 y-pr-20">
-      <div class="y-head__inner y-flex y-f-row y-f-justify-between y-f-align-center">
-        <div class="y-head__left">
-          <img v-lazy="getImageUrl('avatar.jpg')" alt="logo" />
-        </div>
-        <div class="y-head__center">
-          <slot name="Nav" :routes="router.getRoutes()" :currentRoute="router.currentRoute"></slot>
-        </div>
-        <div class="y-head__right">
-          <el-button type="primary" @click="handleLogin">登录</el-button>
-        </div>
+  <div class="y-head y-pl-20 y-pr-20">
+    <div class="y-head__inner y-flex y-f-row y-f-justify-between y-f-align-center">
+      <div class="y-head__left">
+        <img v-lazy="getImageUrl(userStore.avatar)" alt="logo" />
+        <span>{{ userStore.username }}</span>
+      </div>
+      <div class="y-head__center">
+        <slot name="Nav" :routes="router.getRoutes()" :currentRoute="router.currentRoute"></slot>
+      </div>
+      <div class="y-head__right">
+        <el-button v-show="!userStore.id" type="primary" @click="handleLogin">登录</el-button>
       </div>
     </div>
-    <slot name="Login"></slot>
-  </el-affix>
+  </div>
+  <slot name="Login"></slot>
 </template>
 <script setup lang="ts" name="Head">
+import { useUserStore } from '@/store/userStore.ts'
 import { getImageUrl } from '@/utils/core.ts'
+
+const userStore = useUserStore()
 
 const router = useRouter()
 const props = withDefaults(
@@ -28,6 +30,7 @@ const props = withDefaults(
     loginRef: null,
   }
 )
+
 const com = reactive({
   loginRef: props.loginRef,
 })
@@ -62,10 +65,8 @@ onUnmounted(() => {
   @include e(left) {
     width: 3.5em;
     height: 3.5em;
-
-    img {
-      border-radius: 50%;
-    }
+    border-radius: 50%;
+    overflow: hidden;
   }
 }
 </style>

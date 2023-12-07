@@ -18,6 +18,7 @@
             v-model="loginForm[key]"
             :placeholder="$t(`head.login.${key}`)"
             :showPassword="key === 'password'"
+            @input="key === 'code' ? () => submitFrom() : ''"
           ></el-input>
           <svg-captcha class="y-ml-10" v-if="key === 'code'"></svg-captcha>
         </div>
