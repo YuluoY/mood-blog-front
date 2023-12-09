@@ -16,33 +16,19 @@
   </div>
 </template>
 <script setup lang="ts">
-interface IWaterfallItem {
-  id: number
-  width: number
-  height: number
-  background: string
-}
+import { useWaterfall } from '../hooks/waterfall.ts'
+import { IWaterfallItem } from '../types/index.ts'
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     waterfallData: IWaterfallItem[]
   }>(),
   {}
 )
 
-const waterfall = ref<HTMLElement | null>(null)
-
-const instance = getCurrentInstance();
-
-onMounted(() => {
-  // 获取waterfall的
-
-
-
-  const waterfallItems = instance.refs as Record<string, HTMLElement>;
-
-})
-
+useWaterfall({
+  containerClass: 'y-homeList__waterfall',
+});
 </script>
 <style scoped lang="scss">
 @include b(homeList) {

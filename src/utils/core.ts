@@ -138,3 +138,12 @@ export const isEmpty = (value: any): boolean => {
 export const getType = (value: any): string => {
   return Object.prototype.toString.call(value).slice(8, -1)
 }
+/**
+ * @description: 提取字符串中的最前面的数字，并转换为数字类型
+ * @param {string} value 字符串
+ * @return {number} 数字 
+ * @example toNumber('123abc') // 123
+ */
+export const toNumber = (value:string):number => {
+  return Number(/\d+/.exec(value)[0])
+}

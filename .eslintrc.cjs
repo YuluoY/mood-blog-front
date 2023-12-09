@@ -65,6 +65,9 @@ module.exports = {
         'vue/valid-v-slot': ['error', {
             allowModifiers: true,
         }],
+        'no-empty':'off', // 不能为空
+        'no-plusplus': 'off', // 不能使用 ++
+        'prefer-const': 'off', // 没有多次赋值的用const
         'no-useless-return': 'off', // 允许在return语句中使用unless
         'vue/no-empty-script': 'off',   // 允许空的script标签
         'arrow-body-style': 'off', // 箭头函数体风格，off 表示禁用此规则，允许使用非必要的括号
