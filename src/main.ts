@@ -4,17 +4,17 @@ import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 import App from './App.vue'
-import 'element-plus/dist/index.css'
+import 'element-plus/theme-chalk/el-message.css'  
 import 'element-plus/theme-chalk/dark/css-vars.css'
-import '@/assets/styles/index.scss'
-import i18n from './lang/index.ts'
-import 'normalize.css'
+import '@/assets/styles/index.scss' // 本地项目全局样式导入
+import i18n from './lang/index.ts' // Internationalization
+import 'normalize.css' // A modern alternative to CSS resets
 import router from './router/index.ts'
 // eslint-disable-next-line import/no-unresolved
-import 'virtual:svg-icons-register'
-import { globalComponents } from './components/global/index.ts'
-import directives from './directive/index.ts'
-import VueLazy from './plugins/VueLazy/index.ts'
+import 'virtual:svg-icons-register' // Register svg icons
+import { globalComponents } from './components/global/index.ts' // Register global components
+import directives from './directive/index.ts' // Register global directives
+import VueLazy from './plugins/VueLazy/index.ts' // Register global directives
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)

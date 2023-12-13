@@ -9,7 +9,7 @@
       </template>
     </Head>
     <el-container direction="vertical">
-      <Hero></Hero>
+      <Hero v-show="isShowHero"></Hero>
       <Main>
         <slot></slot>
       </Main>
@@ -23,8 +23,15 @@
 </template>
 
 <script setup lang="ts" name="Layout">
-const loginRef = ref<Ref | null>(null);
+import global from '@/global/index.ts'
 
+const router = useRouter();
+const loginRef = ref<Ref | null>(null)
+const { coverWhiteList } = global;
+
+const isShowHero = computed(() => {
+  return coverWhiteList.includes(router.currentRoute.value.name as string)
+})
 </script>
 
 <style scoped lang="scss">

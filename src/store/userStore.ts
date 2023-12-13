@@ -20,6 +20,8 @@ export const useUserStore = defineStore(StoreNames.User, {
     nickname: '',
     phone: '',
     csrfToken: '',
+    expire: 0,
+    csrf_token: '',
     socializes: {
       GitHub: 'https://github.com/',
       CSDN: 'https://www.csdn.net/',
@@ -51,6 +53,29 @@ export const useUserStore = defineStore(StoreNames.User, {
       this.phone = user.phone
       this.csrfToken = user.csrfToken
       this.socializes = user.socializes
+      this.expire = Number(user.expire)
+      this.csrf_token = user.csrf_token
+    },
+    initUser() {
+      this.id = ''
+      this.username = ''
+      this.bio = ''
+      this.email = ''
+      this.avatar = 'avatar.jpg'
+      this.cover = 'cover.jpg'
+      this.role = ''
+      this.status = ''
+      this.createdAt = ''
+      this.updatedAt = ''
+      this.ip = ''
+      this.lastLoginAt = ''
+      this.location = ''
+      this.nickname = ''
+      this.phone = ''
+      this.csrfToken = ''
+      this.expire = 0
+      this.socializes = {}
+      this.csrf_token = ''
     }
   },
   persist: {

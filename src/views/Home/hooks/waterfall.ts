@@ -76,7 +76,6 @@ export const useWaterfall = ({
   const processWaterfallItemWidth = (): number => {
     const width = containerWidth / column - gap;
     children.forEach(item => injectStyle(item, 'width', `${width}px`));
-    console.log(width)
     return width;
   }
 
@@ -203,12 +202,13 @@ export const useWaterfall = ({
   // start
   onMounted(() => {
     container = document.querySelector(`.${containerClass}`);
-    children = Array.from(container.children) as HTMLElement[];
 
     if (!container) {
       console.error(`y-waterfall：Please set the class name of the container to ${containerClass}, and container not found!`);
       return;
     }
+    
+    children = Array.from(container.children) as HTMLElement[];
 
     // 初始化瀑布流
     initWaterfall();

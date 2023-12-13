@@ -10,7 +10,7 @@
         <div class="y-card__bio y-w-100 y-text-center y-mt-10 y-fs-12">
           <span>{{ userStore.bio }}</span>
         </div>
-        <div class="y-card__social y-w-100 y-text-center y-mt-10">
+        <div class="y-card__social y-w-100 y-text-center y-mt-10" v-if="userStore.socializes">
           <el-link
             v-for="(key, index) in Object.keys(userStore.socializes)"
             :key="`${key}-${index}`"

@@ -9,7 +9,7 @@
         <slot name="Nav" :routes="router.getRoutes()" :currentRoute="router.currentRoute"></slot>
       </div>
       <div class="y-head__right">
-        <el-button v-show="!userStore.id" type="primary" @click="handleLogin">登录</el-button>
+        <el-button v-auth="`123`" v-show="!userStore.id" type="primary" @click="handleLogin">登录</el-button>
       </div>
     </div>
   </div>

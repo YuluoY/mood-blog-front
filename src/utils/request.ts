@@ -2,7 +2,7 @@
  * @Author: huyongle 568055454@qq.com
  * @Date: 2023-11-25 19:48:49
  * @LastEditors: huyongle 568055454@qq.com
- * @LastEditTime: 2023-12-07 19:11:35
+ * @LastEditTime: 2023-12-13 06:47:03
  * @FilePath: \mood-blog-front\src\utils\request.ts
  * @Description: 基于axios + qs的请求封装
  *
@@ -13,6 +13,7 @@ import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse, AxiosR
 import Qs from 'qs'
 import { ElMessage } from 'element-plus'
 import { IResponseTemplate } from '@/types/core/index.ts'
+import { useUserStore } from '@/store/userStore.ts'
 
 export default new (class Request {
   public instance: AxiosInstance
@@ -41,6 +42,7 @@ export default new (class Request {
           config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
           config.data = Qs.stringify(config.data)
         }
+        if (useUserStore().csrf_token) (config.headers['x-csrf-token'] = useUserStore().csrf_token)
         // config.headers.Authorization = `Bearer ${localStorage.getItem('token') || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI5MDhiOTViLWE2NDEtNGMxMC05MmZhLTYzOTRlYzA5OTlmZSIsInVzZXJuYW1lIjoieXVsdW8iLCJlbWFpbCI6IjU2ODA1NTQ1NEBxcS5jb20iLCJyb2xlIjoic3VwZXJBZG1pbiIsImlhdCI6MTcwMTc5OTg1OCwiZXhwIjo4NjQwMDE3MDE3MTM0NTh9.74Mv71OT_EUGUSjEhkULOe60g8AdosOhWycGOLwheOA'}`
         return config
       },

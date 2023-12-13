@@ -6,7 +6,7 @@
   font-family: map-get($map: $base-styles, $key: 'font-family');
   font-weight: map-get($map: $base-styles, $key: 'font-weight');
   line-height: map-get($map: $base-styles, $key: 'line-height');
-  transition: map-get($map: $base-styles, $key: 'transition');
+  // transition: map-get($map: $base-styles, $key: 'transition');
   box-sizing: border-box;
 }
 
@@ -83,6 +83,11 @@ img {
 /* 当滚动条处于活动状态时的样式 */
 ::-webkit-scrollbar-thumb:hover {
   background-color: var(--el-color-primary-light-3);
+}
+
+/* element plus upload imgage center */
+.el-upload-list--picture-card .el-upload-list__item{
+  justify-content: center;
 }
 
 // cursor example: y-cursor-p

@@ -1,6 +1,7 @@
 <template>
     <div class="y-form">
         <el-form :model="formData" :inline-message="inlineMessage">
+            <slot name="prefix"></slot>
             <el-form-item
                 v-for="(item, index) in formConfigures" :key="`${index}-${item.prop}`"
                 :prop="item.prop"
@@ -49,7 +50,7 @@
                     >
                 </el-input>
             </el-form-item>
-            <slot></slot>
+            <slot name="suffix"></slot>
         </el-form>
     </div>
 </template>

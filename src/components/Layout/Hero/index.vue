@@ -8,8 +8,9 @@ import { useUserStore } from '@/store/userStore.ts';
 const props = defineProps<{
   imageUrl?: string
 }>()
+
 const userStore = useUserStore()
-const cover = ref(`url(${props.imageUrl || getImageUrl(userStore.cover)})`)
+const cover = ref(`url(${props.imageUrl || getImageUrl(userStore.cover)})`);
 
 const coverWatchEffect = watchEffect(() => {
   cover.value = `url(${props.imageUrl || getImageUrl(userStore.cover)})`

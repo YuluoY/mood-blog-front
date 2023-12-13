@@ -6,7 +6,7 @@ export default {
       off: '暗',
     },
   },
-  head:{
+  head: {
     nav: {
       Home: '首页',
       Article: '文章',
@@ -16,8 +16,8 @@ export default {
       Log: '日志',
       Setting: '设置',
     },
-    login:{
-      unique:'用户名/邮箱',
+    login: {
+      unique: '用户名/邮箱',
       welcome: '欢迎登录',
       username: '用户名',
       usernamePlaceholder: '请输入用户名',
@@ -46,4 +46,12 @@ export default {
     M000003: '请检查您输入的URL是否正确，或者单击下面的按钮返回主页。',
     M000004: '返回首页',
   },
+
+  writeView: {
+    editorPlaceholder: '来都来了，这不整一篇高质量文章？👻',
+    save: '发布文章',
+    submit: '提交',
+    cancel: '取消',
+    title: '请输入标题',
+  }
 }

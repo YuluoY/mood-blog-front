@@ -5,7 +5,9 @@ export declare interface IUserLogin {
   username?: string // 用户名
   phone?: string // 手机号
   email?: string // 邮箱
-  password: string // 密码
+  password: string // 密码  
+  expire?: number // 过期时间
+  csrf_token?: string // csrf_token
 }
 
 export interface IUserSocializes {
