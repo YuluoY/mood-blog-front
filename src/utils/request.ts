@@ -2,7 +2,7 @@
  * @Author: huyongle 568055454@qq.com
  * @Date: 2023-11-25 19:48:49
  * @LastEditors: huyongle 568055454@qq.com
- * @LastEditTime: 2023-12-13 06:47:03
+ * @LastEditTime: 2023-12-14 23:31:27
  * @FilePath: \mood-blog-front\src\utils\request.ts
  * @Description: 基于axios + qs的请求封装
  *

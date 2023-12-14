@@ -10,6 +10,7 @@ import '@/assets/styles/index.scss' // 本地项目全局样式导入
 import i18n from './lang/index.ts' // Internationalization
 import 'normalize.css' // A modern alternative to CSS resets
 import router from './router/index.ts'
+
 // eslint-disable-next-line import/no-unresolved
 import 'virtual:svg-icons-register' // Register svg icons
 import { globalComponents } from './components/global/index.ts' // Register global components

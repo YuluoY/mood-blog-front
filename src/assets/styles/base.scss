@@ -59,6 +59,22 @@ img {
   justify-content: center;
 }
 
+/* 下划线过渡效果 */
+.y-underline-trans {
+  background: linear-gradient(
+    to right,
+    var(--el-color-primary-light-3),
+    var(--el-color-success-light-3) no-repeat right bottom
+  );
+  background-size: 0px 2px;
+  transition: background-size 1s;
+
+  &:hover {
+    background-position: left bottom;
+    background-size: 100% 2px;
+  }
+}
+
 /* 定义滚动条的样式 */
 ::-webkit-scrollbar {
   width: 4px;
@@ -86,7 +102,7 @@ img {
 }
 
 /* element plus upload imgage center */
-.el-upload-list--picture-card .el-upload-list__item{
+.el-upload-list--picture-card .el-upload-list__item {
   justify-content: center;
 }
 
@@ -125,4 +141,3 @@ img {
   @include simple-generator('padding', $i + 0px, 'p-#{$i}');
   @include simple-generator('margin', $i + 0px, 'm-#{$i}');
 }
-

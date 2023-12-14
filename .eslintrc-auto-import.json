@@ -72,6 +72,7 @@
     "useAttrs": true,
     "useCssModule": true,
     "useCssVars": true,
+    "useI18n": true,
     "useLink": true,
     "useRoute": true,
     "useRouter": true,
@@ -79,7 +80,6 @@
     "watch": true,
     "watchEffect": true,
     "watchPostEffect": true,
-    "watchSyncEffect": true,
-    "useI18n": true
+    "watchSyncEffect": true
   }
 }

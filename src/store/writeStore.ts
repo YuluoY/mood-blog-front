@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
-import { IEditorOptions, IWriteForm } from '@/types/store/writeStore.ts'
+import { IEditorOptions } from '@/types/store/writeStore.ts'
+import { ICreateArticle } from '@/types/api/article.ts'
+import { addArticle } from '@/api/article.ts'
+import { ElMessage } from 'element-plus'
 import { StoreNames } from './namespace.ts'
-
-
 
 export const useWriteStore = defineStore(StoreNames.Write, {
   state: () => {
-
     const editorOptions: IEditorOptions = {
       theme: 'light',
       language: 'zh-CN',
@@ -14,14 +14,18 @@ export const useWriteStore = defineStore(StoreNames.Write, {
       previewTheme: 'vuepress',
       codeTheme: 'github',
     }
-    const form: IWriteForm = {
+    const form: ICreateArticle = {
       title: '',
       content: '',
       cover: 'cover.png',
       status: 0,
+      description: '',
+      userId: '',
+      category: [],
     }
 
     return {
+      content: '',
       form,
       editorOptions,  // https://imzbf.github.io/md-editor-v3/zh-CN/docs
     }
@@ -30,11 +34,38 @@ export const useWriteStore = defineStore(StoreNames.Write, {
     setEditorOptions(options: Partial<IEditorOptions>) {
       this.editorOptions = Object.assign(this.editorOptions, options);
     },
-
-    onSave(v: string, h: string) {
+    setFormCover(url: string) {
+      this.form.cover = url;
+    },
+    setFormContent(content: string) {
+      this.form.content = content;
+    },
+    setFormTitle(v: string) {
       const title = /# (.+?)\n/.exec(v)?.[1];
       this.form.title = title;
-      // console.log(v, h, this.form);
+    },
+    async onSave() {
+      const res = await addArticle(this.form);
+      if(res.success){
+        ElMessage.success(res.data);
+        this.initForm();
+        this.content = '';
+        return true;
+      }else{
+        ElMessage.error(res.data);
+        return false;
+      }
+    },
+    initForm() {
+      this.form = {
+        title: '',
+        content: '',
+        cover: 'cover.png',
+        status: 0,
+        description: '',
+        userId: '',
+        category: [],
+      }
     }
   },
   getters: {

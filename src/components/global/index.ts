@@ -1,17 +1,11 @@
-import { App } from 'vue'
-import SvgIcon from './SvgIcon.ts'
-
-const component = [
-  SvgIcon
-]
+import { App } from "vue";
 
 export const globalComponents = {
   install(app: App) {
-    component.forEach((item) => app.component(item.name, item))
-    // const components = import.meta.glob('./**/*.{ts,tsx}')
-    // Object.keys(components).forEach((key) => {
-    //   const name = key.replace(/(.*\/)*([^.]+).*/gi, '$2')
-    //   app.component(name, components[key])
-    // })
-  },
+      const modules = import.meta.glob('./**/*.{vue,ts,tsx}');
+      Object.keys(modules).forEach((key) => {
+          const name = key.replace(/(.*\/)*([^.]+).*/ig, "$2");
+          app.component(name, defineAsyncComponent(modules[key]));
+      });
+  }
 }

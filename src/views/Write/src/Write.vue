@@ -3,7 +3,7 @@
     <MdEditor
       ref="editorRef"
       class="y-write__editor"
-      v-model="form.content"
+      v-model="writeStore.content"
       :placeholder="$t('writeView.editorPlaceholder')"
       :theme="editorOptions.theme"
       :language="editorOptions.language"
@@ -21,12 +21,15 @@
           <template #suffix>
             <el-form-item label="封面" prop="cover" label-width="100">
               <el-upload
-                action="#"
+                ref="uploadRef"
+                :action="action"
+                :data="extraData"
+                :headers="headers"
                 list-type="picture-card"
                 :auto-upload="false"
                 :limit="1"
-                @change="handleChange"
                 @exceed="handleExceed"
+                @success="handleSuccess"
               >
                 <el-icon><svg-icon name="plus" /></el-icon>
 
@@ -39,13 +42,6 @@
                         @click="handlePictureCardPreview(file)"
                       >
                         <el-icon><svg-icon name="zoom-in" /></el-icon>
-                      </span>
-                      <span
-                        v-if="!disabled"
-                        class="el-upload-list__item-delete"
-                        @click="handleDownload(file)"
-                      >
-                        <el-icon><svg-icon name="download" /></el-icon>
                       </span>
                       <span
                         v-if="!disabled"
@@ -67,7 +63,7 @@
         </YForm>
       </template>
       <template #footer>
-        <el-button type="primary">{{ $t('writeView.submit') }}</el-button>
+        <el-button type="primary" @click="onSubmitForm">{{ $t('writeView.submit') }}</el-button>
       </template>
     </el-dialog>
   </div>
@@ -75,16 +71,27 @@
 
 <script lang="ts" setup name="Write">
 import { ExposeParam, MdEditor } from 'md-editor-v3'
+import { useUserStore } from '@/store/userStore.ts'
 import { useEditor } from '../hooks/index.ts'
 
-const editorRef = ref<ExposeParam | null>();
+const editorRef = ref<ExposeParam | null>()
+const uploadRef = ref<{ submit: Function; abort: Function; handleRemove: Function } | null>()
+const action = `${import.meta.env.VITE_BASE_URL}/file`
+const headers = computed(() => {
+  return { 'x-csrf-token': useUserStore().csrf_token }
+})
+const extraData = computed(() => {
+  return { user: useUserStore().id }
+})
 
 const {
+  writeStore,
   form,
   editorOptions,
   onSave,
   isVisiableDialog,
   publishFormConfigure,
+  onSubmitForm,
 
   // upload
   dialogImageUrl,
@@ -92,11 +99,12 @@ const {
   disabled,
   handleRemove,
   handlePictureCardPreview,
-  handleDownload,
   handleExceed,
-  handleChange
+  handleSuccess,
 } = useEditor({
   editorRef,
+  uploadRef,
+  useUserStore,
 })
 </script>
 

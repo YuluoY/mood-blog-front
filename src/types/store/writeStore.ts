@@ -13,10 +13,3 @@ export interface IEditorOptions {
   codeTheme: EditorCodeTheme
   showCodeRowNumber: boolean
 }
-
-export interface IWriteForm {
-  title: string
-  content: string
-  cover: string
-  status: EnumStatus
-}

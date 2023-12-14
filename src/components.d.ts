@@ -7,8 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    ElAffix: typeof import('element-plus/es')['ElAffix']
-    ElAvatar: typeof import('element-plus/es')['ElAvatar']
+    AsyncSlowEntry: typeof import('./components/AsyncSlowEntry.vue')['default']
     ElBacktop: typeof import('element-plus/es')['ElBacktop']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
@@ -19,7 +18,6 @@ declare module 'vue' {
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
-    ElImage: typeof import('element-plus/es')['ElImage']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElLink: typeof import('element-plus/es')['ElLink']
     ElMenu: typeof import('element-plus/es')['ElMenu']

@@ -1,14 +1,13 @@
 import { defineConfig } from 'vite'
+import * as path from 'path'
 import vue from '@vitejs/plugin-vue'
 
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-
 import vueSetupExtend from 'unplugin-vue-setup-extend-plus/vite'
 import eslintPlugin from 'vite-plugin-eslint'
 import stylelintPlugin from 'vite-plugin-stylelint'
-import path from 'path'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 const resolve = (dir: string) => path.resolve(__dirname, dir)

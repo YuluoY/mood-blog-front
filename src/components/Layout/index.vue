@@ -39,3 +39,5 @@ const isShowHero = computed(() => {
   height: 100vh;
 }
 </style>
+=======
+<script setup lang="ts" name="Layout"></script>

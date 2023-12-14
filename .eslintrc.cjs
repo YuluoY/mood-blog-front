@@ -65,7 +65,10 @@ module.exports = {
         'vue/valid-v-slot': ['error', {
             allowModifiers: true,
         }],
-        'no-empty':'off', // 不能为空
+        'no-else-return': 'off',
+        'lines-between-class-members': 'off',
+        'no-unused-expressions': "off",
+        'no-empty': 'off', // 不能为空
         'no-plusplus': 'off', // 不能使用 ++
         'prefer-const': 'off', // 没有多次赋值的用const
         'no-useless-return': 'off', // 允许在return语句中使用unless

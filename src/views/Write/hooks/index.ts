@@ -3,16 +3,20 @@ import { useWriteStore } from '@/store/writeStore.ts'
 import { ExposeParam } from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
 import { ElMessage, UploadFile, UploadUserFile } from 'element-plus';
-import request from '@/utils/request.ts';
+import { IResponseTemplate } from '@/types/core/index.ts'
 
 export const useEditor = ({
   editorRef,
+  uploadRef,
+  useUserStore
 }: {
   editorRef: Ref<ExposeParam | null>,
+  uploadRef: Ref<{ submit: Function; abort: Function, handleRemove: Function } | null>,
+  useUserStore: () => any
 }) => {
 
   const writeStore = useWriteStore();
-  const isVisiableDialog = ref(false);
+  const isVisiableDialog = ref(false); // 是否显示上传图片的弹窗
 
   const publishFormConfigure: IYFormItemConfig[] = [
     {
@@ -28,11 +32,9 @@ export const useEditor = ({
   const dialogVisible = ref(false)
   const disabled = ref(false)
 
-  const handleChange = (file: UploadFile, fileList: UploadFile[]) => {
-  }
 
   const handleRemove = (file: UploadFile) => {
-    console.log(file)
+    uploadRef.value.handleRemove(file);
   }
 
   const handlePictureCardPreview = (file: UploadFile) => {
@@ -40,19 +42,29 @@ export const useEditor = ({
     dialogVisible.value = true;
   }
 
-  const handleDownload = (file: UploadFile) => {
-    console.log(file)
-  }
-
   const handleExceed = (files: File[], uploadFiles: UploadUserFile[]): void => {
     ElMessage.info(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + uploadFiles.length} 个文件`)
   }
 
+  const handleSuccess = async (response: IResponseTemplate<string>) => {
+    writeStore.setFormCover(response.data);
+    const res = await writeStore.onSave();
+    if (res) {
+      isVisiableDialog.value = false;
+      writeStore.setFormContent('');
+    }
+  }
+
+  const onSubmitForm = async () => {
+    uploadRef.value?.submit()
+  }
 
   const onSave = (v: string, h: Promise<string>): void => {
     isVisiableDialog.value = true;
+    writeStore.form.userId = useUserStore().id;
+    writeStore.setFormTitle(v);
     h.then((html) => {
-      writeStore.onSave(v, html);
+      writeStore.setFormContent(html);
     })
   }
 
@@ -61,11 +73,13 @@ export const useEditor = ({
 
 
   return {
+    writeStore: computed(() => writeStore),
     form: computed(() => writeStore.form),
     editorOptions: computed(() => writeStore.editorOptions),
     onSave,
     isVisiableDialog,
     publishFormConfigure,
+    onSubmitForm,
 
     // upload
     dialogImageUrl,
@@ -73,8 +87,7 @@ export const useEditor = ({
     disabled,
     handleRemove,
     handlePictureCardPreview,
-    handleDownload,
     handleExceed,
-    handleChange
+    handleSuccess
   }
 }
