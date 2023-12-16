@@ -6,7 +6,7 @@
  */
 export const getStyle = (element: HTMLElement, styleName: string): any => {
     if (!element || !styleName) return '';
-    return getComputedStyle ? getComputedStyle(element)[styleName as any] : element.style[styleName as any];
+    return getComputedStyle ? getComputedStyle(element).getPropertyValue(styleName) : element.style[styleName as any];
 }
 
 /**

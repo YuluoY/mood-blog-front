@@ -9,7 +9,7 @@ $base-styles: (
   'border-color': var(--el-border-color),
   'border-radius': 4px,
   'box-shadow': 0 1px 10px rgba(0, 0, 0, 0.05),
-  'transition': all .3s ease-in-out,
+  'transition': all 0.3s ease-in-out,
 );
 
 // 方向
@@ -32,10 +32,10 @@ $mouse-states: (
 
 // flex
 $flex-direction: (
-  'r': 'row',
-  'c': 'column',
-  'r-r': 'row-reverse',
-  'c-r': 'column-reverse',
+  'row': 'row',
+  'col': 'column',
+  'row-r': 'row-reverse',
+  'col-r': 'column-reverse',
 );
 
 $flex-wrap: (
@@ -49,7 +49,7 @@ $flex-justify-content: (
   'justify-end': 'flex-end',
   'justify-center': 'center',
   'justify-between': 'space-between',
-  'justify-around': 'space-around'
+  'justify-around': 'space-around',
 );
 
 $flex-align-items: (

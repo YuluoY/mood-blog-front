@@ -25,13 +25,14 @@
 <script setup lang="ts" name="Layout">
 import global from '@/global/index.ts'
 
-const router = useRouter();
+const router = useRouter()
 const loginRef = ref<Ref | null>(null)
-const { coverWhiteList } = global;
+const { coverWhiteList } = global
 
 const isShowHero = computed(() => {
   return coverWhiteList.includes(router.currentRoute.value.name as string)
 })
+
 </script>
 
 <style scoped lang="scss">

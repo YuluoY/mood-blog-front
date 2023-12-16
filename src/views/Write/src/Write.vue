@@ -30,6 +30,7 @@
                 :limit="1"
                 @exceed="handleExceed"
                 @success="handleSuccess"
+                @error="handleError"
               >
                 <el-icon><svg-icon name="plus" /></el-icon>
 
@@ -101,6 +102,7 @@ const {
   handlePictureCardPreview,
   handleExceed,
   handleSuccess,
+  handleError
 } = useEditor({
   editorRef,
   uploadRef,

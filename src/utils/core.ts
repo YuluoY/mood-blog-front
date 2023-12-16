@@ -145,5 +145,6 @@ export const getType = (value: any): string => {
  * @example toNumber('123abc') // 123
  */
 export const toNumber = (value:string):number => {
-  return Number(/\d+/.exec(value)[0])
+  const reg = /\d+/;
+  return Number(reg.exec(value)?.[0])
 }

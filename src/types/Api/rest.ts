@@ -1,7 +1,7 @@
 import { DatabaseTableName, IPaginationResponse, IResponseTemplate } from '../core/index.ts'
 
 // rest common CRUD
-export declare interface IRest {
+export interface IRest {
   // 通过唯一值获取
   get<T>(model: DatabaseTableName, unique: Object): Promise<IResponseTemplate<T>>
   // 创建

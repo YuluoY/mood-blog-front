@@ -15,9 +15,13 @@ export const useEditor = ({
   useUserStore: () => any
 }) => {
 
+  const { t } = useI18n();
   const writeStore = useWriteStore();
   const isVisiableDialog = ref(false); // 是否显示上传图片的弹窗
 
+  /**
+   * 这是表单的配置，默认是text的el-input
+   */  
   const publishFormConfigure: IYFormItemConfig[] = [
     {
       prop: 'title',
@@ -26,28 +30,34 @@ export const useEditor = ({
         { required: true, message: '请输入标题', trigger: 'blur' },
       ],
     },
+    {
+      prop: 'description',
+      type: 'textarea',
+      label: '描述',
+      rules: [
+        { required: true, message: '请输入描述', trigger: 'blur' },
+      ]
+    }
   ]
 
+  /**
+   * 弹出框的缩略图图片url
+   */  
   const dialogImageUrl = ref('')
+  /**
+   * 弹出框的显示
+   */  
   const dialogVisible = ref(false)
+  /**
+   * 是否禁用上传
+   */
   const disabled = ref(false)
 
-
-  const handleRemove = (file: UploadFile) => {
-    uploadRef.value.handleRemove(file);
-  }
-
-  const handlePictureCardPreview = (file: UploadFile) => {
-    dialogImageUrl.value = file.url!
-    dialogVisible.value = true;
-  }
-
-  const handleExceed = (files: File[], uploadFiles: UploadUserFile[]): void => {
-    ElMessage.info(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + uploadFiles.length} 个文件`)
-  }
-
-  const handleSuccess = async (response: IResponseTemplate<string>) => {
-    writeStore.setFormCover(response.data);
+  /**
+   * @description: 保存文章的操作函数
+   * @return {void}
+   */
+  const onSaveArticle = async (): Promise<void> => {
     const res = await writeStore.onSave();
     if (res) {
       isVisiableDialog.value = false;
@@ -55,22 +65,80 @@ export const useEditor = ({
     }
   }
 
-  const onSubmitForm = async () => {
+  /**
+   * @description: 删除文件缩略图
+   * @param {UploadFile} file 文件
+   * @return {void}
+   */
+  const handleRemove = (file: UploadFile): void => {
+    uploadRef.value.handleRemove(file);
+  }
+
+  /**
+   * @description: 文件缩略图预览
+   * @param {UploadFile} file 文件
+   * @return {void}
+   */
+  const handlePictureCardPreview = (file: UploadFile): void => {
+    dialogImageUrl.value = file.url!
+    dialogVisible.value = true;
+  }
+
+  /**
+   * @description: 文件上传限制的钩子
+   * @param {File} files 文件列表
+   * @param {UploadUserFile} uploadFiles 上传的文件列表
+   * @return {void}
+   */
+  const handleExceed = (files: File[], uploadFiles: UploadUserFile[]): void => {
+    ElMessage.info(t(`writeView.fileLimitError`, [files.length.toString()]));
+  }
+
+  /**
+   * @description: 文件上传失败的钩子
+   * @param {Error} err 错误信息
+   * @param {UploadFile} file 文件
+   * @param {UploadFile} fileList 文件列表
+   * @return {void}
+   */
+  const handleError = async (err: Error, file: UploadFile, fileList: UploadFile[]): Promise<void> => {
+    ElMessage.error(t('writeView.fileUploadError'));
+    await onSaveArticle();
+  }
+
+  /**
+   * @description: 文件上传成功的钩子，文件上传成功后，将进行文章的保存
+   * @param {IResponseTemplate} response 响应
+   * @return {void}
+   */
+  const handleSuccess = async (response: IResponseTemplate<string>): Promise<void> => {
+    writeStore.setFormCover(response.data);
+    await onSaveArticle();
+  }
+
+  /**
+   * @description: 提交表单，填写弹出框的更多信息后点击提交按钮
+   * @return {void}
+   */
+  const onSubmitForm = async (): Promise<void> => {
     uploadRef.value?.submit()
   }
 
+  /**
+   * @description: 内容保存，将显示弹出框，填写更多信息
+   * @param {string} v  文章内容
+   * @param {Promise} h  Promise对象，返回文章的html
+   * @return {void}
+   */
   const onSave = (v: string, h: Promise<string>): void => {
     isVisiableDialog.value = true;
+    writeStore.form.description = v;
     writeStore.form.userId = useUserStore().id;
     writeStore.setFormTitle(v);
     h.then((html) => {
       writeStore.setFormContent(html);
     })
   }
-
-  onMounted(() => {
-  })
-
 
   return {
     writeStore: computed(() => writeStore),
@@ -88,6 +156,7 @@ export const useEditor = ({
     handleRemove,
     handlePictureCardPreview,
     handleExceed,
-    handleSuccess
+    handleSuccess,
+    handleError
   }
 }

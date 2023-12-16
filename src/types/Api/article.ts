@@ -1,4 +1,4 @@
-import { EnumStatus, IResponseBaseData } from "../core/index.ts"
+import { EnumStatus, IPaginationResponse, IResponseBaseData, IResponseTemplate } from "../core/index.ts"
 import { IUser } from "./user.ts"
 
 interface IExractArticle {

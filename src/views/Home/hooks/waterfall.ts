@@ -17,7 +17,8 @@ interface IWaterfallReturns {
   removeWaterfallResize: () => void
   removeWaterfallScroll: () => void
   initWaterfall: () => void
-  columnHeight: number[]
+  columnHeight: number[],
+  processWaterfallItemWidth: () => void
 }
 
 /**
@@ -54,37 +55,38 @@ export const useWaterfall = ({
   let container: HTMLElement = null; // 容器dom
   let children: HTMLElement[] = null; // 容器所有子元素dom
   let containerWidth = 0; // 容器宽度
+  let itemWidth: number; // 单个卡片宽度
 
   /**
    * @description: 初始化容器高度
    * @return {void}
    */
   const initWaterfallContainer = (): void => {
-    let maxHeight = getStyle(container.children[0] as HTMLElement, 'height');
-    Array.from(container.children).forEach((el) => {
-      const height = getStyle(el as HTMLElement, 'height')
-      maxHeight = height > maxHeight ? height : maxHeight
-    })
-    injectStyle(container, 'height', maxHeight);
-    containerWidth = toNumber(getStyle(container, 'width'));
+    let maxHeight = toNumber(getStyle(container.children[0] as HTMLElement, 'height'));
+    const elList = Array.from(container.children);
+    for (let i = 0; i < elList.length; i++) {
+      const el = elList[i] as HTMLElement;
+      const height = toNumber(getStyle(el, 'height'));
+      maxHeight = height > maxHeight ? height : maxHeight;
+    }
+    injectStyle(container, 'height', `${maxHeight + 20}px`);
   }
 
   /**
    * @description: 计算每个的宽度，并初始化子元素宽度
-   * @return {number} 返回子元素的宽度
+   * @return {void} 
    */
-  const processWaterfallItemWidth = (): number => {
-    const width = containerWidth / column - gap;
-    children.forEach(item => injectStyle(item, 'width', `${width}px`));
-    return width;
+  const processWaterfallItemWidth = (): void => {
+    containerWidth = toNumber(getStyle(container, 'width'));
+    itemWidth = containerWidth / column - gap;
+    children.forEach(item => injectStyle(item, 'width', `${itemWidth}px`));
   }
 
   /**
    * @description: 瀑布流排序
-   * @param {number} width  子元素宽度
    * @return {void}
    */
-  const proccessWaterfallReorder = (width: number): void => {
+  const proccessWaterfallReorder = (): void => {
     let left = gap;
     let top = 0;
     let minHeight = toNumber(getStyle(children[0], 'height'));;
@@ -102,19 +104,19 @@ export const useWaterfall = ({
         // 更新top
         top = minHeight + gap;
         // 更新left
-        left = (width + gap) * minHeightColumnIndex + gap / 2;
+        left = (itemWidth + gap) * minHeightColumnIndex + gap / 2;
         // 更新最小高度
         columnHeight[minHeightColumnIndex] += height + gap;
         // 调整容器高度
+        injectStyle(container, 'height', `${Math.max(...columnHeight) + 20}px`);
       } else {
         // 将第一行排开，并且将高度存储起来
-        left = (width + gap) * i + gap / 2;
+        left = (itemWidth + gap) * i + gap / 2;
         columnHeight.push(height);
       }
       injectStyle(el, 'left', `${left}px`);
       injectStyle(el, 'top', `${top}px`);
       injectStyle(el, 'display', 'block');
-      injectStyle(container, 'height', `${Math.max(...columnHeight)}px`);
     }
   }
 
@@ -123,13 +125,13 @@ export const useWaterfall = ({
    * @return {void}
    */
   const initWaterfall = (): void => {
+    // 处理每个的宽度
+    processWaterfallItemWidth();
     // 初始化容器高度
     initWaterfallContainer();
-    // 处理每个的宽度
-    const width = processWaterfallItemWidth();
     // 进行瀑布流排序
     columnHeight.length = 0;
-    proccessWaterfallReorder(width);
+    proccessWaterfallReorder();
   }
 
   /**
@@ -201,21 +203,23 @@ export const useWaterfall = ({
 
   // start
   onMounted(() => {
-    container = document.querySelector(`.${containerClass}`);
+    setTimeout(() => {
+      container = document.querySelector(`.${containerClass}`);
 
-    if (!container) {
-      console.error(`y-waterfall：Please set the class name of the container to ${containerClass}, and container not found!`);
-      return;
-    }
-    
-    children = Array.from(container.children) as HTMLElement[];
+      if (!container) {
+        console.error(`y-waterfall：Please set the class name of the container to ${containerClass}, and container not found!`);
+        return;
+      }
 
-    // 初始化瀑布流
-    initWaterfall();
-    // 瀑布流响应
-    if (isResize) window.addEventListener('resize', handleWaterfallResize);
-    // 懒加载
-    if (isLazy) document.body.addEventListener('scroll', handleWaterfallScoll)
+      children = Array.from(container.children) as HTMLElement[];
+
+      // 初始化瀑布流
+      initWaterfall();
+      // 瀑布流响应
+      if (isResize) window.addEventListener('resize', handleWaterfallResize);
+      // 懒加载
+      if (isLazy) document.body.addEventListener('scroll', handleWaterfallScoll)
+    }, 350);
   })
 
   onUnmounted(() => {
@@ -234,5 +238,6 @@ export const useWaterfall = ({
     initWaterfall,
 
     columnHeight,
+    processWaterfallItemWidth
   }
 }

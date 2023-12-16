@@ -1,13 +1,14 @@
 <template>
   <div class="y-home">
     <div class="y-home__inner">
-      <HomeList class="y-home__list" :waterfallData="waterfallData"></HomeList>
+      <HomeList class="y-home__list" :waterfallData="dataList" @onLoadMore="onLoadMore" :total="total"></HomeList>
       <HomeSidebar class="y-home__sidebar"></HomeSidebar>
     </div>
   </div>
 </template>
 
 <script setup lang="ts" name="Home">
+import { useHome } from '../hooks/index.ts'
 import HomeList from './HomeList.vue'
 import HomeSidebar from './HomeSidebar.vue'
 
@@ -19,6 +20,8 @@ const waterfallData = new Array(20).fill(0).map((_, index) => ({
     Math.random() * 255
   )}, ${Math.floor(Math.random() * 255)}, 0.5)`,
 }))
+
+const { dataList, total, onLoadMore } = await useHome()
 
 </script>
 

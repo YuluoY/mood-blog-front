@@ -2,7 +2,7 @@
   <div class="y-nav">
     <el-menu :default-active="currentRoute.value.path" mode="horizontal" router :ellipsis="false">
       <template v-for="route in routes" :key="String(route.name)">
-        <el-menu-item class="y-fs-16 y-flex y-f-center" :index="route.path" v-if="route.meta.affix">
+        <el-menu-item class="y-fs-14 y-flex y-f-center" :index="route.path" v-if="route.meta.affix">
           <SvgIcon :name="route.meta.icon" style="margin-top: -2px;"></SvgIcon>
           <span class="y-ml-10">{{ $t(`head.nav.${route.meta.title}`) }}</span>
         </el-menu-item>

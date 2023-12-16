@@ -13,6 +13,7 @@
       </div>
     </div>
   </div>
+  <slot name="Login"></slot>
 </template>
 <script setup lang="ts" name="Head">
 import { useUserStore } from '@/store/userStore.ts'
