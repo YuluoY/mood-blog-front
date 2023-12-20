@@ -21,6 +21,8 @@ export const useWriteStore = defineStore(StoreNames.Write, {
       status: 0,
       description: '',
       userId: '',
+      likes: [],
+      views:[],
       category: [],
     }
 

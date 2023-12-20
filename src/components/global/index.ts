@@ -2,7 +2,7 @@ import { App, Component } from "vue";
 import SvgIcon from "./SvgIcon.ts";
 
 const modules = [
-  SvgIcon
+  SvgIcon,
 ]
 
 export const globalComponents = {

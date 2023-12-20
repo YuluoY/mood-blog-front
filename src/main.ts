@@ -17,6 +17,7 @@ import { globalComponents } from './components/global/index.ts' // Register glob
 import directives from './directive/index.ts' // Register global directives
 import VueLazy from './plugins/VueLazy/index.ts' // Register global directives
 
+
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 

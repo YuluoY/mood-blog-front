@@ -32,7 +32,6 @@ const { coverWhiteList } = global
 const isShowHero = computed(() => {
   return coverWhiteList.includes(router.currentRoute.value.name as string)
 })
-
 </script>
 
 <style scoped lang="scss">

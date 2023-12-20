@@ -31,7 +31,7 @@
 </template>
 <script setup lang="ts">
 import { IArticle } from '@/types/api/article.ts'
-import { MasonryInfiniteGrid } from '@egjs/infinitegrid'
+import { useWaterfall } from '../hooks/useWaterfall.ts';
 
 const { emit } = getCurrentInstance()
 
@@ -46,14 +46,8 @@ const props = withDefaults(
   }
 )
 
-onMounted(() => {
-  setTimeout(() => {
-    const ig = new MasonryInfiniteGrid('.y-homeList__waterfall', {
-      gap: 20,
-      column: 4,
-    })
-    ig.renderItems()
-  }, 300)
+const { raw } = useWaterfall({
+  container:'.y-homeList__waterfall'
 })
 </script>
 <style scoped lang="scss">
@@ -72,18 +66,17 @@ onMounted(() => {
   position: relative;
   overflow: hidden;
   z-index: 1;
+
+  // display: grid;
+  // grid-template-columns: repeat(1, 1fr); /* 每行四列 */
+  // gap: 16px;
 }
 
 @include be(homeList, item) {
-  position: absolute;
-  top: 0;
-  left: 0;
   border-radius: 5px;
   box-shadow: var(--el-box-shadow-light);
   transition: all 0.3s;
-
-  // cursor: pointer;
-  z-index: -1;
+  width: inherit;
 
   &:hover {
     box-shadow: var(--el-box-shadow);

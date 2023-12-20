@@ -1,11 +1,13 @@
-import { EnumStatus, IPaginationResponse, IResponseBaseData, IResponseTemplate } from "../core/index.ts"
+import { EnumStatus, IResponseBaseData} from "../core/index.ts"
+import { ILike } from "./like.ts"
 import { IUser } from "./user.ts"
+import { IView } from "./view.ts"
 
 interface IExractArticle {
-  view: number,
-  like: number,
+  views: IView,
+  likes: ILike,
   category: any[],
-  comment: any[],
+  comments: any[],
   file: any[],
 }
 

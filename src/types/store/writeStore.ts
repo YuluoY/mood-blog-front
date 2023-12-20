@@ -1,5 +1,4 @@
 import { Themes } from "md-editor-v3"
-import { EnumStatus } from "../core/index.ts"
 
 export type EditorLanguage = 'zh-CN' | 'en-US'
 export type EditorPreviewTheme = 'default' | 'github' | 'vuepress' | 'mk-cute' | 'smart-blue' | 'cyanosis'
