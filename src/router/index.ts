@@ -68,12 +68,12 @@ export const staticRoutes: Readonly<RouteRecordRaw[]> = [
     component: AboutView,
     meta: { roles: all, title: 'About', icon: 'about-view', affix: true },
   },
-  {
-    path: '/log',
-    name: 'Log',
-    component: LogView,
-    meta: { roles: all, title: 'Log', icon: 'log-view', affix: true },
-  },
+  // {
+  //   path: '/log',
+  //   name: 'Log',
+  //   component: LogView,
+  //   meta: { roles: all, title: 'Log', icon: 'log-view', affix: true },
+  // },
   {
     path: '/setting',
     name: 'Setting',

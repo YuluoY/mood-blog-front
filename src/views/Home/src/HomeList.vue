@@ -31,7 +31,7 @@
 </template>
 <script setup lang="ts">
 import { IArticle } from '@/types/api/article.ts'
-import { useWaterfall } from '../hooks/useWaterfall.ts';
+import { useWaterfall } from '../hooks/useWaterfall.ts'
 
 const { emit } = getCurrentInstance()
 
@@ -47,8 +47,9 @@ const props = withDefaults(
 )
 
 const { raw } = useWaterfall({
-  container:'.y-homeList__waterfall'
+  container: '.y-homeList__waterfall',
 })
+
 </script>
 <style scoped lang="scss">
 :deep(.el-card__body) {

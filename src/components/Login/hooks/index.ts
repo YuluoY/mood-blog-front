@@ -1,21 +1,16 @@
 import { ElMessage } from "element-plus";
-import { login } from "@/api/user.ts";
 import { isEmail, debounce } from "@/utils/core.ts";
-import { IUser } from "@/types/api/user.ts";
 import { useUserStore } from "@/store/userStore.ts";
+import { mainStore } from "@/store/mainStore.ts";
+import { IUser, IUserForm } from "@/types/api/user.ts";
+import { login } from "@/api/user.ts";
 
 export const useLogin = () => {
   const loginVisiable = ref(false);
   const { t } = useI18n();
+  const userStore = useUserStore();
 
-  interface IFormRule {
-    [key: string]: string;
-    unique: string
-    password: string
-    code: string
-  }
-
-  const loginForm = reactive<IFormRule>({
+  const loginForm = reactive<IUserForm>({
     unique: '',
     password: '',
     code: '', // 验证码
@@ -49,6 +44,7 @@ export const useLogin = () => {
       hideLogin();
       useUserStore().setUser(res.data);
       initLoginForm();
+      mainStore().logined();
     }
   }
 

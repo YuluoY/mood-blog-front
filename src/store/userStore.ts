@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { IUser, IUserSocializes } from '@/types/api/user.ts'
+import { IUser,  IUserSocializes } from '@/types/api/user.ts'
 import { StoreNames } from './namespace.ts'
 
 export const useUserStore = defineStore(StoreNames.User, {
@@ -52,7 +52,7 @@ export const useUserStore = defineStore(StoreNames.User, {
       this.nickname = user.nickname
       this.phone = user.phone
       this.csrfToken = user.csrfToken
-      this.socializes = user.socializes
+      // this.socializes = user.socializes
       this.expire = Number(user.expire)
       this.csrf_token = user.csrf_token
     },
@@ -74,9 +74,9 @@ export const useUserStore = defineStore(StoreNames.User, {
       this.phone = ''
       this.csrfToken = ''
       this.expire = 0
-      this.socializes = {}
+      // this.socializes = {}
       this.csrf_token = ''
-    }
+    },
   },
   persist: {
     key: `mood-${StoreNames.User}`,

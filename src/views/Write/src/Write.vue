@@ -77,7 +77,8 @@ import { useEditor } from '../hooks/index.ts'
 
 const editorRef = ref<ExposeParam | null>()
 const uploadRef = ref<{ submit: Function; abort: Function; handleRemove: Function } | null>()
-const action = `${import.meta.env.VITE_BASE_URL}/file`
+// const action = `${import.meta.env.VITE_BASE_URL}/file`
+const action = `${import.meta.env.VITE_BASE_URL}/file/localUpload`
 const headers = computed(() => {
   return { 'x-csrf-token': useUserStore().csrf_token }
 })

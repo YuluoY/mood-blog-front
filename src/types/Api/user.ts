@@ -1,7 +1,7 @@
 import { EnumRole, EnumStatus, IResponseBaseData } from '@/types/core/index.ts'
 
 // 定义UserLogin
-export declare interface IUserLogin {
+export interface IUserLogin {
   username?: string // 用户名
   phone?: string // 手机号
   email?: string // 邮箱
@@ -15,7 +15,7 @@ export interface IUserSocializes {
 }
 
 // 定义UserRegister
-export declare interface IUserRegister extends IUserLogin {
+export interface IUserRegister extends IUserLogin {
   nickname?: string // 昵称
   avatar?: string // 头像
   cover?: string // 封面
@@ -30,7 +30,14 @@ export declare interface IUserRegister extends IUserLogin {
 }
 
 // 定义User
-export declare interface IUser extends IResponseBaseData, IUserRegister {
+export interface IUser extends IResponseBaseData, IUserRegister {
   [key: string]: any
   token: string // token
+}
+
+export interface IUserForm {
+  [key: string]: string;
+  unique: string
+  password: string
+  code: string
 }

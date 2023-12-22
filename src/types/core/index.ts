@@ -61,7 +61,7 @@ export const enum DatabaseTableName {
 // pagation 分页
 export interface IPaginationRequest {
   page: number
-  pageSize: number
+  limit: number
 }
 export interface IPaginationResponse<T> extends IPaginationRequest {
   total: number

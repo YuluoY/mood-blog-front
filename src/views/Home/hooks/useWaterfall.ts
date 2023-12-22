@@ -3,7 +3,7 @@ import {injectStyle, injectProp, getStyle} from '@/utils/dom.ts'
 import {IUseWaterfallOptions, IUseWaterfallResult} from "../types/index.ts";
 
 
-export const useWaterfall = (options: IUseWaterfallOptions): IUseWaterfallResult => {
+export const useWaterfall = (options: Partial<IUseWaterfallOptions>): IUseWaterfallResult => {
 
     if (!options.container) throw new Error('Waterfall：container is required！');
 
@@ -111,9 +111,7 @@ export const useWaterfall = (options: IUseWaterfallOptions): IUseWaterfallResult
                 left: `${left}px`,
             })
             injectProp(el, 'data-loaded', 'true');
-            if (i >= column) {
-                injectStyle(opts.container as HTMLElement, 'height', `${Math.max(...colHeight)}px`);
-            }
+            injectStyle(opts.container as HTMLElement, 'height', `${Math.max(...colHeight)}px`);
         }
     }
 
