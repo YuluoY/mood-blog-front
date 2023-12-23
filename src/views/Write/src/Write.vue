@@ -11,7 +11,16 @@
       :preview-theme="editorOptions.previewTheme"
       :code-theme="editorOptions.codeTheme"
       @on-save="onSave"
-    />
+      :toolbars="toolbars"
+    >
+    <template #defToolbars>
+      <Emoji>
+        <template #trigger> 
+          <svg-icon name="emoji" size="1.2"></svg-icon>
+        </template>
+      </Emoji>
+    </template>
+    </MdEditor>
     <el-dialog v-model="isVisiableDialog">
       <template #header>
         <h3>{{ $t('writeView.save') }}</h3>
@@ -73,7 +82,9 @@
 <script lang="ts" setup name="Write">
 import { ExposeParam, MdEditor } from 'md-editor-v3'
 import { useUserStore } from '@/store/userStore.ts'
+import { Emoji } from '@vavt/v3-extension';
 import { useEditor } from '../hooks/index.ts'
+import '@vavt/v3-extension/lib/asset/Emoji.css';
 
 const editorRef = ref<ExposeParam | null>()
 const uploadRef = ref<{ submit: Function; abort: Function; handleRemove: Function } | null>()
@@ -95,6 +106,8 @@ const {
   publishFormConfigure,
   onSubmitForm,
 
+  toolbars,
+
   // upload
   dialogImageUrl,
   dialogVisible,
@@ -114,11 +127,15 @@ const {
 <style lang="scss" scoped>
 @include b(write) {
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 80px);
 }
 
 @include be(write, editor) {
   width: 100%;
   height: 100%;
+}
+
+:deep(.emojis li){
+  box-sizing: content-box;
 }
 </style>

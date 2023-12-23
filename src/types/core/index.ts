@@ -8,10 +8,10 @@ export interface IResponseTemplate<T> {
 
 // 定义响应数据基本字段
 export interface IResponseBaseData {
-  id?: string
-  createdAt?: string
-  updatedAt?: string
-  deletedAt?: string
+  id: string
+  createdAt: string
+  updatedAt: string
+  deletedAt: string
 }
 
 // 状态
@@ -68,7 +68,7 @@ export interface IPaginationResponse<T> extends IPaginationRequest {
   list: T[]
 }
 
-export interface IQainationQueryBase extends IResponseBaseData {
+export interface IQainationQueryBase extends Partial<IResponseBaseData> {
   sort: string
   order: 'ASC' | 'DESC'
 }

@@ -1,6 +1,6 @@
 import { IYFormItemConfig } from '@/components/global/YForm/types/index.ts';
 import { useWriteStore } from '@/store/writeStore.ts'
-import { ExposeParam } from 'md-editor-v3'
+import { ExposeParam, ToolbarNames } from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
 import { ElMessage, UploadFile, UploadUserFile } from 'element-plus';
 import { IResponseTemplate } from '@/types/core/index.ts'
@@ -21,7 +21,7 @@ export const useEditor = ({
 
   /**
    * 这是表单的配置，默认是text的el-input
-   */  
+   */
   const publishFormConfigure: IYFormItemConfig[] = [
     {
       prop: 'title',
@@ -40,13 +40,25 @@ export const useEditor = ({
     }
   ]
 
+  const toolbars: ToolbarNames[] = [
+    'bold', 'underline', 'italic',
+    '-',
+    'title', 'strikeThrough', 'sub', 'sup', 'quote', 'unorderedList', 'orderedList', 'task',
+    '-',
+    'codeRow', 'code', 'link', 'image', 'table', 'mermaid', 'katex',
+    '-',
+    'revoke', 'next', 0, 'save',
+    '=',
+    'pageFullscreen', 'fullscreen', 'preview', 'htmlPreview', 'catalog', 'github'
+  ];
+
   /**
    * 弹出框的缩略图图片url
-   */  
+   */
   const dialogImageUrl = ref('')
   /**
    * 弹出框的显示
-   */  
+   */
   const dialogVisible = ref(false)
   /**
    * 是否禁用上传
@@ -148,6 +160,8 @@ export const useEditor = ({
     isVisiableDialog,
     publishFormConfigure,
     onSubmitForm,
+
+    toolbars,
 
     // upload
     dialogImageUrl,

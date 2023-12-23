@@ -23,6 +23,6 @@ export interface ICreateArticle extends Partial<IExractArticle>, IBaseArticle {
   userId: string,
 }
 
-export interface IArticle extends ICreateArticle, IResponseBaseData {
+export interface IArticle extends ICreateArticle, Partial<IResponseBaseData> {
   user: IUser,
 }

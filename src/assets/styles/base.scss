@@ -16,12 +16,15 @@
   }
 }
 
-body,
-html {
+html.dark img{
+  filter: brightness(0.8);
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
   min-width: 100vw;
   min-height: 100vh;
-  overflow-y: auto;
-  overflow-x: hidden;
   font-size: map-get($map: $base-styles, $key: 'font-size') * 1px;
 }
 
@@ -32,9 +35,8 @@ html {
 
 // 修改进度条阴影样式
 #nprogress .peg {
-  box-shadow:
-    0 0 10px var(--el-color-primary),
-    0 0 5px var(--el-color-primary) !important;
+  box-shadow: 0 0 10px var(--el-color-primary),
+  0 0 5px var(--el-color-primary) !important;
 }
 
 // router active
@@ -63,15 +65,13 @@ img {
 /* 下划线过渡效果 */
 .y-underline-trans {
   background: linear-gradient(
-      to right,
-      var(--el-color-primary-light-3),
-      var(--el-color-success-light-3)
-    )
-    no-repeat right bottom;
+                  to right,
+                  var(--el-color-primary-light-3),
+                  var(--el-color-success-light-3)
+  ) no-repeat right bottom;
   background-size: 0px 2px;
-  transition:
-    background-size 1s,
-    color 1s;
+  transition: background-size 1s,
+  color 1s;
 
   &:hover {
     background-position: left bottom;
@@ -84,6 +84,7 @@ img {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
 .y-ellipsis-clamp {
   overflow: hidden;
   word-wrap: break-word;
@@ -122,8 +123,10 @@ img {
 .el-upload-list--picture-card .el-upload-list__item {
   justify-content: center;
 }
+
 @include simple-generator('display', 'inline-block', 'inline-block');
 @include generator-gap('clamp', '-webkit-line-clamp', 2, 5, 1);
+
 
 // cursor example: y-cursor-p
 @include generator-map($mouse-states, 'cursor');
@@ -160,3 +163,5 @@ img {
   @include simple-generator('padding', $i + 0px, 'p-#{$i}');
   @include simple-generator('margin', $i + 0px, 'm-#{$i}');
 }
+
+@include generator-map($overflow, 'overflow', 'overflow');

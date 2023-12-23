@@ -1,9 +1,8 @@
-import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
+import {RouteRecordRaw, createRouter, createWebHistory, RouterOptions} from 'vue-router'
 import { promission } from './promission.ts'
 
 const HomeView = () => import('@/views/Home/index.ts')
 const ArticleView = () => import('@/views/Article/index.ts')
-const SpaceView = () => import('@/views/Space/index.ts')
 const WriteView = () => import('@/views/Write/index.ts')
 const AboutView = () => import('@/views/About/index.ts')
 const LogView = () => import('@/views/Log/index.ts')
@@ -12,7 +11,6 @@ const SettingView = () => import('@/views/Setting/index.ts')
 const Page404View = () => import('@/views/404.vue')
 
 const ArticleReadView = () => import('@/views/Article/components/Read/index.ts')
-const SpacePublishView = () => import('@/views/Space/components/Publish/index.ts')
 
 const all = ['superAdmin', 'admin', 'user', 'vipUser', 'visitor']
 const noVisitor = ['superAdmin', 'admin', 'user', 'vipUser']
@@ -33,28 +31,12 @@ export const staticRoutes: Readonly<RouteRecordRaw[]> = [
     name: 'Article',
     component: ArticleView,
     meta: { roles: all, title: 'Article', icon: 'article-view', affix: true },
-    children: [
-      {
-        path: '/article/read/:id',
-        name: 'ArticleRead',
-        component: ArticleReadView,
-        meta: { roles: all, title: 'Read', icon: 'read-view', affix: false },
-      },
-    ],
   },
   {
-    path: '/space',
-    name: 'Space',
-    component: SpaceView,
-    meta: { roles: all, title: 'Space', icon: 'space-view', affix: true },
-    children: [
-      {
-        path: '/space/publish',
-        name: 'SpacePublish',
-        component: SpacePublishView,
-        meta: { roles: noVisitor, title: 'Publish', icon: 'publish-view', affix: false },
-      },
-    ],
+    path: '/article/read/:id',
+    name: 'ArticleRead',
+    component: ArticleReadView,
+    meta: { roles: all, title: 'Read', icon: 'read-view', affix: false },
   },
   {
     path: '/write',
@@ -92,9 +74,10 @@ const router = createRouter({
   history: createWebHistory(),
   routes: staticRoutes,
   strict: true, // applies to all routes
-  // linkActiveClass:'router-link-active',
-  // linkExactActiveClass: 'router-link-exact-active',
-})
+  linkActiveClass:'router-link-active',
+  linkExactActiveClass: 'router-link-exact-active',
+  scrollBehavior: () => ({ left: 0, top: 0 }),
+} as RouterOptions)
 
 // 权限校验
 promission(router)

@@ -30,7 +30,7 @@ export interface IUserRegister extends IUserLogin {
 }
 
 // 定义User
-export interface IUser extends IResponseBaseData, IUserRegister {
+export interface IUser extends Partial<IResponseBaseData>, IUserRegister {
   [key: string]: any
   token: string // token
 }

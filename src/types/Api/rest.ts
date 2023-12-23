@@ -27,4 +27,7 @@ export interface IRest {
 
   // 注册
   register<D extends Object, T>(data: D): Promise<IResponseTemplate<T>>
+
+  // 获取QQ信息
+  getQQInfo<T>(qqNumber: string | number): Promise<IResponseTemplate<T>>
 }

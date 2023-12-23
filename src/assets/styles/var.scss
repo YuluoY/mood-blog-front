@@ -1,83 +1,90 @@
 // 基础样式
 $base-styles: (
-  'font-size': 14,
-  'font-family': 'Times New Roman',
-  'font-weight': 400,
-  'line-height': 1.5,
-  'color': var(--el-text-color-primary),
-  'background-color': var(--el-bg-color),
-  'border-color': var(--el-border-color),
-  'border-radius': 4px,
-  'box-shadow': 0 1px 10px rgba(0, 0, 0, 0.05),
-  'transition': all 0.3s ease-in-out,
+        'font-size': 14,
+        'font-family': 'Times New Roman',
+        'font-weight': 400,
+        'line-height': 1.5,
+        'color': var(--el-text-color-primary),
+        'background-color': var(--el-bg-color),
+        'border-color': var(--el-border-color),
+        'border-radius': 4px,
+        'box-shadow': 0 1px 10px rgba(0, 0, 0, 0.05),
+        'transition': all 0.3s ease-in-out,
 );
 
 // 方向
 $directions: (
-  'l': 'left',
-  'r': 'right',
-  't': 'top',
-  'b': 'bottom',
+        'l': 'left',
+        'r': 'right',
+        't': 'top',
+        'b': 'bottom',
 );
 
 // 鼠标状态
 $mouse-states: (
-  'a': 'auto',
-  'c': 'context-menu',
-  'h': 'help',
-  'p': 'pointer',
-  's': 'scroll',
-  'w': 'wait',
+        'a': 'auto',
+        'c': 'context-menu',
+        'h': 'help',
+        'p': 'pointer',
+        's': 'scroll',
+        'w': 'wait',
 );
 
 // flex
 $flex-direction: (
-  'row': 'row',
-  'col': 'column',
-  'row-r': 'row-reverse',
-  'col-r': 'column-reverse',
+        'row': 'row',
+        'col': 'column',
+        'row-r': 'row-reverse',
+        'col-r': 'column-reverse',
 );
 
 $flex-wrap: (
-  'w': 'wrap',
-  'nw': 'nowrap',
-  'w-r': 'wrap-reverse',
+        'w': 'wrap',
+        'nw': 'nowrap',
+        'w-r': 'wrap-reverse',
 );
 
 $flex-justify-content: (
-  'justify-start': 'flex-start',
-  'justify-end': 'flex-end',
-  'justify-center': 'center',
-  'justify-between': 'space-between',
-  'justify-around': 'space-around',
+        'justify-start': 'flex-start',
+        'justify-end': 'flex-end',
+        'justify-center': 'center',
+        'justify-between': 'space-between',
+        'justify-around': 'space-around',
 );
 
 $flex-align-items: (
-  'align-start': 'flex-start',
-  'align-end': 'flex-end',
-  'align-center': 'center',
-  'align-baseline': 'baseline',
-  'align-stretch': 'stretch',
+        'align-start': 'flex-start',
+        'align-end': 'flex-end',
+        'align-center': 'center',
+        'align-baseline': 'baseline',
+        'align-stretch': 'stretch',
 );
 
 // text
 $text-align: (
-  'left': 'left',
-  'right': 'right',
-  'center': 'center',
-  'justify': 'justify',
+        'left': 'left',
+        'right': 'right',
+        'center': 'center',
+        'justify': 'justify',
 );
 
 $text-decoration: (
-  'underline': 'underline',
-  'overline': 'overline',
-  'line-through': 'line-through',
-  'decor-none': 'none',
+        'underline': 'underline',
+        'overline': 'overline',
+        'line-through': 'line-through',
+        'decor-none': 'none',
 );
 
 $text-transform: (
-  'uppercase': 'uppercase',
-  'lowercase': 'lowercase',
-  'capitalize': 'capitalize',
-  'trans-none': 'none',
+        'uppercase': 'uppercase',
+        'lowercase': 'lowercase',
+        'capitalize': 'capitalize',
+        'trans-none': 'none',
+);
+
+$overflow: (
+        'auto': 'auto',
+        'hidden': 'hidden',
+        'visible': 'visible',
+        'scroll': 'scroll',
 );

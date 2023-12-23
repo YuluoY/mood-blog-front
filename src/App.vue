@@ -6,8 +6,11 @@
   </Suspense>
 </template>
 
-<script setup lang="ts"></script>
- 
+<script setup lang="ts">
+import { useMProgress } from '@/plugins/MProgress/index.ts';
+
+useMProgress();
+</script>
 <style scoped>
 .logo {
   height: 6em;

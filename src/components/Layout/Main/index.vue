@@ -1,5 +1,5 @@
 <template>
-  <div class="y-main y-p-20">
+  <div class="y-main">
     <slot></slot>
   </div>
 </template>
@@ -8,6 +8,5 @@
 <style lang="scss" scoped>
 @include b(main){
   width: 100%;
-  height: 100%;
 }
 </style>

@@ -2,15 +2,15 @@
   <div class="y-homeList">
     <div class="y-homeList__waterfall" ref="waterfall">
       <el-card
-        class="y-homeList__item y-flex y-f-col y-f-align-center"
-        v-for="item in waterfallData"
-        :key="item.id"
+          class="y-homeList__item y-flex y-f-col y-f-align-center"
+          v-for="item in articleStore.articleList"
+          :key="item.id"
       >
         <div class="y-card__img">
-          <img v-lazy="item.cover" :alt="item.title" loading="lazy" />
+          <img v-lazy="item.cover" :alt="item.title" loading="lazy"/>
         </div>
         <div class="y-card__title y-text-center">
-          <p class="y-underline-trans y-cursor-p y-inline-block">{{ item.title }}</p>
+          <p class="y-underline-trans y-cursor-p y-inline-block" @click="() => emit('onViewArticle', item)">{{ item.title }}</p>
         </div>
         <div class="y-card__desc y-ellipsis-clamp y-clamp-5 y-mt-10">
           <p>{{ item.description }}</p>
@@ -19,10 +19,10 @@
     </div>
     <div class="y-load__more y-flex y-f-justify-center">
       <el-button
-        type="primary"
-        :disabled="total === waterfallData.length"
-        plain
-        @click="() => emit('onLoadMore')"
+          type="primary"
+          :disabled="articleStore.total === articleStore.articleList.length"
+          plain
+          @click="() => emit('onLoadMore')"
       >
         {{ $t('homeView.loadMoreText') }}
       </el-button>
@@ -30,23 +30,14 @@
   </div>
 </template>
 <script setup lang="ts">
-import { IArticle } from '@/types/api/article.ts'
-import { useWaterfall } from '../hooks/useWaterfall.ts'
+import {useArticleStore} from "@/store/articleStore.ts";
+import {useWaterfall} from '../hooks/useWaterfall.ts'
 
-const { emit } = getCurrentInstance()
+const {emit} = getCurrentInstance()
 
-const props = withDefaults(
-  defineProps<{
-    waterfallData: IArticle[]
-    total: number
-  }>(),
-  {
-    waterfallData: () => [],
-    total: 0,
-  }
-)
+const articleStore = computed(() => useArticleStore())
 
-const { raw } = useWaterfall({
+const {raw} = useWaterfall({
   container: '.y-homeList__waterfall',
 })
 

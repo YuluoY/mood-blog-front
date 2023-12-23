@@ -13,9 +13,6 @@
       <Main>
         <slot></slot>
       </Main>
-      <KeepAlive>
-        <Foot></Foot>
-      </KeepAlive>
     </el-container>
     <Sider></Sider>
     <el-backtop :right="50" :bottom="50" target="body"></el-backtop>

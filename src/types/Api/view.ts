@@ -5,6 +5,6 @@ export interface ICreateView {
   articleId: string
 }
 
-export interface IView extends IResponseBaseData {
+export interface IView extends Partial<IResponseBaseData> {
 
 }

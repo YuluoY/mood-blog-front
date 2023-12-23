@@ -1,5 +1,6 @@
 import { IRest } from '@/types/api/rest.ts'
 import request from '@/utils/request.ts'
+import axios from 'axios'
 
 export const prefix = '/rest'
 
@@ -17,4 +18,6 @@ export const getListByPage: IRest['getListByPage'] = (model, page, pageSize) =>
   request.get(`${prefix}/${model}/pagation/${page}/${pageSize}`)
 
 export const getCode: IRest['getCode'] = () => request.get(`/code`)
+
+export const getQQInfo: IRest['getQQInfo'] = (qqNumber) => axios.get(`https://api.kit9.cn/api/qq_material/api.php?qq=${qqNumber}`)
 
