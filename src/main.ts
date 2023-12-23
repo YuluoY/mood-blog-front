@@ -4,7 +4,7 @@ import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 import App from './App.vue'
-import 'element-plus/theme-chalk/el-message.css'  
+import 'element-plus/theme-chalk/el-message.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import '@/assets/styles/index.scss' // 本地项目全局样式导入
 import i18n from './lang/index.ts' // Internationalization
@@ -16,12 +16,12 @@ import 'virtual:svg-icons-register' // Register svg icons
 import { globalComponents } from './components/global/index.ts' // Register global components
 import directives from './directive/index.ts' // Register global directives
 import VueLazy from './plugins/VueLazy/index.ts' // Register global directives
-
+import VueParticles from './plugins/VueParticles/index.ts' // 粒子背景动画效果
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
-createApp(App)
+const app = createApp(App)
   .use(i18n)
   .use(VueLazy)
   .use(globalComponents)
@@ -29,4 +29,8 @@ createApp(App)
   .use(router)
   .use(pinia)
   .use(ElementPlus)
-  .mount('#app')
+  .use(VueParticles)
+
+app.mount('#app');
+
+export default app

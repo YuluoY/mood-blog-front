@@ -11,3 +11,5 @@ declare module '*.vue' {
 declare interface ImportMetaEnv {
   VITE_BASE_URL: string
 }
+
+declare module "@tsparticles/vue3";

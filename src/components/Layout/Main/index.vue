@@ -3,10 +3,12 @@
     <slot></slot>
   </div>
 </template>
-<script setup lang="ts" name="Main"></script>
+<script setup lang="ts" name="Main">
+
+</script>
 
 <style lang="scss" scoped>
-@include b(main){
+@include b(main) {
   width: 100%;
 }
 </style>

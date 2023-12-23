@@ -17,10 +17,12 @@
     <Sider></Sider>
     <el-backtop :right="50" :bottom="50" target="body"></el-backtop>
   </el-container>
+  <ParticlesBg />
 </template>
 
 <script setup lang="ts" name="Layout">
 import global from '@/global/index.ts'
+import { ParticlesBg } from '@/plugins/VueParticles/index.ts';
 
 const router = useRouter()
 const loginRef = ref<Ref | null>(null)
@@ -35,6 +37,13 @@ const isShowHero = computed(() => {
 .y-layout {
   height: 100vh;
 }
+
+:deep(#tsparticles){
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
 </style>
-=======
+
 <script setup lang="ts" name="Layout"></script>
