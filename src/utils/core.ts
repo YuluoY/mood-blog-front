@@ -144,7 +144,16 @@ export const getType = (value: any): string => {
  * @return {number} 数字 
  * @example toNumber('123abc') // 123
  */
-export const toNumber = (value:string):number => {
+export const toNumber = (value: string): number => {
   const reg = /\d+/;
   return Number(reg.exec(value)?.[0])
+}
+
+/**
+ * @description: 字符串首字母大写
+ * @param {string} value 字符串
+ * @return {string} 
+ */
+export const firstToUpperCase = (value: string): string => {
+  return value.charAt(0).toUpperCase() + value.slice(1);
 }

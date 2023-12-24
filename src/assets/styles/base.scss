@@ -31,6 +31,26 @@ body {
   font-size: map-get($map: $base-styles, $key: 'font-size') * 1px;
 }
 
+path {
+  transition: none !important;
+  fill: inherit;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+a {
+  text-decoration: none;
+  color: var(--el-color-primary-light-3);
+  transition: color .3s ease-in-out;
+  &:hover {
+    color: var(--el-color-primary);
+  }
+}
+
 // 修改请求进度条样式
 #nprogress .bar {
   background: var(--el-color-primary) !important;
@@ -58,20 +78,9 @@ body {
 }
 
 // router active
-.is-active {
+.y-router__link--active {
   color: var(--el-color-primary) !important;
   fill: var(--el-color-primary) !important;
-}
-
-path {
-  transition: none !important;
-  fill: inherit;
-}
-
-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .y-f-center {

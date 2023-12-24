@@ -49,6 +49,8 @@ export default defineComponent({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            transition: 'all 0.3s ease-in-out',
+            marginTop: '-2px'
           },
         },
         h(

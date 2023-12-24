@@ -1,13 +1,19 @@
 <template>
   <div class="y-nav">
-    <el-menu :default-active="currentRoute.value.path" mode="horizontal" router :ellipsis="false">
-      <template v-for="route in routes" :key="String(route.name)">
-        <el-menu-item class="y-fs-14 y-flex y-f-center" :index="route.path" v-if="route.meta.affix">
-          <SvgIcon :name="route.meta.icon" style="margin-top: -2px;"></SvgIcon>
-          <span class="y-ml-10">{{ $t(`head.nav.${route.meta.title}`) }}</span>
-        </el-menu-item>
+    <div class="y-nav__inner y-flex">
+      <template v-for="route in routes">
+        <div
+          class="y-nav__link y-router__link--active y-ml-20"
+          v-if="route.meta.affix"
+          :key="String(route.name)"
+        >
+          <RouterLink :to="route.path" class="y-flex y-f-align-center">
+            <svg-icon :name="route.meta.icon"></svg-icon>
+            <span class="y-nav__title">{{ $t(`head.nav.${route.meta.title}`) }}</span>
+          </RouterLink>
+        </div>
       </template>
-    </el-menu>
+    </div>
   </div>
 </template>
 <script setup lang="ts" name="Nav">
@@ -22,27 +28,16 @@ withDefaults(
 )
 </script>
 <style scoped lang="scss">
-@include be(head, center) {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
+@include be(nav, link) {
+  fill: var(--el-text-color-primary) !important;
 
-  .el-menu--horizontal.el-menu {
-    border-bottom: none;
-  }
-
-  .el-menu--horizontal {
-    .el-menu-item {
-      margin: 0 10px;
-
-      &:not(.is-disabled) {
-        &:focus,
-        &:hover {
-          border-bottom: 2px solid var(--el-menu-active-color);
-        }
-      }
-    }
+  a {
+    color: var(--el-text-color-primary);
   }
 }
+
+@include be(nav, title) {
+  margin-left: 6px;
+}
+
 </style>

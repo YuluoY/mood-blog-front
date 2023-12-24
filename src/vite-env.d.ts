@@ -20,6 +20,7 @@ declare module 'vue-router' {
     icon?: string;
     title?: string;
     cover?: string;
+    affix?: boolean;
     roles?: TypeRole[];
   }
 }

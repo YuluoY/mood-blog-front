@@ -1,6 +1,9 @@
 <template>
   <el-container class="y-layout" direction="vertical">
     <Head :loginRef="loginRef">
+      <template #Search>
+        <Search></Search>
+      </template>
       <template #Nav="{ routes, currentRoute }">
         <Nav :routes="routes" :currentRoute="currentRoute"></Nav>
       </template>
@@ -14,7 +17,6 @@
       </Main>
     </el-container>
     <Sider></Sider>
-    <el-backtop :right="50" :bottom="50" target="body"></el-backtop>
   </el-container>
   <ParticlesBg />
 </template>

@@ -71,8 +71,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes: staticRoutes,
   strict: true, // applies to all routes
-  linkActiveClass:'router-link-active',
-  linkExactActiveClass: 'router-link-exact-active',
+  linkActiveClass:'y-router__link--active',
   scrollBehavior: () => ({ left: 0, top: 0 }),
 } as RouterOptions)
 

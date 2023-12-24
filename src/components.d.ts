@@ -33,11 +33,13 @@ declare module 'vue' {
     Layout: typeof import('./components/Layout/index.vue')['default']
     Login: typeof import('./components/Login/src/Login.vue')['default']
     Main: typeof import('./components/Layout/Main/index.vue')['default']
+    MBackToTop: typeof import('./components/global/MBackToTop/src/MBackToTop.vue')['default']
     MForm: typeof import('./components/global/MForm/src/MForm.vue')['default']
     MHero: typeof import('./components/global/MHero/src/MHero.vue')['default']
     Nav: typeof import('./components/Nav/src/Nav.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Search: typeof import('./components/Search/src/Search.vue')['default']
     Sider: typeof import('./components/Layout/Sider/index.vue')['default']
     SvgCaptcha: typeof import('./components/SvgCaptcha/src/SvgCaptcha.vue')['default']
   }
