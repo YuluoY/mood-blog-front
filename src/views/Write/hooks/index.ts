@@ -1,4 +1,4 @@
-import { IYFormItemConfig } from '@/components/global/YForm/types/index.ts';
+import { IMFormItemConfig } from '@/components/global/MForm/types/index.ts';
 import { useWriteStore } from '@/store/writeStore.ts'
 import { ExposeParam, ToolbarNames } from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
@@ -22,7 +22,7 @@ export const useEditor = ({
   /**
    * 这是表单的配置，默认是text的el-input
    */
-  const publishFormConfigure: IYFormItemConfig[] = [
+  const publishFormConfigure: IMFormItemConfig[] = [
     {
       prop: 'title',
       label: '标题',

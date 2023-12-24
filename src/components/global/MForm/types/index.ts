@@ -1,6 +1,6 @@
 import { InputEmits } from 'element-plus'
 
-export interface IYFormItemConfig {
+export interface IMFormItemConfig {
     rules?: import('element-plus').FormItemRule[],
     prop: string
     labelWidth?: string
@@ -34,7 +34,7 @@ export interface IYFormItemConfig {
 }
 
 export interface IYFormProps<T extends Object> {
-    formConfigures: IYFormItemConfig[],
+    formConfigures: IMFormItemConfig[],
     formData: T
     labelPosition?: 'left' | 'top' | 'right',
     inlineMessage?: boolean

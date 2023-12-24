@@ -1,5 +1,6 @@
 <template>
   <div class="y-home">
+    <MHero classname="home"></MHero>
     <div class="y-home__inner">
       <HomeList class="y-home__list" @onLoadMore="onLoadMore" @onViewArticle="onViewArticle"></HomeList>
       <HomeSidebar class="y-home__sidebar"></HomeSidebar>
@@ -14,15 +15,6 @@
 import {useHome} from '../hooks/index.ts'
 import HomeList from './HomeList.vue'
 import HomeSidebar from './HomeSidebar.vue'
-
-const waterfallData = new Array(20).fill(0).map((_, index) => ({
-  id: index,
-  width: 200,
-  height: Math.floor(Math.random() * 300 + 200),
-  background: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(
-      Math.random() * 255
-  )}, ${Math.floor(Math.random() * 255)}, 0.5)`,
-}))
 
 const {onLoadMore, onViewArticle} = await useHome()
 

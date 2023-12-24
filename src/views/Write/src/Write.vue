@@ -26,7 +26,7 @@
         <h3>{{ $t('writeView.save') }}</h3>
       </template>
       <template #default>
-        <YForm :form-data="form" :form-configures="publishFormConfigure">
+        <MForm :form-data="form" :form-configures="publishFormConfigure">
           <template #suffix>
             <el-form-item label="封面" prop="cover" label-width="100">
               <el-upload
@@ -70,7 +70,7 @@
               </el-dialog>
             </el-form-item>
           </template>
-        </YForm>
+        </MForm>
       </template>
       <template #footer>
         <el-button type="primary" @click="onSubmitForm">{{ $t('writeView.submit') }}</el-button>

@@ -30,7 +30,10 @@ export const enum EnumRole {
   Admin = 'admin', // 管理员
   User = 'user', // 普通用户
   VipUser = 'vipUser', // VIP用户
+  Visitor = 'visitor', // 游客
 }
+
+export type TypeRole = 'superAdmin' | 'admin' | 'user' | 'vipUser' | 'visitor'
 
 // 主题
 // eslint-disable-next-line no-shadow

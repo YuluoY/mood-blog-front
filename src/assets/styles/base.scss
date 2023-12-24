@@ -16,8 +16,11 @@
   }
 }
 
-html.dark img{
-  filter: brightness(0.8);
+html.dark {
+  img,
+  .y-hero {
+    filter: brightness(0.7);
+  }
 }
 
 body {
@@ -28,15 +31,30 @@ body {
   font-size: map-get($map: $base-styles, $key: 'font-size') * 1px;
 }
 
-// 修改进度条样式
+// 修改请求进度条样式
 #nprogress .bar {
   background: var(--el-color-primary) !important;
 }
 
 // 修改进度条阴影样式
 #nprogress .peg {
-  box-shadow: 0 0 10px var(--el-color-primary),
-  0 0 5px var(--el-color-primary) !important;
+  box-shadow:
+    0 0 10px var(--el-color-primary),
+    0 0 5px var(--el-color-primary) !important;
+}
+
+// 修改阅读进度条样式
+.m-progress__bar {
+  background: var(--el-color-primary) !important;
+}
+
+// 修改md-editor-v3 tab工具
+.md-editor-toolbar-left {
+  padding-right: 20px !important;
+}
+.md-editor-toolbar-wrapper .md-editor-toolbar-left,
+.md-editor-toolbar-wrapper .md-editor-toolbar-right {
+  flex-wrap: wrap;
 }
 
 // router active
@@ -65,13 +83,15 @@ img {
 /* 下划线过渡效果 */
 .y-underline-trans {
   background: linear-gradient(
-                  to right,
-                  var(--el-color-primary-light-3),
-                  var(--el-color-success-light-3)
-  ) no-repeat right bottom;
+      to right,
+      var(--el-color-primary-light-3),
+      var(--el-color-success-light-3)
+    )
+    no-repeat right bottom;
   background-size: 0px 2px;
-  transition: background-size 1s,
-  color 1s;
+  transition:
+    background-size 1s,
+    color 1s;
 
   &:hover {
     background-position: left bottom;
@@ -126,7 +146,6 @@ img {
 
 @include simple-generator('display', 'inline-block', 'inline-block');
 @include generator-gap('clamp', '-webkit-line-clamp', 2, 5, 1);
-
 
 // cursor example: y-cursor-p
 @include generator-map($mouse-states, 'cursor');

@@ -12,9 +12,6 @@ const Page404View = () => import('@/views/404.vue')
 
 const ArticleReadView = () => import('@/views/Article/components/Read/index.ts')
 
-const all = ['superAdmin', 'admin', 'user', 'vipUser', 'visitor']
-const noVisitor = ['superAdmin', 'admin', 'user', 'vipUser']
-
 export const staticRoutes: Readonly<RouteRecordRaw[]> = [
   {
     path: '/home',
@@ -24,31 +21,31 @@ export const staticRoutes: Readonly<RouteRecordRaw[]> = [
     path: '/',
     name: 'Home',
     component: HomeView,
-    meta: { roles: all, title: 'Home', icon: 'home-view', affix: true },
+    meta: { roles: ['visitor'], title: 'Home', icon: 'home-view', affix: true, cover:'' },
   },
   {
     path: '/article',
     name: 'Article',
     component: ArticleView,
-    meta: { roles: all, title: 'Article', icon: 'article-view', affix: true },
+    meta: { roles: ['visitor'], title: 'Article', icon: 'article-view', affix: true },
   },
   {
     path: '/article/read/:id',
     name: 'ArticleRead',
     component: ArticleReadView,
-    meta: { roles: all, title: 'Read', icon: 'read-view', affix: false },
+    meta: { roles: ['visitor'], title: 'Read', icon: 'read-view', affix: false },
   },
   {
     path: '/write',
     name: 'Write',
     component: WriteView,
-    meta: { roles: noVisitor, title: 'Write', icon: 'write-view', affix: true },
+    meta: { roles: ['user'], title: 'Write', icon: 'write-view', affix: true },
   },
   {
     path: '/about',
     name: 'About',
     component: AboutView,
-    meta: { roles: all, title: 'About', icon: 'about-view', affix: true },
+    meta: { roles: ['visitor'], title: 'About', icon: 'about-view', affix: true },
   },
   // {
   //   path: '/log',
@@ -60,13 +57,13 @@ export const staticRoutes: Readonly<RouteRecordRaw[]> = [
     path: '/setting',
     name: 'Setting',
     component: SettingView,
-    meta: { roles: noVisitor, title: 'Setting', icon: 'setting-view', affix: true },
+    meta: { roles: ['user'], title: 'Setting', icon: 'setting-view', affix: true },
   },
   {
     path: '/404',
     name: 'page404',
     component: Page404View,
-    meta: { roles: all, title: '404', icon: '404-view', affix: false },
+    meta: { roles: ['visitor'], title: '404', icon: '404-view', affix: false },
   },
 ]
 

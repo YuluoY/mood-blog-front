@@ -1,5 +1,7 @@
 /// <reference types="vite/client" />
 
+import { EnumRole, TypeRole } from './types/core/index.ts';
+
 declare module '*.vue' {
   import { ComponentOptions } from 'vue'
 
@@ -13,3 +15,11 @@ declare interface ImportMetaEnv {
 }
 
 declare module "@tsparticles/vue3";
+declare module 'vue-router' {
+  interface RouteMeta {
+    icon?: string;
+    title?: string;
+    cover?: string;
+    roles?: TypeRole[];
+  }
+}

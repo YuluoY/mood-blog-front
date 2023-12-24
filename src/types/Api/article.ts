@@ -4,8 +4,8 @@ import { IUser } from "./user.ts"
 import { IView } from "./view.ts"
 
 interface IExractArticle {
-  views: IView,
-  likes: ILike,
+  views: IView[],
+  likes: ILike[],
   category: any[],
   comments: any[],
   file: any[],

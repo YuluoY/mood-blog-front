@@ -2,7 +2,7 @@ import { SetupContext, defineComponent, h, onMounted, onUnmounted, ref, watch } 
 import { MProgressProps, props } from "../types/index.ts";
 
 // eslint-disable-next-line no-shadow
-const setup = (props: MProgressProps, ctx: SetupContext) => {
+const setup = (props: MProgressProps, _ctx: SetupContext) => {
     const com = ref({ ...props })
     const MProgressBarRef = ref<HTMLElement>(null);
 
@@ -21,7 +21,7 @@ const setup = (props: MProgressProps, ctx: SetupContext) => {
 
     onMounted(() => {
         if (!MProgressBarRef.value) {
-            MProgressBarRef.value = document.querySelector('.m-progress-bar') as HTMLElement;
+            MProgressBarRef.value = document.querySelector('.m-progress .m-progress__bar') as HTMLElement;
         }
         window.addEventListener('scroll', scrollHandle);
     })
@@ -49,7 +49,7 @@ function render(this: MProgressProps) {
         }
     }, [
         h('div', {
-            class: 'm-progress-bar',
+            class: 'm-progress__bar',
             ref: 'MProgressBarRef',
             style: {
                 width: '0%',

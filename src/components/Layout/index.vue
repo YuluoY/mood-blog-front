@@ -9,7 +9,6 @@
       </template>
     </Head>
     <el-container direction="vertical">
-      <Hero v-show="isShowHero"></Hero>
       <Main>
         <slot></slot>
       </Main>
@@ -21,16 +20,12 @@
 </template>
 
 <script setup lang="ts" name="Layout">
-import global from '@/global/index.ts'
 import { ParticlesBg } from '@/plugins/VueParticles/index.ts';
+import { useMProgress } from '@/plugins/MProgress/index.ts';
 
-const router = useRouter()
+useMProgress();
 const loginRef = ref<Ref | null>(null)
-const { coverWhiteList } = global
 
-const isShowHero = computed(() => {
-  return coverWhiteList.includes(router.currentRoute.value.name as string)
-})
 </script>
 
 <style scoped lang="scss">
@@ -41,7 +36,6 @@ const isShowHero = computed(() => {
 :deep(#tsparticles){
   position: absolute;
   width: 100%;
-  height: 100%;
   z-index: -1;
 }
 </style>

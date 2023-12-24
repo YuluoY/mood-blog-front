@@ -55,7 +55,7 @@
     </div>
 </template>
 
-<script setup lang="ts" name="YFrom">
+<script setup lang="ts" name="MFrom">
 import { IYFormProps } from '../types/index.ts';
 
 withDefaults(defineProps<IYFormProps<any>>(), {})
