@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AsyncSlowEntry: typeof import('./components/AsyncSlowEntry.vue')['default']
+    ElAffix: typeof import('element-plus/es')['ElAffix']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBacktop: typeof import('element-plus/es')['ElBacktop']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -33,6 +34,7 @@ declare module 'vue' {
     Layout: typeof import('./components/Layout/index.vue')['default']
     Login: typeof import('./components/Login/src/Login.vue')['default']
     Main: typeof import('./components/Layout/Main/index.vue')['default']
+    MBackTop: typeof import('./components/global/MBackTop/src/MBackTop.vue')['default']
     MBackToTop: typeof import('./components/global/MBackToTop/src/MBackToTop.vue')['default']
     MForm: typeof import('./components/global/MForm/src/MForm.vue')['default']
     MHero: typeof import('./components/global/MHero/src/MHero.vue')['default']

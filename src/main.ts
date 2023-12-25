@@ -18,6 +18,8 @@ import directives from './directive/index.ts' // Register global directives
 import VueLazy from './plugins/VueLazy/index.ts' // Register global directives
 import VueParticles from './plugins/VueParticles/index.ts' // 粒子背景动画效果
 
+import 'md-editor-v3/lib/preview.css'
+
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 

@@ -29,7 +29,7 @@ export interface IUseWaterfallOptions {
     topAnimateDelay: number // 上侧动画延迟时间
     animateEase: import('vue').CSSProperties['animation-timing-function'] // 动画缓动函数
 
-    breakpoint: Partial<IUseWaterfallOptionsBreakpoint> & Pick<IUseWaterfallOptionsBreakpoint, 'point'>[] // 断点
+    breakpoint: Partial<IUseWaterfallOptionsBreakpoint>[] // 断点
 }
 
 export interface IUseWaterfallResult {

@@ -63,6 +63,12 @@ a {
     0 0 5px var(--el-color-primary) !important;
 }
 
+// particle canvas样式
+#tsparticles canvas {
+  background-color: var(--el-bg-color) !important;
+}
+
+
 // 修改阅读进度条样式
 .m-progress__bar {
   background: var(--el-color-primary) !important;
@@ -75,6 +81,10 @@ a {
 .md-editor-toolbar-wrapper .md-editor-toolbar-left,
 .md-editor-toolbar-wrapper .md-editor-toolbar-right {
   flex-wrap: wrap;
+}
+// 预览背景色
+.md-editor-preview-wrapper {
+  background-color: var(--el-bg-color) !important;
 }
 
 // router active

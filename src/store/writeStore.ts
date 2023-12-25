@@ -42,10 +42,6 @@ export const useWriteStore = defineStore(StoreNames.Write, {
     setFormContent(content: string) {
       this.form.content = content;
     },
-    setFormTitle(v: string) {
-      const title = /# (.+?)\n/.exec(v)?.[1];
-      this.form.title = title;
-    },
     async onSave() {
       const res = await addArticle(this.form);
       if(res.success){

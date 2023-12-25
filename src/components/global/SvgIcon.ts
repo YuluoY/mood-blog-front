@@ -41,7 +41,7 @@ export default defineComponent({
       h(
         'div',
         {
-          class: 'svg-icon-container',
+          class: 'm-icon',
           style: {
             width: addSignByPos(props.size, props.unit, 'suffix'),
             height: addSignByPos(props.size, props.unit, 'suffix'),
@@ -56,7 +56,7 @@ export default defineComponent({
         h(
           'svg',
           {
-            class: `svg-icon svg-icon-container${addSignByPos(props.iconClass, '__')}`,
+            class: `m-icon__svg m-icon${addSignByPos(props.iconClass, '__')}`,
             style: {
               width: '100%',
               height: '100%',

@@ -4,6 +4,7 @@ import { ExposeParam, ToolbarNames } from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
 import { ElMessage, UploadFile, UploadUserFile } from 'element-plus';
 import { IResponseTemplate } from '@/types/core/index.ts'
+import { toTrim } from '@/utils/core.ts';
 
 export const useEditor = ({
   editorRef,
@@ -18,6 +19,7 @@ export const useEditor = ({
   const { t } = useI18n();
   const writeStore = useWriteStore();
   const isVisiableDialog = ref(false); // 是否显示上传图片的弹窗
+  const parser = new DOMParser(); // 用于解析dom
 
   /**
    * 这是表单的配置，默认是text的el-input
@@ -26,6 +28,7 @@ export const useEditor = ({
     {
       prop: 'title',
       label: '标题',
+      labelWidth:'70',
       rules: [
         { required: true, message: '请输入标题', trigger: 'blur' },
       ],
@@ -34,6 +37,8 @@ export const useEditor = ({
       prop: 'description',
       type: 'textarea',
       label: '描述',
+      labelWidth: '70',
+      autoSize: true,
       rules: [
         { required: true, message: '请输入描述', trigger: 'blur' },
       ]
@@ -49,7 +54,7 @@ export const useEditor = ({
     '-',
     'revoke', 'next', 0, 'save',
     '=',
-    'pageFullscreen', 'fullscreen', 'preview', 'htmlPreview', 'catalog', 'github'
+    'prettier', 'pageFullscreen', 'fullscreen', 'preview', 'htmlPreview', 'catalog', 'github'
   ];
 
   /**
@@ -146,8 +151,10 @@ export const useEditor = ({
     isVisiableDialog.value = true;
     writeStore.form.description = v;
     writeStore.form.userId = useUserStore().id;
-    writeStore.setFormTitle(v);
     h.then((html) => {
+      const doc = parser.parseFromString(html, 'text/html');
+      writeStore.form.title = toTrim(doc.querySelector('h1')?.innerText);
+      writeStore.form.description = toTrim(doc.querySelector('blockquote')?.innerText);
       writeStore.setFormContent(html);
     })
   }

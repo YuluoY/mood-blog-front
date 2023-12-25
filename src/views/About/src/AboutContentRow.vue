@@ -13,7 +13,6 @@
 </template>
 
 <script setup lang="ts" name="AboutContentRow">
-import 'md-editor-v3/lib/preview.css';
 
 withDefaults(defineProps<{
   title?: string

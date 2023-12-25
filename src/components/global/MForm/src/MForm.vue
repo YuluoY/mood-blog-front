@@ -42,6 +42,7 @@
                     :validate-event="item.validateEvent"
                     :input-style="item.inputStyle"
                     :show-password="item.showPassword"
+                    :autosize="item.autoSize"
                     :on-blur="item.onBlur"
                     :on-change="item.onChange"
                     :on-focus="item.onFocus"
@@ -56,8 +57,8 @@
 </template>
 
 <script setup lang="ts" name="MFrom">
-import { IYFormProps } from '../types/index.ts';
+import { IMFormProps } from '../types/index.ts';
 
-withDefaults(defineProps<IYFormProps<any>>(), {})
+withDefaults(defineProps<IMFormProps<any>>(), {})
 
 </script>

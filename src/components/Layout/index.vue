@@ -17,17 +17,25 @@
       </Main>
     </el-container>
     <Sider></Sider>
+    <MBackTop :top="toTop"></MBackTop>
   </el-container>
   <ParticlesBg />
 </template>
 
 <script setup lang="ts" name="Layout">
-import { ParticlesBg } from '@/plugins/VueParticles/index.ts';
-import { useMProgress } from '@/plugins/MProgress/index.ts';
+import { ParticlesBg } from '@/plugins/VueParticles/index.ts'
+import { useMProgress } from '@/plugins/MProgress/index.ts'
 
-useMProgress();
+const route = useRoute()
+useMProgress()
 const loginRef = ref<Ref | null>(null)
-
+const toTop = computed(() => {
+  if (route.name === 'ArticleRead') {
+    return window.innerHeight - 150
+  } else {
+    return 0
+  }
+})
 </script>
 
 <style scoped lang="scss">
@@ -35,7 +43,7 @@ const loginRef = ref<Ref | null>(null)
   height: 100vh;
 }
 
-:deep(#tsparticles){
+:deep(#tsparticles) {
   position: absolute;
   width: 100%;
   z-index: -1;

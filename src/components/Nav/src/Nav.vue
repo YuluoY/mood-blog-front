@@ -34,6 +34,14 @@ withDefaults(
   a {
     color: var(--el-text-color-primary);
   }
+
+  &:hover {
+    fill: var(--el-color-primary) !important;
+
+    a {
+      color: var(--el-text-color-primary-hover);
+    }
+  }
 }
 
 @include be(nav, title) {

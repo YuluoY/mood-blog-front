@@ -28,7 +28,7 @@
       <template #default>
         <MForm :form-data="form" :form-configures="publishFormConfigure">
           <template #suffix>
-            <el-form-item label="封面" prop="cover" label-width="100">
+            <el-form-item label="封面" prop="cover" label-width="70">
               <el-upload
                 ref="uploadRef"
                 :action="action"
@@ -127,7 +127,7 @@ const {
 <style lang="scss" scoped>
 @include b(write) {
   width: 100%;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 60px);
 }
 
 @include be(write, editor) {

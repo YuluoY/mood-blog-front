@@ -21,9 +21,10 @@
             {{ item.title }}
           </p>
         </div>
-        <div class="y-article__desc y-ellipsis-clamp y-clamp-5 y-mt-10">
-          <p>{{ item.description }}</p>
-        </div>
+        <div
+          class="y-article__desc y-ellipsis-clamp y-clamp-5 y-mt-10"
+          v-html="item.description"
+        ></div>
         <div class="y-article__info y-flex y-mt-10">
           <div class="y-article__hot y-flex-1 y-text-center">
             <span>热度：</span>
@@ -59,15 +60,10 @@
 <script setup lang="ts">
 import { useArticleStore } from '@/store/articleStore.ts'
 import { dateFormat } from '@/utils/dayjs.ts'
-import { useWaterfall } from '../hooks/useWaterfall.ts'
 
 const { emit } = getCurrentInstance()
 
 const articleStore = computed(() => useArticleStore())
-
-const { raw } = useWaterfall({
-  container: '.y-homeList__waterfall',
-})
 </script>
 <style scoped lang="scss">
 :deep(.el-card__body) {

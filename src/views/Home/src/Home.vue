@@ -2,7 +2,11 @@
   <div class="y-home">
     <MHero classname="home"></MHero>
     <div class="y-home__inner">
-      <HomeList class="y-home__list" @onLoadMore="onLoadMore" @onViewArticle="onViewArticle"></HomeList>
+      <HomeList
+        class="y-home__list"
+        @onLoadMore="onLoadMore"
+        @onViewArticle="onViewArticle"
+      ></HomeList>
       <HomeSidebar class="y-home__sidebar"></HomeSidebar>
     </div>
     <KeepAlive>
@@ -12,12 +16,25 @@
 </template>
 
 <script setup lang="ts" name="Home">
-import {useHome} from '../hooks/index.ts'
+import { useHome } from '../hooks/index.ts'
 import HomeList from './HomeList.vue'
 import HomeSidebar from './HomeSidebar.vue'
+import { useWaterfall } from '../hooks/useWaterfall.ts'
 
-const {onLoadMore, onViewArticle} = await useHome()
-
+const { onLoadMore, onViewArticle } = await useHome()
+const { raw } = useWaterfall({
+  container: '.y-homeList__waterfall',
+  breakpoint:[
+    {
+      point: 768,
+      column: 2,
+    },
+    {
+      point: 1200,
+      column: 3,
+    }
+  ]
+})
 </script>
 
 <style scoped lang="scss">

@@ -13,6 +13,7 @@ export interface IMFormItemConfig {
     type?: string
     autocomplete?: string
     autofocus?: boolean
+    autoSize?:boolean | { minRows?: number, maxRows?: number }
     resize?: 'none' | 'both' | 'horizontal' | 'vertical'
     placeholder?: string
     clearable?: boolean
@@ -33,7 +34,7 @@ export interface IMFormItemConfig {
     onClear?: InputEmits['clear']
 }
 
-export interface IYFormProps<T extends Object> {
+export interface IMFormProps<T extends Object> {
     formConfigures: IMFormItemConfig[],
     formData: T
     labelPosition?: 'left' | 'top' | 'right',

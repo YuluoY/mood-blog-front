@@ -157,3 +157,16 @@ export const toNumber = (value: string): number => {
 export const firstToUpperCase = (value: string): string => {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
+
+/**
+ * @description: 去掉文本首尾的空白
+ * @param {string} value 字符串
+ * @param {string} pos 可选择去掉首部还是尾部的空白
+ * @return {string}
+ */
+export const toTrim = (value: string, pos?: 'start' | 'end'): string => {
+  if (!value.length) return value;
+  if(pos === 'start') return value.trimStart();
+  if(pos === 'end') return value.trimEnd();
+  return value.trim();
+}
