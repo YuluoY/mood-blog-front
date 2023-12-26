@@ -1,4 +1,4 @@
-import { EnumStatus, IResponseBaseData} from "../core/index.ts"
+import { EnumStatus, IResponseBaseData } from "../core/index.ts"
 import { ILike } from "./like.ts"
 import { IUser } from "./user.ts"
 import { IView } from "./view.ts"
@@ -17,6 +17,7 @@ interface IBaseArticle {
   cover: string
   description: string,
   status: EnumStatus,
+  words: number
 }
 
 export interface ICreateArticle extends Partial<IExractArticle>, IBaseArticle {

@@ -166,7 +166,28 @@ export const firstToUpperCase = (value: string): string => {
  */
 export const toTrim = (value: string, pos?: 'start' | 'end'): string => {
   if (!value.length) return value;
-  if(pos === 'start') return value.trimStart();
-  if(pos === 'end') return value.trimEnd();
+  if (pos === 'start') return value.trimStart();
+  if (pos === 'end') return value.trimEnd();
   return value.trim();
+}
+
+/**
+ * @description: 浏览器空闲时执行的回调
+ * @param {Function} cb  需要执行的回调函数
+ * @return {number}  返回空闲时间  ms
+ */
+export const idleCallback = async (cb: Function): Promise<number> => {
+  if (!window) return -1;
+  return new Promise((resolve) => {
+    const start = Date.now();
+    window.requestAnimationFrame(() => {
+      const diff = Date.now() - start;
+      if (diff < 16.6) {
+        cb();
+        resolve(diff);
+      } else {
+        resolve(diff)
+      }
+    })
+  })
 }

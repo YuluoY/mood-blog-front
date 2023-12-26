@@ -1,6 +1,6 @@
 
 <template>
-  <div :class="classname" :style="styles">
+  <div class="y-hero" :style="styles">
     <slot></slot>
   </div>
 </template>
@@ -15,11 +15,7 @@ const props = withDefaults(defineProps<{
 }>(), {
   classname: '',
   imageUrl: useGlobalStore().getDefaultCover,
-  top: 150
-})
-
-const classname = computed(() => {
-  return props.classname ? `y-hero y-${props.classname}__hero` : `y-hero`
+  top: 200
 })
 
 const styles = computed(() => {

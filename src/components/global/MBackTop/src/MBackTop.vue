@@ -15,7 +15,7 @@ const props = withDefaults(
     top?: number
   }>(),
   {
-    percent: 30,
+    percent: 20,
     iconSize: 1,
     top: 0,
   }
@@ -57,6 +57,7 @@ onUnmounted(() => {
   right: 30px;
   bottom: 50px;
   z-index: 1000;
+  display: inline-flex;
   font-size: 2rem;
   text-align: center;
   color: #fff;

@@ -26,7 +26,7 @@ export default defineComponent({
     },
   },
 
-  setup(props) {
+  setup(props, { slots }) {
     /**
      * @description: 根据位置添加符号
      * @param {string} val  // 值
@@ -37,22 +37,27 @@ export default defineComponent({
     const addSignByPos = (val: string | number, sign: string, pos: 'prefix' | 'suffix' = 'prefix'): string =>
       val ? `${pos === 'prefix' ? sign : ''}${val}${pos === 'suffix' ? sign : ''}` : String(val)
 
-    return () =>
-      h(
-        'div',
-        {
-          class: 'm-icon',
-          style: {
-            width: addSignByPos(props.size, props.unit, 'suffix'),
-            height: addSignByPos(props.size, props.unit, 'suffix'),
-            color: props.color,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            transition: 'all 0.3s ease-in-out',
-            marginTop: '-2px'
-          },
+    return () => h(
+      'div',
+      {
+        class: 'm-icon',
+        style: {
+          width: addSignByPos(props.size, props.unit, 'suffix'),
+          height: addSignByPos(props.size, props.unit, 'suffix'),
+          color: props.color,
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transition: 'all 0.3s ease-in-out',
         },
+      },
+      [
+        h('div', {
+          class: `m-icon__default--slot`,
+          style: {
+            display: slots?.default ? 'inline-block' : 'none'
+          }
+        }, slots.default?.()),
         h(
           'svg',
           {
@@ -66,6 +71,7 @@ export default defineComponent({
             'xlink:href': `#icon${addSignByPos(props.name, '-')}`,
           })
         )
-      )
+      ]
+    )
   },
 })

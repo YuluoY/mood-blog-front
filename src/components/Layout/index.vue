@@ -17,7 +17,7 @@
       </Main>
     </el-container>
     <Sider></Sider>
-    <MBackTop :top="toTop"></MBackTop>
+    <MBackTop></MBackTop>
   </el-container>
   <ParticlesBg />
 </template>
@@ -29,13 +29,7 @@ import { useMProgress } from '@/plugins/MProgress/index.ts'
 const route = useRoute()
 useMProgress()
 const loginRef = ref<Ref | null>(null)
-const toTop = computed(() => {
-  if (route.name === 'ArticleRead') {
-    return window.innerHeight - 150
-  } else {
-    return 0
-  }
-})
+
 </script>
 
 <style scoped lang="scss">

@@ -22,8 +22,9 @@ export const useWriteStore = defineStore(StoreNames.Write, {
       description: '',
       userId: '',
       likes: [],
-      views:[],
+      views: [],
       category: [],
+      words: 0
     }
 
     return {
@@ -44,12 +45,12 @@ export const useWriteStore = defineStore(StoreNames.Write, {
     },
     async onSave() {
       const res = await addArticle(this.form);
-      if(res.success){
+      if (res.success) {
         ElMessage.success(res.data);
         this.initForm();
         this.content = '';
         return true;
-      }else{
+      } else {
         ElMessage.error(res.data);
         return false;
       }
@@ -63,6 +64,7 @@ export const useWriteStore = defineStore(StoreNames.Write, {
         description: '',
         userId: '',
         category: [],
+        words: 0
       }
     }
   },

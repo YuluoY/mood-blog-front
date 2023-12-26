@@ -1,6 +1,8 @@
 <template>
   <div class="y-home">
-    <MHero classname="home"></MHero>
+    <MHero>
+      <MDrop />
+    </MHero>
     <div class="y-home__inner">
       <HomeList
         class="y-home__list"
@@ -56,5 +58,15 @@ const { raw } = useWaterfall({
 
 @include be(home, sidebar) {
   width: 300px;
+}
+
+@include b(hero) {
+  position: relative;
+
+  .m-drop {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+  }
 }
 </style>

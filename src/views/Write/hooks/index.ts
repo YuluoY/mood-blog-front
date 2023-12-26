@@ -149,7 +149,7 @@ export const useEditor = ({
    */
   const onSave = (v: string, h: Promise<string>): void => {
     isVisiableDialog.value = true;
-    writeStore.form.description = v;
+    writeStore.form.words = v.length;
     writeStore.form.userId = useUserStore().id;
     h.then((html) => {
       const doc = parser.parseFromString(html, 'text/html');
