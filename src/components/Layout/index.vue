@@ -34,7 +34,7 @@ const loginRef = ref<Ref | null>(null)
 
 <style scoped lang="scss">
 .y-layout {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 :deep(#tsparticles) {

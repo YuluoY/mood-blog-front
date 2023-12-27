@@ -2,7 +2,7 @@
  * @Author: huyongle 568055454@qq.com
  * @Date: 2023-12-26 00:59:03
  * @LastEditors: huyongle 568055454@qq.com
- * @LastEditTime: 2023-12-26 17:10:22
+ * @LastEditTime: 2023-12-27 19:41:05
  * @FilePath: \mood-blog-front\src\views\Article\components\Read\hooks\useCatalog.ts
  * @Description: markdown 目录生成
  * 
@@ -17,21 +17,36 @@ interface IToc {
   level: number;
 }
 
-export const useCatalog = (
-  { html, selector, referSelector, scrollDelay = 100, catalogLinkSelector }:
-    { html: string, selector: string, referSelector: string, scrollDelay?: number, catalogLinkSelector: string }) => {
+interface IUseCatalogOptions {
+  html: string;  // markdown dom结构字符串
+  selector: string; // 目录的元素选择器字符串
+  referSelector: string;  // 定位目录的参考元素
+  scrollDelay?: number; // 滚动事件触发延时
+  catalogLinkSelector?: string; // 目录下的链接class
+  catalogLinkActive: string; // 链接高亮class
+  catalogScrollSelector?:string; // 目录有滚动条的dom
+}
+
+export const useCatalog = ({
+  html,
+  selector,
+  referSelector,
+  catalogLinkSelector,
+  catalogLinkActive,
+  scrollDelay = 100,
+  catalogScrollSelector
+}: IUseCatalogOptions) => {
 
   const parser = new DOMParser(); // html string 解析
   // eslint-disable-next-line no-undef
   let doms: NodeListOf<Element> = null;
-  let domObservers: IntersectionObserver[] = [];
   let catalogEl: HTMLElement = null; // 目录dom
   let referEl: HTMLElement = null; // 参考dom
   let scrollTimer: number = null;  // 滚动条定时器
   let referIntersectionObserver: IntersectionObserver = null; // 参考dom的observer
   let progress: Ref<number> = ref(0);  // 阅读进度
   // eslint-disable-next-line no-undef
-  let catalogLinks: NodeListOf<Element> = null;
+  let catalogLinks: NodeListOf<Element> | HTMLElement[] = null;
   let catalogClickCb: Function = null;
 
   // 响应
@@ -108,29 +123,23 @@ export const useCatalog = (
    * @return {void}
    */
   const hightlightTitle = (): void => {
-    const observerCb = (dom: Element, index: number, entry: IntersectionObserverEntry) => {
-      console.log(dom, index, entry.boundingClientRect);
-      // domObservers[index].unobserve(dom);
-    }
-    if (!domObservers.length) {
-      doms.forEach((dom: Element, index: number) => {
-        if (index === 0) {
-          const id = dom.getAttribute('id');
-
-          const observer = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
-            entries.forEach((entry: IntersectionObserverEntry) => {
-              observerCb(dom, index, entry);
-            })
-          });
-          observer.observe(document.getElementById(id));
-          domObservers.push(observer);
-        }
-      });
-    } else {
-      doms.forEach((dom, index) => {
-        if (index === 0)
-          domObservers[index].observe(document.getElementById(htmlEscape(dom.getAttribute('id'))))
+    const index = Array.from(doms).findIndex(dom => {
+      const id = dom.getAttribute('id');
+      const rect = document.getElementById(id)?.getBoundingClientRect();
+      return rect.top <= 100 && rect.top >= -100;
+    });
+    if (index === -1) return;
+    const el = catalogLinks[index];
+    if (el && !el.classList.contains(catalogLinkActive)) {
+      const { top } = el.getBoundingClientRect();
+      const catalogScroll = document.querySelector(`.${catalogScrollSelector}`); // 有滚动条的目录dom
+      catalogScroll.scrollBy({
+        top: top - catalogScroll.clientHeight,
+        behavior: 'smooth'
       })
+      catalogLinks.forEach(link => link.classList.remove(catalogLinkActive))
+      el.classList.add(catalogLinkActive);
+
     }
   }
 
@@ -140,10 +149,10 @@ export const useCatalog = (
    */
   const processCatalogClick = (): Function => {
     function handleClick(el: Element) {
-      catalogLinks.forEach(link => link.classList.remove('el-link--active'))
+      catalogLinks.forEach(link => link.classList.remove(catalogLinkActive))
 
       setTimeout(() => {
-        (el as HTMLElement).classList.add('el-link--active')
+        (el as HTMLElement).classList.add(catalogLinkActive)
       }, 100);
     }
 
@@ -162,8 +171,8 @@ export const useCatalog = (
     clearTimeout(scrollTimer);
     scrollTimer = setTimeout(() => {
       processCatalogCeiling(catalogEl, referEl);
-      hightlightTitle();
     }, scrollDelay);
+    idleCallback(() => hightlightTitle())
   }
 
   /**
@@ -184,9 +193,9 @@ export const useCatalog = (
 
   onMounted(() => {
     setTimeout(() => {
-      catalogEl = document.querySelector(selector);
-      referEl = document.querySelector(referSelector);
-      catalogLinks = document.querySelectorAll(catalogLinkSelector);
+      catalogEl = document.querySelector(`.${selector}`);
+      referEl = document.querySelector(`.${referSelector}`);
+      catalogLinks = catalogLinkSelector ? document.querySelectorAll(`.${catalogLinkSelector}`) : Array.from(catalogEl.children) as HTMLElement[];
 
       catalogClickCb = processCatalogClick();
       window.addEventListener('resize', handleResize);

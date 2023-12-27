@@ -191,3 +191,13 @@ export const idleCallback = async (cb: Function): Promise<number> => {
     })
   })
 }
+
+/**
+ * @description: 去掉所有空格，返回纯文本内容
+ * @param {string} str 字符串
+ * @return {string}
+ */
+export const preText = (str: string): string => {
+  const reg = /\s+/g;
+  return str.replace(reg, ''); 
+}

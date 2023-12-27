@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<{
 const styles = computed(() => {
   return {
     width:'100%',
-    height: `calc(100vh - ${props.top}px)`,
+    minHeight: `calc(100vh - ${props.top}px)`,
     backgroundImage: `url(${props.imageUrl})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',

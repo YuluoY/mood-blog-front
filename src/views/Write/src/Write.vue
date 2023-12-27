@@ -127,7 +127,7 @@ const {
 <style lang="scss" scoped>
 @include b(write) {
   width: 100%;
-  height: calc(100vh - 60px);
+  min-height: calc(100vh - 60px);
 }
 
 @include be(write, editor) {

@@ -4,7 +4,7 @@ import { ExposeParam, ToolbarNames } from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
 import { ElMessage, UploadFile, UploadUserFile } from 'element-plus';
 import { IResponseTemplate } from '@/types/core/index.ts'
-import { toTrim } from '@/utils/core.ts';
+import { preText, toTrim } from '@/utils/core.ts';
 
 export const useEditor = ({
   editorRef,
@@ -149,10 +149,11 @@ export const useEditor = ({
    */
   const onSave = (v: string, h: Promise<string>): void => {
     isVisiableDialog.value = true;
-    writeStore.form.words = v.length;
     writeStore.form.userId = useUserStore().id;
     h.then((html) => {
       const doc = parser.parseFromString(html, 'text/html');
+      
+      writeStore.form.words = preText(doc.body.innerText)?.length;
       writeStore.form.title = toTrim(doc.querySelector('h1')?.innerText);
       writeStore.form.description = toTrim(doc.querySelector('blockquote')?.innerText);
       writeStore.setFormContent(html);

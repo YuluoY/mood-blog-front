@@ -36,9 +36,11 @@ import ArticleReadHero from './ArticleReadHero.vue';
 const { article } = useArticleRead()
 
 const { toc, progress } = useCatalog({
-  selector: '.y-read__catalog',
-  referSelector: '.y-read__inner',
-  catalogLinkSelector: '.el-link',
+  selector: 'y-read__catalog',
+  referSelector: 'y-read__inner',
+  catalogLinkSelector: 'el-link',
+  catalogLinkActive:'el-link--active',
+  catalogScrollSelector:'y-catalog__inner',
   html: article.value.content,
 })
 
@@ -77,7 +79,7 @@ onUnmounted(() => {
   height: auto;
   box-sizing: content-box;
   position: absolute;
-  top: 20px;
+  top: 79px; // 目录的top
   left: 0;
   z-index: 1;
 
