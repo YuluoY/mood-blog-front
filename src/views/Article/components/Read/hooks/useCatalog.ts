@@ -2,7 +2,7 @@
  * @Author: huyongle 568055454@qq.com
  * @Date: 2023-12-26 00:59:03
  * @LastEditors: huyongle 568055454@qq.com
- * @LastEditTime: 2023-12-27 19:41:05
+ * @LastEditTime: 2023-12-27 19:49:08
  * @FilePath: \mood-blog-front\src\views\Article\components\Read\hooks\useCatalog.ts
  * @Description: markdown 目录生成
  * 
@@ -102,14 +102,17 @@ export const useCatalog = ({
           if (top >= 0) {
             progress.value = 0;
           } else {
-            progress.value = Number((Math.abs(top) / (height - window.innerHeight) * 100).toFixed(2));
+            // 元素的上边距 / （元素的高度 - 视口高度） * 100
+            progress.value = Number((Math.abs(top) / (Math.floor(height) - window.innerHeight) * 100).toFixed(2));
           }
           if (top < -100) {
             el.style.position = 'fixed';
             el.style.left = `${refer.offsetLeft}px`
+            el.style.top = '79px'
           } else {
             el.style.position = 'absolute';
-            el.style.left = '0'
+            el.style.left = '0';
+            el.style.top = '20px'
           }
           referIntersectionObserver.unobserve(refer);
         })
@@ -139,7 +142,6 @@ export const useCatalog = ({
       })
       catalogLinks.forEach(link => link.classList.remove(catalogLinkActive))
       el.classList.add(catalogLinkActive);
-
     }
   }
 
