@@ -2,7 +2,7 @@
  * @Author: huyongle 568055454@qq.com
  * @Date: 2023-12-26 00:59:03
  * @LastEditors: huyongle 568055454@qq.com
- * @LastEditTime: 2023-12-27 19:49:08
+ * @LastEditTime: 2023-12-27 21:16:14
  * @FilePath: \mood-blog-front\src\views\Article\components\Read\hooks\useCatalog.ts
  * @Description: markdown 目录生成
  * 
@@ -24,7 +24,7 @@ interface IUseCatalogOptions {
   scrollDelay?: number; // 滚动事件触发延时
   catalogLinkSelector?: string; // 目录下的链接class
   catalogLinkActive: string; // 链接高亮class
-  catalogScrollSelector?:string; // 目录有滚动条的dom
+  catalogScrollSelector?: string; // 目录有滚动条的dom
 }
 
 export const useCatalog = ({
@@ -53,6 +53,8 @@ export const useCatalog = ({
   let resizeTimer: number = null;
   let resizeDelay: number = 300;
 
+  // 点击目录标题  点击目录标题时不触发滚动效果
+  let isClickLinkTitle: boolean = false;
 
   /**
    * @description: 特殊字符替换
@@ -82,7 +84,7 @@ export const useCatalog = ({
     doms.forEach((item) => {
       const level = parseInt(item.tagName[1], 10);
       toc.push({
-        anchor: `#${htmlEscape(item.textContent)}`,
+        anchor: `#${htmlEscape(item.getAttribute('id'))}`,
         text: item.textContent,
         level
       })
@@ -103,16 +105,14 @@ export const useCatalog = ({
             progress.value = 0;
           } else {
             // 元素的上边距 / （元素的高度 - 视口高度） * 100
-            progress.value = Number((Math.abs(top) / (Math.floor(height) - window.innerHeight) * 100).toFixed(2));
+            progress.value = (Math.floor(Math.abs(top) / (height - window.innerHeight) * 100));
           }
           if (top < -100) {
             el.style.position = 'fixed';
             el.style.left = `${refer.offsetLeft}px`
-            el.style.top = '79px'
           } else {
             el.style.position = 'absolute';
             el.style.left = '0';
-            el.style.top = '20px'
           }
           referIntersectionObserver.unobserve(refer);
         })
@@ -126,11 +126,18 @@ export const useCatalog = ({
    * @return {void}
    */
   const hightlightTitle = (): void => {
-    const index = Array.from(doms).findIndex(dom => {
-      const id = dom.getAttribute('id');
-      const rect = document.getElementById(id)?.getBoundingClientRect();
-      return rect.top <= 100 && rect.top >= -100;
-    });
+    if (isClickLinkTitle) return;
+    let index = 0;
+    
+    if (progress.value >= 100) {
+      index = doms.length - 1;
+    } else {
+      index = Array.from(doms).findIndex(dom => {
+        const id = dom.getAttribute('id');
+        const rect = document.getElementById(id)?.getBoundingClientRect();
+        return rect.top <= 100 && rect.top >= -100;
+      });
+    }
     if (index === -1) return;
     const el = catalogLinks[index];
     if (el && !el.classList.contains(catalogLinkActive)) {
@@ -151,10 +158,12 @@ export const useCatalog = ({
    */
   const processCatalogClick = (): Function => {
     function handleClick(el: Element) {
+      isClickLinkTitle = true;
       catalogLinks.forEach(link => link.classList.remove(catalogLinkActive))
 
       setTimeout(() => {
-        (el as HTMLElement).classList.add(catalogLinkActive)
+        (el as HTMLElement).classList.add(catalogLinkActive);
+        isClickLinkTitle = false;
       }, 100);
     }
 

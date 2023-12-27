@@ -28,7 +28,7 @@ export const useEditor = ({
     {
       prop: 'title',
       label: '标题',
-      labelWidth:'70',
+      labelWidth: '70',
       rules: [
         { required: true, message: '请输入标题', trigger: 'blur' },
       ],
@@ -152,11 +152,21 @@ export const useEditor = ({
     writeStore.form.userId = useUserStore().id;
     h.then((html) => {
       const doc = parser.parseFromString(html, 'text/html');
-      
-      writeStore.form.words = preText(doc.body.innerText)?.length;
-      writeStore.form.title = toTrim(doc.querySelector('h1')?.innerText);
-      writeStore.form.description = toTrim(doc.querySelector('blockquote')?.innerText);
-      writeStore.setFormContent(html);
+
+      // 处理标题id可能重复的问题
+      const titles = doc.querySelectorAll('h1,h2,h3');
+      titles.forEach(dom => {
+        const id = dom.getAttribute('id');
+        const line = dom.getAttribute('data-line');
+        doc.getElementById(id)?.setAttribute('id', `${id}-${line}`)
+      })
+
+      setTimeout(() => {
+        writeStore.form.words = preText(doc.body.innerText)?.length;
+        writeStore.form.title = toTrim(doc.querySelector('h1')?.innerText);
+        writeStore.form.description = toTrim(doc.querySelector('blockquote')?.innerText);
+        writeStore.setFormContent(doc.body.innerHTML);
+      }, 100);
     })
   }
 
