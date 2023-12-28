@@ -26,16 +26,20 @@ import { useWaterfall } from '../hooks/useWaterfall.ts'
 const { onLoadMore, onViewArticle } = await useHome()
 const { raw } = useWaterfall({
   container: '.y-homeList__waterfall',
-  breakpoint:[
+  breakpoint: [
     {
-      point: 768,
-      column: 2,
+      point: 1500,
+      column: 3,
     },
     {
       point: 1200,
-      column: 3,
-    }
-  ]
+      column: 2,
+    },
+    {
+      point: 768,
+      column: 1,
+    },
+  ],
 })
 </script>
 

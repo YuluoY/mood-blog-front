@@ -9,7 +9,7 @@ import {useMainStore} from "@/store/mainStore.ts";
 export const useHome = async () => {
 
     let page = 1;
-    let limit = 10;
+    let limit = 5;
     const {t} = useI18n();
     const articleStore = useArticleStore();
     const mainStore = useMainStore();

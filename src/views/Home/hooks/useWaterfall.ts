@@ -1,6 +1,6 @@
 import { CSSProperties, onUnmounted } from "vue";
 import { injectStyle, injectProp, getStyle } from '@/utils/dom.ts'
-import { IUseWaterfallOptions, IUseWaterfallOptionsBreakpoint, IUseWaterfallResult } from "../types/index.ts";
+import { IUseWaterfallOptions, IUseWaterfallResult } from "../types/index.ts";
 
 
 export const useWaterfall = (options: Partial<IUseWaterfallOptions>): IUseWaterfallResult => {
@@ -16,16 +16,18 @@ export const useWaterfall = (options: Partial<IUseWaterfallOptions>): IUseWaterf
         topAnimateDelay: 300,
         animateEase: 'ease'
     }
+    // options保留默认设置和用户参数设置
     options = { ...defaultOpts, ...options };
+
+    // opts用于动态更改设置
     const opts: Partial<IUseWaterfallOptions> = reactive({
         ...JSON.parse(JSON.stringify(options)), ...defaultOpts
     })
 
     let children: HTMLCollection = null; // 子元素集合
     let colWidth = 0; // 列宽
+    let containerObserver: MutationObserver = null; // 容器监测
     const colHeight: number[] = []; // 列高度
-
-    let matchMedias: { [key: string]: MediaQueryList } = {};
 
     /**
      * @description 获取列宽
@@ -79,7 +81,6 @@ export const useWaterfall = (options: Partial<IUseWaterfallOptions>): IUseWaterf
 
         const { force, column = opts.column, gap = opts.gap } = o;
 
-        console.log(column, gap)
         // 强制执行，表示重新计算整个瀑布流
         if (force) colHeight.length = 0;
 
@@ -93,15 +94,11 @@ export const useWaterfall = (options: Partial<IUseWaterfallOptions>): IUseWaterf
 
             // eslint-disable-next-line no-continue
             if (el.dataset.loaded === 'true' && !force) continue;
+
             injectStyle(el, 'width', `${colWidth}px`);  // 需要预先设置宽度，高度才能被正确计算
 
             // eslint-disable-next-line no-use-before-define
-            layout(el, i);
-
-            if (force) {
-                // eslint-disable-next-line no-use-before-define
-                setTimeout(() => layout(el, i), 300);
-            }
+            setTimeout(() => layout(el, i), 300);
         }
 
         function layout(el: HTMLElement, i: number) {
@@ -117,6 +114,7 @@ export const useWaterfall = (options: Partial<IUseWaterfallOptions>): IUseWaterf
                 left = i * colWidth + gap * i;
             }
             injectStyle(el, {
+                position: 'absolute',
                 top: `${top}px`,
                 left: `${left}px`,
             })
@@ -126,38 +124,42 @@ export const useWaterfall = (options: Partial<IUseWaterfallOptions>): IUseWaterf
     }
 
 
-    const changeMedia = (event?: MediaQueryListEvent, item?: Partial<IUseWaterfallOptionsBreakpoint>) => {
-        if (event.matches) {
-            opts.column = item.column;
-            opts.gap = item.gap;
-        } else {
-            opts.column = options.column;
-            opts.gap = options.gap;
-        }
-    }
     /**
-   * @description 断点响应处理
-   * @return {}
-   */
-    const handleBreakpoint = (): void => {
-        const { breakpoint } = opts
-        if (!breakpoint.length) return;
-
-        // 建立查询
-        if (!Object.keys(matchMedias).length) {
-            breakpoint.forEach((item: Partial<IUseWaterfallOptionsBreakpoint>) => {
-                const mediaQueryList = window.matchMedia(`(max-width:${item.point}px)`);
-                mediaQueryList.addEventListener('change', (event) => changeMedia(event, item))
-                matchMedias[item.point] = mediaQueryList;
+     * @description: 处理响应宽度断点
+     * @return {void}
+     */
+    const processBreakpoint = (): void => {
+        if (opts.breakpoint.length) {
+            opts.breakpoint.forEach(item => {
+                if (window.innerWidth <= item.point) {
+                    opts.column = item.column || options.column;
+                    opts.gap = item.gap || options.gap;
+                }
             })
+            // 如果当前宽度比断点最大值还大，就恢复默认
+            if (window.innerWidth > opts.breakpoint[0].point) {
+                opts.column = options.column;
+                opts.gap = options.gap;
+            }
         }
     }
 
-    const removeMatchMediaEventListener = () => {
-        Object.keys(matchMedias).forEach((key: string) => {
-            matchMedias[key].removeEventListener('change', changeMedia)
-        })
+    /**
+     * @description: 监测容器的子项，处理新增项
+     * @return {void}
+     */
+    const processContainerObserver = (): void => {
+        containerObserver = new MutationObserver(() => {
+            initLayout();
+        });
+        containerObserver.observe(opts.container as HTMLElement, {
+            subtree: false,
+            attributes: false,
+            characterData: false,
+            childList: true
+        });
     }
+
 
     /**
      * @description resize事件处理函数
@@ -166,14 +168,16 @@ export const useWaterfall = (options: Partial<IUseWaterfallOptions>): IUseWaterf
     const handleResize = (): void => {
         clearTimeout(opts.resizeTimer);
         opts.resizeTimer = setTimeout(() => {
-            initLayout({ force: true })
+            processBreakpoint();
+            initLayout({ force: true });
         }, opts.resizeDelay);
     }
 
     onMounted(() => {
         // 等待300ms，保证元素完全渲染
         setTimeout(() => {
-            if (opts.breakpoint.length) handleBreakpoint();
+            processContainerObserver();
+            if (opts.breakpoint.length) processBreakpoint();
             initLayout();
             if (opts.isResize) window.addEventListener('resize', handleResize);
         }, 300);
@@ -181,7 +185,7 @@ export const useWaterfall = (options: Partial<IUseWaterfallOptions>): IUseWaterf
 
     onUnmounted(() => {
         if (opts.isResize) window.removeEventListener('resize', handleResize);
-        removeMatchMediaEventListener();
+        if(containerObserver) containerObserver.disconnect();
     });
 
     return {
