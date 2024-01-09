@@ -58,7 +58,7 @@ const props = withDefaults(
 )
 
 const calculateTimeCircle = computed(() => {
-  return `${(props.article.words / 400 || 0).toFixed(2)}分钟`
+  return `${(props.article.words / 500 || 0).toFixed(2)}分钟`
 })
 
 const calculateWords = computed(() => {

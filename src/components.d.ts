@@ -41,6 +41,7 @@ declare module 'vue' {
     MForm: typeof import('./components/global/MForm/src/MForm.vue')['default']
     MHero: typeof import('./components/global/MHero/src/MHero.vue')['default']
     Nav: typeof import('./components/Nav/src/Nav.vue')['default']
+    NavDropMenu: typeof import('./components/Nav/src/NavDropMenu.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Search: typeof import('./components/Search/src/Search.vue')['default']

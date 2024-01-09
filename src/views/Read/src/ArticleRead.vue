@@ -28,7 +28,7 @@
 <script setup lang="ts" name="ArticleRead">
 import { MdPreview } from 'md-editor-v3'
 
-import { useArticleRead } from '@/views/Article/components/Read/hooks/index.ts'
+import { useArticleRead } from '@/views/Read/hooks/index.ts'
 import { getStyle, injectStyle } from '@/utils/dom.ts'
 import { useCatalog } from '../hooks/useCatalog.ts'
 import ArticleReadHero from './ArticleReadHero.vue';

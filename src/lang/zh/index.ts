@@ -9,8 +9,12 @@ export default {
   head: {
     nav: {
       Home: '首页',
-      Article: '文章',
-      Space: '空间',
+      Category:'分类',
+      Tech: '技术文章',
+      Life: '生活随感',
+      Project: '个人项目',
+      Note: '学习笔记',
+      Archive: '归档',
       Write: '撰写',
       About: '关于',
       Log: '日志',
@@ -48,7 +52,7 @@ export default {
   },
   homeView: {
     loadMoreArticleError: '加载更多文章失败',
-    loadMoreText:'加载更多...'
+    loadMoreText: '加载更多...'
   },
   writeView: {
     editorPlaceholder: '来都来了，这不整一篇高质量文章？👻',

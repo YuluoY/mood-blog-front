@@ -1,8 +1,7 @@
-import {RouteRecordRaw, createRouter, createWebHistory, RouterOptions} from 'vue-router'
+import { RouteRecordRaw, createRouter, createWebHistory, RouterOptions } from 'vue-router'
 import { promission } from './promission.ts'
 
 const HomeView = () => import('@/views/Home/index.ts')
-const ArticleView = () => import('@/views/Article/index.ts')
 const WriteView = () => import('@/views/Write/index.ts')
 const AboutView = () => import('@/views/About/index.ts')
 const LogView = () => import('@/views/Log/index.ts')
@@ -10,7 +9,11 @@ const SettingView = () => import('@/views/Setting/index.ts')
 
 const Page404View = () => import('@/views/404.vue')
 
-const ArticleReadView = () => import('@/views/Article/components/Read/index.ts')
+const ArticleReadView = () => import('@/views/Read/index.ts')
+
+const ArchiveView = () => import('@/views/Archive/index.ts')
+
+const CategoryTemplate = () => import('@/views/Category/index.ts')
 
 export const staticRoutes: Readonly<RouteRecordRaw[]> = [
   {
@@ -21,19 +24,50 @@ export const staticRoutes: Readonly<RouteRecordRaw[]> = [
     path: '/',
     name: 'Home',
     component: HomeView,
-    meta: { roles: ['visitor'], title: 'Home', icon: 'home-view', affix: true, cover:'' },
+    meta: { roles: ['visitor'], title: 'Home', icon: 'home-view', affix: true, cover: '' },
   },
   {
-    path: '/article',
-    name: 'Article',
-    component: ArticleView,
-    meta: { roles: ['visitor'], title: 'Article', icon: 'article-view', affix: true },
+    path: '/category',
+    name: 'Category',
+    meta: { roles: ['visitor'], title: 'Category', icon: 'category-view', affix: true },
+    children: [
+      {
+        path: '/category/tech',
+        name: 'Tech',
+        component: CategoryTemplate,
+        meta: { roles: ['visitor'], title: 'Tech', affix: false },
+      },
+      {
+        path: '/category/life',
+        name: 'Life',
+        component: CategoryTemplate,
+        meta: { roles: ['visitor'], title: 'Life', affix: false },
+      },
+      {
+        path: '/category/project',
+        name: 'Project',
+        component: CategoryTemplate,
+        meta: { roles: ['visitor'], title: 'Project', affix: false },
+      },
+      {
+        path: '/category/note',
+        name: 'Note',
+        component: CategoryTemplate,
+        meta: { roles: ['visitor'], title: 'Note', affix: false },
+      },
+    ]
   },
   {
     path: '/article/read/:id',
     name: 'ArticleRead',
     component: ArticleReadView,
     meta: { roles: ['visitor'], title: 'Read', icon: 'read-view', affix: false },
+  },
+  {
+    path: '/archives',
+    name: 'Archives',
+    component: ArchiveView,
+    meta: { roles: ['visitor'], title: 'Archive', icon: 'archive-view', affix: true }
   },
   {
     path: '/write',
@@ -71,7 +105,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes: staticRoutes,
   strict: true, // applies to all routes
-  linkActiveClass:'y-router__link--active',
+  linkActiveClass: 'y-router__link--active',
   scrollBehavior: () => ({ left: 0, top: 0 }),
 } as RouterOptions)
 

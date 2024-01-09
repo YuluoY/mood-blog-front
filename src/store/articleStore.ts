@@ -26,7 +26,10 @@ export const useArticleStore = defineStore(StoreNames.Article, {
     async fetchArticlesByPage<T extends IArticle>(page?: number, limit?: number) {
       page = page || this.default.page;
       limit = limit || this.default.limit;
-      const res = await getArticlesByPage<T>(page, limit);
+      const res = await getArticlesByPage<T>(page, limit, {
+        sort: 'createdAt',
+        order: 'DESC'
+      });
       const { success, data, message } = res;
       if (success) {
         this.articleList = data.list as T[];

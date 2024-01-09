@@ -1,16 +1,16 @@
-import {getArticlesByPage} from "@/api/article.ts"
-import {IArticle} from "@/types/api/article.ts";
-import {ElMessage} from "element-plus";
-import {useArticleStore} from '@/store/articleStore.ts'
-import {useUserStore} from "@/store/userStore.ts";
-import {dateDiffNow} from '@/utils/dayjs.ts'
-import {useMainStore} from "@/store/mainStore.ts";
+import { getArticlesByPage } from "@/api/article.ts"
+import { IArticle } from "@/types/api/article.ts";
+import { ElMessage } from "element-plus";
+import { useArticleStore } from '@/store/articleStore.ts'
+import { useUserStore } from "@/store/userStore.ts";
+import { dateDiffNow } from '@/utils/dayjs.ts'
+import { useMainStore } from "@/store/mainStore.ts";
 
 export const useHome = async () => {
 
     let page = 1;
     let limit = 5;
-    const {t} = useI18n();
+    const { t } = useI18n();
     const articleStore = useArticleStore();
     const mainStore = useMainStore();
     const router = useRouter();
@@ -21,7 +21,10 @@ export const useHome = async () => {
 
     const onLoadMore = async () => {
         page += 1;
-        const {data, success, message} = await getArticlesByPage<IArticle>(page, limit);
+        const { data, success, message } = await getArticlesByPage<IArticle>(page, limit, {
+            sort: 'createdAt',
+            order: 'DESC'
+        });
         if (success) {
             articleStore.articleList.push(...data.list);
         } else {
@@ -29,12 +32,12 @@ export const useHome = async () => {
         }
     }
 
-    const onViewArticle = (article:IArticle) => {
+    const onViewArticle = (article: IArticle) => {
         console.log(article);
         router.push({
-            name:'ArticleRead',
+            name: 'ArticleRead',
             params: {
-                id:article.id
+                id: article.id
             }
         })
     }

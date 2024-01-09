@@ -4,7 +4,8 @@ import { RouteLocationNormalized, Router } from 'vue-router'
 
 export const promission = (router: Router) => {
   router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next) => {
-    NProgress.start()
+    if(to.name === 'Category') return;
+    NProgress.start();
     next()
   })
 

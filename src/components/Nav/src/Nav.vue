@@ -6,11 +6,18 @@
           class="y-nav__link y-router__link--active y-ml-20"
           v-if="route.meta.affix"
           :key="String(route.name)"
+          @click="handleNavClick"
         >
           <RouterLink :to="route.path" class="y-flex y-f-align-center">
-            <svg-icon :name="route.meta.icon"></svg-icon>
-            <span class="y-nav__title">{{ $t(`head.nav.${route.meta.title}`) }}</span>
+            <svg-icon v-if="route.meta.icon" :name="route.meta.icon" size="1.2"></svg-icon>
+            <span class="y-nav__title y-mr-6">{{ $t(`head.nav.${route.meta.title}`) }}</span>
+            <svg-icon name="drop-2" size=".8" v-if="route?.children.length"></svg-icon>
           </RouterLink>
+          <NavDropMenu
+            v-if="route?.children.length"
+            :items="route.children"
+            @handleSubNavClick="handleSubNavClick"
+          />
         </div>
       </template>
     </div>
@@ -18,6 +25,7 @@
 </template>
 <script setup lang="ts" name="Nav">
 import { RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router'
+import { useNav } from '../hooks/index.ts'
 
 withDefaults(
   defineProps<{
@@ -26,9 +34,12 @@ withDefaults(
   }>(),
   {}
 )
+
+const { handleSubNavClick, handleNavClick } = useNav()
 </script>
 <style scoped lang="scss">
 @include be(nav, link) {
+  position: relative;
   fill: var(--el-text-color-primary) !important;
 
   a {
@@ -47,5 +58,4 @@ withDefaults(
 @include be(nav, title) {
   margin-left: 6px;
 }
-
 </style>

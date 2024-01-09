@@ -1,12 +1,11 @@
 import { useArticleStore } from "@/store/articleStore.ts";
 
 export const useArticleRead = () => {
-    const router = useRoute();
+    const route = useRoute();
     const articleStore = useArticleStore();
 
-    const article = articleStore.articleList.filter((item) => item.id === router.params.id)[0];
+    const article = articleStore.articleList.filter((item) => item.id === route.params.id)[0];
 
-    
 
     return {
         article: computed(() => article),
