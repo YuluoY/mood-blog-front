@@ -29,8 +29,13 @@ export const useNav = (
     }
   }
 
-  
+  const subMenuWatcher = watch(currentRoute, () => {
+    injectStyle(document.querySelector(`.${subMenuClassname}`), 'height', `0px`)
+  })
 
+  onUnmounted(() => {
+    subMenuWatcher();
+  })
 
 
   return {

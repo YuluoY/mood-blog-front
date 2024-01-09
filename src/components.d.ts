@@ -37,6 +37,7 @@ declare module 'vue' {
     Main: typeof import('./components/Layout/Main/index.vue')['default']
     MBackTop: typeof import('./components/global/MBackTop/src/MBackTop.vue')['default']
     MBackToTop: typeof import('./components/global/MBackToTop/src/MBackToTop.vue')['default']
+    MBadge: typeof import('./components/global/MBadge/src/MBadge.vue')['default']
     MDrop: typeof import('./components/global/MDrop/src/MDrop.vue')['default']
     MForm: typeof import('./components/global/MForm/src/MForm.vue')['default']
     MHero: typeof import('./components/global/MHero/src/MHero.vue')['default']
