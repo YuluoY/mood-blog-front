@@ -1,5 +1,5 @@
 <template>
-  <div class="y-head y-pl-40 y-pr-40">
+  <div class="y-head y-pl-40 y-pr-40" v-if="isShow">
     <div class="y-head__inner y-flex y-f-row y-f-justify-between y-f-align-center">
       <div class="y-head__left y-flex y-f-align-center">
         <div class="y-head__avatar y-mr-10">
@@ -28,7 +28,6 @@
             <span>登录</span>
           </el-button>
         </div>
-     
       </div>
     </div>
   </div>
@@ -48,6 +47,9 @@ const props = withDefaults(
     loginRef: null,
   }
 )
+const isShow = ref<boolean>(true)
+
+const headBlackList = ['/admin']
 
 const com = reactive({
   loginRef: props.loginRef,
@@ -61,8 +63,16 @@ const watchEffectInstance = watchEffect(() => {
   com.loginRef = props.loginRef
 })
 
+const routeWatcher = watch(
+  () => router.currentRoute.value,
+  () => {
+    isShow.value = !headBlackList.includes(router.currentRoute.value.path)
+  }
+)
+
 onUnmounted(() => {
   watchEffectInstance()
+  routeWatcher()
 })
 </script>
 

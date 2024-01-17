@@ -26,8 +26,8 @@
 import { ParticlesBg } from '@/plugins/VueParticles/index.ts'
 import { useMProgress } from '@/plugins/MProgress/index.ts'
 
-useMProgress()
-const loginRef = ref<Ref | null>(null)
+useMProgress();
+const loginRef = ref<Ref | null>(null);
 
 </script>
 

@@ -1,3 +1,12 @@
 import { RouteRecordRaw } from 'vue-router'
 
-export const dynamicRoutes: Readonly<RouteRecordRaw[]> = []
+const AdminView = () => import('@/views/Admin/index.ts')
+
+export const dynamicRoutes: Readonly<RouteRecordRaw[]> = [
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: AdminView,
+    children: []
+  }
+]

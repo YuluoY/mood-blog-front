@@ -44,7 +44,7 @@
         />
         <MBadge
           left-text="UI"
-          right-text="ElelmentPlus"
+          right-text="Elelment Plus"
           right-color="#409EFF"
           href="https://github.com/element-plus/element-plus"
         />

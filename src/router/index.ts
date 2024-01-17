@@ -27,6 +27,12 @@ export const staticRoutes: Readonly<RouteRecordRaw[]> = [
     meta: { roles: ['visitor'], title: 'Home', icon: 'home-view', affix: true, cover: '' },
   },
   {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('@/views/Admin/index.ts'),
+    children: []
+  },
+  {
     path: '/category',
     name: 'Category',
     meta: { roles: ['visitor'], title: 'Category', icon: 'category-view', affix: true },
