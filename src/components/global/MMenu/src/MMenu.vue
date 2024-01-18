@@ -1,38 +1,40 @@
 <template>
-  <div class="m-menu" v-if="routes && routes.length">
+  <div class="m-menu">
     <el-menu
       :router="isRouter"
       :default-active="isRouter ? route.path : defaultActive"
       class="el-menu-vertical-demo m-admin__menu"
       :collapse="isCollapse"
     >
-      <m-menu-item
-        v-for="(route, index) in routes"
-        :route="route"
-        :index="index.toString()"
-        :key="index"
-      ></m-menu-item>
+      <slot name="m-menu-prev"></slot>
+      <slot></slot>
     </el-menu>
   </div>
 </template>
 <script setup lang="ts">
-import { RouteRecordRaw } from 'vue-router'
-
 withDefaults(
   defineProps<{
-    routes: Readonly<RouteRecordRaw[]> | null
     isRouter?: boolean
     defaultActive?: string
+    isCollapse?: boolean
   }>(),
   {
     isRouter: false,
     defaultActive: '',
+    isCollapse: false,
   }
 )
-const route = useRoute();
-const isCollapse = ref(false)
+const route = useRoute()
 </script>
 <style scoped lang="scss">
+.m-menu {
+  height: inherit;
+}
+
+:deep(.el-menu) {
+  height: 100%;
+}
+
 :deep(.el-menu.m-admin__menu) {
   color: var(--m-admin-aside-text-color);
   fill: var(--m-admin-aside-text-color);

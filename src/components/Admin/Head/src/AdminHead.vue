@@ -35,6 +35,7 @@
 import { computed } from 'vue'
 import { useUserStore } from '@/store/userStore.ts'
 import { injectStyle } from '@/utils/dom.ts'
+import Mitt from '@/plugins/Mitt/index.ts';
 
 const router = useRouter()
 const userStore = computed(() => useUserStore())
@@ -57,18 +58,19 @@ const onQuit = () => {
 const onScaleAside = (event: Event) => {
   const target = event.target as HTMLDivElement
   const aside = document.querySelector('.y-admin__aside') as HTMLElement
-  const asideTop = document.querySelector('.y-aside__top') as HTMLElement
+  // const asideTop = document.querySelector('.y-aside__top') as HTMLElement
   if (target.classList.contains('isActive')) {
     target.classList.remove('isActive')
     isScaleAside.value = false
-    injectStyle(aside, 'width', '50px')
+    injectStyle(aside, 'width', '60px')
   } else {
     target.classList.add('isActive')
     isScaleAside.value = true
     injectStyle(aside, 'width', '200px')
   }
-  injectStyle(asideTop, 'opacity', '0')
-  setTimeout(() => injectStyle(asideTop, 'opacity', '1'), 300)
+  // injectStyle(asideTop, 'opacity', '0')
+  // setTimeout(() => injectStyle(asideTop, 'opacity', '1'), 300)
+  Mitt.emit('onChangeCollapse')
 }
 </script>
 

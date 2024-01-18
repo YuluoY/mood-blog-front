@@ -4,7 +4,7 @@
       <template #title>
         <div class="m-menu__item--title">
           <svg-icon :name="route.meta.icon" v-if="route.meta.icon"></svg-icon>
-          <span>{{ route.meta.title }}</span>
+          <span v-show="!isCollapse">{{ route.meta.title }}</span>
         </div>
       </template>
       <template v-for="(r, i) in route.children" :key="`${index}-${i}`">
@@ -15,7 +15,7 @@
       <template #title>
         <div class="m-menu__item--title">
           <svg-icon :name="route.meta.icon" v-if="route.meta.icon"></svg-icon>
-          <span>{{ route.meta.title }}</span>
+          <span v-show="!isCollapse">{{ route.meta.title }}</span>
         </div>
       </template>
     </el-menu-item>
@@ -28,8 +28,11 @@ withDefaults(
   defineProps<{
     route: Readonly<RouteRecordRaw> | null
     index: string
+    isCollapse?: boolean
   }>(),
-  {}
+  {
+    isCollapse: false,
+  }
 )
 </script>
 <style scoped lang="scss">
