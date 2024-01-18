@@ -6,14 +6,25 @@ const WriteView = () => import('@/views/Write/index.ts')
 const AboutView = () => import('@/views/About/index.ts')
 const LogView = () => import('@/views/Log/index.ts')
 const SettingView = () => import('@/views/Setting/index.ts')
-
 const Page404View = () => import('@/views/404.vue')
-
 const ArticleReadView = () => import('@/views/Read/index.ts')
-
 const ArchiveView = () => import('@/views/Archive/index.ts')
-
 const CategoryTemplate = () => import('@/views/Category/index.ts')
+
+// 博客管理
+const UserManagerView = () => import('@/views/Admin/BlogManager/UserManager.vue');
+const ArticleManagerView = () => import('@/views/Admin/BlogManager/ArticleManager.vue');
+const CategoryManagerView = () => import('@/views/Admin/BlogManager/CategoryManager.vue');
+const TagManagerView = () => import('@/views/Admin/BlogManager/TagManager.vue');
+const CommentManagerView = () => import('@/views/Admin/BlogManager/CommentManager.vue');
+
+// 页面管理
+const WebsiteManagerView = () => import('@/views/Admin/PageManager/WebsiteManager.vue');
+const FriendManagerView = () => import('@/views/Admin/PageManager/FriendManager.vue');
+const AboutManagerView = () => import('@/views/Admin/PageManager/AboutManager.vue');
+
+// 数据统计
+const VisitorManagerView = () => import('@/views/Admin/StatManager/VisitorManager.vue');
 
 export const staticRoutes: Readonly<RouteRecordRaw[]> = [
   {
@@ -30,7 +41,83 @@ export const staticRoutes: Readonly<RouteRecordRaw[]> = [
     path: '/admin',
     name: 'Admin',
     component: () => import('@/views/Admin/index.ts'),
-    children: []
+    children: [
+      {
+        path: '/admin/blogManager',
+        redirect: '/admin/articleManager',
+        meta: { title: '博客管理', icon: 'blog-manager' },
+        children: [
+          {
+            path: '/admin/userManager',
+            name: 'UserManager',
+            component: UserManagerView,
+            meta: { title: '用户管理', icon: 'user-manager' }
+          },
+          {
+            path: '/admin/articleManager',
+            name: 'ArticleManager',
+            component: ArticleManagerView,
+            meta: { title: '文章管理', icon: 'article-manager' }
+          },
+          {
+            path: '/admin/categoryManager',
+            name: 'CategoryManager',
+            component: CategoryManagerView,
+            meta: { title: '分类管理', icon: 'category-manager' }
+          },
+          {
+            path: '/admin/tagManager',
+            name: 'TagManager',
+            component: TagManagerView,
+            meta: { title: '标签管理', icon: 'tag-manager' }
+          },
+          {
+            path: '/admin/commentManager',
+            name: 'CommentManager',
+            component: CommentManagerView,
+            meta: { title: '评论管理', icon: 'comment-manager' }
+          }
+        ]
+      },
+      {
+        path: '/admin/pageManager',
+        redirect: '/admin/websiteManager',
+        meta: { title: '页面管理', icon: 'website-manager' },
+        children: [
+          {
+            path: '/admin/websiteManager',
+            name: 'WebsiteManager',
+            component: WebsiteManagerView,
+            meta: { title: '站点管理', icon: 'website-manager' },
+          },
+          {
+            path: '/admin/friendManager',
+            name: 'FriendManager',
+            component: FriendManagerView,
+            meta: { title: '友链管理', icon: 'friend-manager' },
+          },
+          {
+            path: '/admin/aboutManager',
+            name: 'AboutManager',
+            component: AboutManagerView,
+            meta: { title: '关于我', icon: 'about-manager' },
+          }
+        ]
+      },
+      {
+        path: '/admin/statManager',
+        redirect: '/admin/visitorManager',
+        meta: { title: '数据统计', icon: 'data-manager' },
+        children: [
+          {
+            path: '/admin/visitorManager',
+            name: 'VisitorManager',
+            component: VisitorManagerView,
+            meta: { title: '访客统计', icon: 'visitor-manager' }
+          }
+        ]
+      }
+    ]
   },
   {
     path: '/category',

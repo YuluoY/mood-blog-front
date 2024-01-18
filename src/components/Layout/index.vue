@@ -1,6 +1,6 @@
 <template>
   <el-container class="y-layout" direction="vertical">
-    <Head :loginRef="loginRef">
+    <Head :loginRef="loginRef" v-if="isShow">
       <template #Search>
         <Search></Search>
       </template>
@@ -19,16 +19,30 @@
     <Sider></Sider>
     <MBackTop></MBackTop>
   </el-container>
-  <ParticlesBg />
+  <ParticlesBg v-if="isShow"/>
 </template>
 
 <script setup lang="ts" name="Layout">
 import { ParticlesBg } from '@/plugins/VueParticles/index.ts'
 import { useMProgress } from '@/plugins/MProgress/index.ts'
 
-useMProgress();
-const loginRef = ref<Ref | null>(null);
+const router = useRouter();
+useMProgress()
+const loginRef = ref<Ref | null>(null)
 
+
+const isShow = ref<boolean>(true)
+const headBlackList = ['/admin']
+const routeWatcher = watch(
+  () => router.currentRoute.value,
+  () => {
+    isShow.value = !headBlackList.every((path) => router.currentRoute.value.path.indexOf(path) > -1)
+  }
+)
+
+onUnmounted(() => {
+  routeWatcher()
+})
 </script>
 
 <style scoped lang="scss">

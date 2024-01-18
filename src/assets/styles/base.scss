@@ -14,6 +14,12 @@
   html.dark {
     --el-bg-color: #1a1a1a;
   }
+  --m-admin-aside-menu-bg-color: #1f2d3d; // admin 侧边菜单背景色
+  --m-admin-aside-sub-menu-bg-color: rgb(48, 65, 86); // admin 有子菜单项的标题背景色
+  --m-admin-aside-title-bg-color: #2b2f3a; // admin 侧边标题背景色
+  --m-admin-aside-text-color: rgb(191, 203, 217); // admin 文字颜色
+  --m-admin-aside-menu-hover-bg-color: #001528; // admin 菜单项悬浮背景色
+  --m-admin-aside-sub-menu-hover-bg-color: #263445;
 }
 
 html.dark {
@@ -45,7 +51,7 @@ img {
 a {
   text-decoration: none;
   color: var(--el-color-primary-light-3);
-  transition: color .3s ease-in-out;
+  transition: color 0.3s ease-in-out;
   &:hover {
     color: var(--el-color-primary);
   }
@@ -67,7 +73,6 @@ a {
 #tsparticles canvas {
   background-color: var(--el-bg-color) !important;
 }
-
 
 // 修改阅读进度条样式
 .m-progress__bar {

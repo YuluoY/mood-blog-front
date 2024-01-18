@@ -4,10 +4,17 @@
       <img class="y-logo" v-lazy="'http://localhost:3000/avatar.png'" />
       <h1 class="y-title">雨落BLOG's Admin</h1>
     </div>
+    <div class="y-aside__menu">
+      <MMenu :routes="adminRoute.children" :isRouter="true"/>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
-const asideRef = ref<HTMLElement | null>()
+
+const router = useRouter();
+
+const adminRoute = router.getRoutes().find(route => route.name === 'Admin');
+
 
 
 </script>
@@ -15,9 +22,9 @@ const asideRef = ref<HTMLElement | null>()
 .y-admin__aside {
   width: 200px;
   height: 100vh;
-  background-color: #304156;
+  background-color: var(--m-admin-aside-menu-bg-color);
   color: var(--el-color-primary-light-9);
-  transition: width var(--el-transition-duration), opacity var(--el-transition-duration);
+  transition: width var(--el-transition-duration), opacity 1s  ease-in-out;
   will-change: width, opacity;
 
   .y-aside__top {
@@ -25,8 +32,7 @@ const asideRef = ref<HTMLElement | null>()
     justify-content: center;
     align-items: center;
     height: 60px;
-    border-bottom: solid 1px var(--el-border-color);
-    background-color: #2b2f3a;
+    background-color: var(--m-admin-aside-title-bg-color);
     padding: 10px;
 
     .y-logo {
