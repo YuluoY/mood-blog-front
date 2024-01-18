@@ -33,16 +33,12 @@ const loginRef = ref<Ref | null>(null)
 
 const isShow = ref<boolean>(true)
 const headBlackList = ['/admin']
-const routeWatcher = watch(
+watch(
   () => router.currentRoute.value,
   () => {
     isShow.value = !headBlackList.every((path) => router.currentRoute.value.path.indexOf(path) > -1)
   }
 )
-
-onUnmounted(() => {
-  routeWatcher()
-})
 </script>
 
 <style scoped lang="scss">

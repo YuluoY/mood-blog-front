@@ -1,10 +1,12 @@
 import { createApp } from 'vue'
 import ElementPlus from 'element-plus'
+// import 'element-plus/dist/index.css'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 import App from './App.vue'
 import 'element-plus/theme-chalk/el-message.css'
+import 'element-plus/theme-chalk/el-message-box.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import '@/assets/styles/index.scss' // 本地项目全局样式导入
 import i18n from './lang/index.ts' // Internationalization
@@ -17,8 +19,8 @@ import { globalComponents } from './components/global/index.ts' // Register glob
 import directives from './directive/index.ts' // Register global directives
 import VueLazy from './plugins/VueLazy/index.ts' // Register global directives
 import VueParticles from './plugins/VueParticles/index.ts' // 粒子背景动画效果
-
 import 'md-editor-v3/lib/preview.css'
+
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)

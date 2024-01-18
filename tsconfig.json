@@ -49,6 +49,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "src/**/*.d.ts",
+    "src/**/*.mjs",
     "src/auto-import.d.ts",
     "src/views/**/*.vue",
   ],

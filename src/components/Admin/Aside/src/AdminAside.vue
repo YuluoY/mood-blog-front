@@ -13,6 +13,10 @@
 <script setup lang="ts">
 </script>
 <style scoped lang="scss">
+:deep(.el-sub-menu__icon-arrow) {
+  margin-right: -5px !important;
+}
+
 .y-admin__aside {
   // width: 200px;
   // height: 100vh;
