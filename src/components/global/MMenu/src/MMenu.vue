@@ -66,6 +66,8 @@ const route = useRoute()
   }
 
   &.is-active {
+    fill: var(--el-color-primary);
+    color: var(--el-color-primary);
     background-color: var(--m-admin-aside-menu-hover-bg-color) !important;
   }
 }

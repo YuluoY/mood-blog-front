@@ -12,12 +12,10 @@
       </template>
     </el-sub-menu>
     <el-menu-item v-else :index="route.path">
-      <template #title>
-        <div class="m-menu__item--title">
-          <svg-icon :name="route.meta.icon" v-if="route.meta.icon"></svg-icon>
-          <span v-show="!isCollapse">{{ route.meta.title }}</span>
-        </div>
-      </template>
+      <div class="m-menu__item--title">
+        <svg-icon :name="route.meta.icon" v-if="route.meta.icon"></svg-icon>
+        <span v-show="!isCollapse">{{ route.meta.title }}</span>
+      </div>
     </el-menu-item>
   </div>
 </template>

@@ -11,11 +11,11 @@
         <el-button type="danger" @click="emit('onChangeDelVisible')">{{ delBtnText }}</el-button>
         <slot name="del"></slot>
       </div>
-      <div class="y-update__btn" v-if="$slots.update">
-        <el-button type="warning" @click="emit('onChangeUpdateVisible')">
+      <div class="y-modify__btn" v-if="$slots.modify">
+        <el-button type="warning" @click="emit('onChangeModifyVisible')">
           {{ updateBtnText }}
         </el-button>
-        <slot name="update"></slot>
+        <slot name="modify"></slot>
       </div>
     </div>
   </el-card>
@@ -41,9 +41,9 @@ withDefaults(defineProps<Partial<IAdminTemplateProps>>(), {
   background: true,
   addBtnText: '新增',
   delBtnText: '删除',
-  updateBtnText: '更新',
+  updateBtnText: '修改',
 })
-defineEmits(['onChangeAddVisible', 'onChangeDelVisible', 'onChangeUpdateVisible'])
+defineEmits(['onChangeAddVisible', 'onChangeDelVisible', 'onChangeModifyVisible'])
 const { emit } = getCurrentInstance()
 
 const handleSizeChange = (val: number) => {

@@ -11,6 +11,10 @@ const ArticleReadView = () => import('@/views/Read/index.ts')
 const ArchiveView = () => import('@/views/Archive/index.ts')
 const CategoryTemplate = () => import('@/views/Category/index.ts')
 
+
+// 仪表盘
+const DashbardView = () => import('@/views/Admin/Dashboard/index.ts');
+
 // 博客管理
 const UserManagerView = () => import('@/views/Admin/BlogManager/UserManager.vue');
 const ArticleManagerView = () => import('@/views/Admin/BlogManager/ArticleManager.vue');
@@ -42,6 +46,12 @@ export const staticRoutes: Readonly<RouteRecordRaw[]> = [
     name: 'Admin',
     component: () => import('@/views/Admin/index.ts'),
     children: [
+      {
+        path: '/admin/dashbard',
+        name: 'Dashbard',
+        component: DashbardView,
+        meta: { title: '仪表盘', icon: 'dashbard-manager' }
+      },
       {
         path: '/admin/blogManager',
         redirect: '/admin/articleManager',

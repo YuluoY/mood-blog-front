@@ -19,7 +19,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <m-pagination v-if="isPagination"></m-pagination>
+    <slot v-if="$slots.pagination" name="pagination"></slot>
   </div>
 </template>
 <script setup lang="ts">

@@ -12,7 +12,7 @@
         :small="small"
         :background="background"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="400"
+        :total="total"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
       />
@@ -27,6 +27,7 @@ const props = withDefaults(defineProps<Partial<MPaginationProps>>(), {
   page: 1,
   limit: 10,
   small: false,
+  total: 0,
   background: true,
   pageSizes: () => [10, 20, 30, 40, 50],
 })

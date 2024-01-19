@@ -40,7 +40,6 @@
   height: 60px;
   background-color: var(--m-admin-aside-title-bg-color);
   padding: 10px;
-  min-width: 64px;
 
   .y-logo {
     width: 50px;

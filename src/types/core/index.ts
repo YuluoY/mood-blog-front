@@ -78,6 +78,7 @@ export interface IQainationQueryBase extends Partial<IResponseBaseData> {
 export interface IBaseApi {
   add: <T, D>(data: T & object) => Promise<IResponseTemplate<D | T>>
   getAll?: <T>() => Promise<IResponseTemplate<T>>
+  getById?: <T = any, D = any>(data: T & object) => Promise<IResponseTemplate<D>>
   update?: <T, D>(id: string, data: T & object) => Promise<IResponseTemplate<T | D>>
   remove: <T>(id: string | string[]) => Promise<IResponseTemplate<T>>
   paination: <T, Q = any>(page: number, limit: number, query?: Partial<IQainationQueryBase & Q>) => Promise<IResponseTemplate<IPaginationResponse<T>>>
