@@ -113,8 +113,8 @@ export default new (class Request {
     return this.instance.put<T>(url, data)
   }
 
-  public putch<T>(url: string, data?: object): Promise<any> {
-    return this.instance.put<T>(url, data)
+  public patch<T>(url: string, data?: object): Promise<any> {
+    return this.instance.patch<T>(url, data)
   }
 
   public delete<T>(url: string, params?: object): Promise<any> {

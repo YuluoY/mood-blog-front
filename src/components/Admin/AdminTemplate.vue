@@ -105,7 +105,13 @@ withDefaults(defineProps<Partial<IAdminTemplateProps>>(), {
 })
 const { emit } = getCurrentInstance()
 
-defineEmits(['onAddDialogClick', 'onDelDialogClick', 'onModifyDialogClick'])
+defineEmits([
+  'onAddDialogClick',
+  'onDelDialogClick',
+  'onModifyDialogClick',
+  'handleSizeChange',
+  'handleCurrentChange',
+])
 
 const dialogVisible = reactive({
   add: false,
@@ -123,12 +129,11 @@ const onChangeModifyDialogVisible = () => {
 }
 
 const handleSizeChange = (val: number) => {
-  // emit('handleSizeChange')
-  console.log('size change', val)
+  emit('handleSizeChange', val)
 }
 
 const handleCurrentChange = (val: number) => {
-  console.log('current change', val)
+  emit('handleCurrentChange', val)
 }
 </script>
 <style scoped lang="scss"></style>

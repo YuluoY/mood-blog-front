@@ -1,6 +1,6 @@
 <template>
   <div class="m-table">
-    <el-table :data="tableData" :border="border" :stripe="stripe" style="width: 100%">
+    <el-table :data="tableDataCopy" :border="border" :stripe="stripe" style="width: 100%">
       <el-table-column
         v-for="(c, index) in columnLabelMap"
         :key="index"
@@ -26,6 +26,14 @@
           <el-tooltip v-else-if="c.tip" :content="c.tip">
             <span>{{ row[c.prop] }}</span>
           </el-tooltip>
+          <el-switch
+            v-else-if="c.type === 'switch'"
+            v-model="row['swtichStatus']"
+            style="
+
+--el-switch-on-color: #13ce66"
+            @change="async () => await c.onSwitchChange(row)"
+          ></el-switch>
         </template>
       </el-table-column>
 
@@ -45,6 +53,8 @@
 import { ElMessageBox } from 'element-plus'
 import { MTableBaseMap, MTableProps } from '../types/index.ts'
 
+defineEmits(['handleEdit', 'handleDelete'])
+
 const props = withDefaults(defineProps<Partial<MTableProps>>(), {
   isPagination: true,
   border: false,
@@ -54,17 +64,18 @@ const props = withDefaults(defineProps<Partial<MTableProps>>(), {
 })
 const { emit } = getCurrentInstance()
 
+const tableDataCopy = reactive<any[]>(JSON.parse(JSON.stringify(props.tableData)))
+
 const handleEdit = <T = any,>(index: number, row: T): void => {
-  console.log(index, row)
   emit('handleEdit', index, row)
 }
 const handleDelete = <T = any,>(index: number, row: T): void => {
-  console.log(index, row)
   ElMessageBox({
     type: 'warning',
     title: '警告',
     message: '确认删除该条数据吗？',
   }).then((_) => {
+    tableDataCopy.splice(index, 1);
     emit('handleDelete', index, row)
   })
 }

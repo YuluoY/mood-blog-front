@@ -8,7 +8,7 @@ export const addArticle: IBaseApi['add'] = (data) => {
 };
 
 export const updateArticle: IBaseApi['update'] = (id, data) => {
-  return request.putch(`${prefix}/update/${id}`, data || {});
+  return request.patch(`${prefix}/update/${id}`, data || {});
 }
 
 export const getArticles: IBaseApi['getAll'] = () => {
