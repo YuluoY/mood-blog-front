@@ -1,6 +1,6 @@
 import { InputEmits } from 'element-plus'
 
-export interface IMFormItemConfig {
+export interface MFormItemConfig {
     rules?: import('element-plus').FormItemRule[],
     prop: string
     labelWidth?: string
@@ -34,8 +34,8 @@ export interface IMFormItemConfig {
     onClear?: InputEmits['clear']
 }
 
-export interface IMFormProps<T extends Object> {
-    formConfigures: IMFormItemConfig[],
+export interface MFormProps<T extends Object> {
+    formConfigures: MFormItemConfig[],
     formData: T
     labelPosition?: 'left' | 'top' | 'right',
     inlineMessage?: boolean

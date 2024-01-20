@@ -1,16 +1,20 @@
 import { MPaginationProps } from "../../MPagiination/types/index.ts";
 
-export interface MTableProps extends MPaginationProps {
+
+export interface MTableBaseMap<T = any> {
+  label: string
+  prop: T
+  visible: true
+  type: 'date' | 'text' | 'image' | 'link'
+  tip: string
+  width: string
+  extraLink?: boolean
+}
+export interface MTableProps<T = any, D = any> extends MPaginationProps {
   isPagination: boolean
-  isSearch: boolean
-  tableData: object[]
+  tableData: D[]
   filterTableCol: string  // 根据列名称过滤查询数据
   border: boolean
   stripe: boolean
-  columnLabel: Partial<{
-    label: string
-    prop: string
-    visible: boolean
-    type: 'date' | 'text'
-  }>[]
+  columnLabelMap: Partial<MTableBaseMap<T>>[]
 }

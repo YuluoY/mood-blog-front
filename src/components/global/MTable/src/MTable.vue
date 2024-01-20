@@ -1,16 +1,35 @@
 <template>
   <div class="m-table">
-    <el-table :data="filterTableData" :border="border" :stripe="stripe" style="width: 100%">
+    <el-table :data="tableData" :border="border" :stripe="stripe" style="width: 100%">
       <el-table-column
-        v-for="(c, index) in columnLabel"
+        v-for="(c, index) in columnLabelMap"
         :key="index"
         :label="c.label"
         :prop="c.prop"
-      ></el-table-column>
-      <el-table-column align="right" v-if="isSearch">
-        <template #header>
-          <el-input v-model="search" size="small" placeholder="请输入关键字" />
+        :width="c.width"
+      >
+        <template #default="{ row }">
+          <img
+            v-if="c.type === 'image'"
+            :style="{
+              width: '40px',
+              height: '40px',
+            }"
+            v-lazy="row[c.prop]"
+          />
+          <el-link
+            v-else-if="c.type === 'link'"
+            type="primary"
+            :href="row[c.prop]"
+            :target="c.extraLink ? '_blank' : '_self'"
+          ></el-link>
+          <el-tooltip v-else-if="c.tip" :content="c.tip">
+            <span>{{ row[c.prop] }}</span>
+          </el-tooltip>
         </template>
+      </el-table-column>
+
+      <el-table-column label="操作" width="150" v-if="tableData.length">
         <template #default="scope">
           <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">
@@ -23,47 +42,18 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, ref } from 'vue'
 import { ElMessageBox } from 'element-plus'
-import { MTableProps } from '../types/index.ts'
+import { MTableBaseMap, MTableProps } from '../types/index.ts'
 
 const props = withDefaults(defineProps<Partial<MTableProps>>(), {
   isPagination: true,
   border: false,
   stripe: false,
-  isSearch: true,
-  columnLabel: () => [
-    {
-      label: '日期',
-      prop: 'date',
-    },
-    {
-      label: '名称',
-      prop: 'name',
-    },
-  ],
-  tableData: () =>
-    Array(10)
-      .fill(0)
-      .map((_item, index) => {
-        return {
-          date: '2016-05-03',
-          name: `Tom-${index}`,
-          address: 'No. 189, Grove St, Los Angeles',
-        }
-      }),
-  filterTableCol: 'name',
+  columnLabelMap: () => [] as Partial<MTableBaseMap>[],
+  tableData: () => [],
 })
-const search = ref('')
 const { emit } = getCurrentInstance()
-const filterTableData = computed(() =>
-  props.tableData.filter(
-    (data) =>
-      !search.value ||
-      // @ts-ignore
-      data[props.filterTableCol]?.toLowerCase().includes(search.value.toLowerCase())
-  )
-)
+
 const handleEdit = <T = any,>(index: number, row: T): void => {
   console.log(index, row)
   emit('handleEdit', index, row)
@@ -79,4 +69,10 @@ const handleDelete = <T = any,>(index: number, row: T): void => {
   })
 }
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+:deep(.el-table) {
+  .cell {
+    text-align: center;
+  }
+}
+</style>
