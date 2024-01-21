@@ -15,8 +15,12 @@ export const getArticles: IBaseApi['getAll'] = () => {
   return request.get(`${prefix}/all`)
 }
 
-export const removeArticle: IBaseApi['remove'] = (id) => {
-  return request.delete(`${prefix}/remove`, { id })
+export const removeArticle: IBaseApi['remove'] = (id, force) => {
+  return request.delete(`${prefix}/remove`, { id, force })
+}
+
+export const restoreArticle: IBaseApi['restore'] = (id) => {
+  return request.post(`${prefix}/restore`, { id })
 }
 
 export const getArticlesByPage: IBaseApi['paination'] = (page, limit, data) => {

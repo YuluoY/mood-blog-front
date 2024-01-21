@@ -26,7 +26,7 @@ import MForm from '@/components/global/MForm/index.ts'
 import { MFormItemConfig } from '@/components/global/MForm/types/index.ts'
 import { ICreateCategory, ICategory } from '@/types/api/category.ts'
 import { addCategory, getCategorys, removeCategory } from '@/api/category.ts'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { useFilterCategoryTable } from '../hooks/useFilterCategoryTable.ts'
 
 const addFormConfigures: MFormItemConfig[] = [
@@ -41,34 +41,42 @@ const addFormData = reactive<ICreateCategory>({
 })
 
 const mFormRef = ref<InstanceType<typeof MForm>>()
+
+const tableData = reactive([]) // 表格数据
+const columnLabelMap = reactive([]) // 表格列映射
+
 const onAddDialogClick = (closeDialogCb: Function) => {
   mFormRef.value.validator().then(async (vaildte: boolean) => {
     if (vaildte) {
-      const res = await addCategory(addFormData)
-      if (res.success) {
+      const r = await addCategory(addFormData)
+      if (r.success) {
         addFormData.cateName = ''
         closeDialogCb()
       }
     }
   })
 }
-const tableData = reactive([])
-const columnLabelMap = reactive([])
-const res = await getCategorys<ICategory[]>()
 
+const res = await getCategorys<ICategory[]>()
 if (res.success) {
   const { filterTableData, categoryTableMap } = useFilterCategoryTable(res.data)
   columnLabelMap.push(...categoryTableMap)
   tableData.push(...filterTableData)
 }
 
-const handleDelete = (index: number, row: ICategory) => {
-  removeCategory(row.id, true).then((r) => {
-    if (r.success) {  
+const handleDelete = (index: number, row: ICategory, onDeleteTableRowCb: Function) => {
+  ElMessageBox({
+    type: 'warning',
+    title: '警告',
+    message: `此操作会将分类"${row.cateName}"相关的数据都删除，确认执行删除吗？`,
+  }).then(async () => {
+    const r = await removeCategory(row.id, true)
+    if (r.success) {
       ElMessage({
-        type:'success',
-        message:`分类"${row.cateName}"已被删除！`
+        type: 'success',
+        message: `分类"${row.cateName}"已被删除！`,
       })
+      onDeleteTableRowCb()
     }
   })
 }

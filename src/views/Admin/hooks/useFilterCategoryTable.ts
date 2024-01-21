@@ -20,8 +20,8 @@ export const useFilterCategoryTable = (tableData: ICategory[]) => {
       prop: 'deletedAt',
       label: '状态',
       type: 'switch',
-      onSwitchChange: async (row: ICategory & { swtichStatus?: boolean }) => {
-        if (row.swtichStatus) {
+      onSwitchChange: async (row: ICategory & { status?: boolean }) => {
+        if (row.status) {
           const res = await restoreCategory(row.id);
           if (res.success) {
             ElNotification({
@@ -50,12 +50,12 @@ export const useFilterCategoryTable = (tableData: ICategory[]) => {
   ]
 
   if (tableData.length) {
-    filterTableData.push(...tableData.map((category: ICategory & { swtichStatus?: Ref<boolean> }) => {
+    filterTableData.push(...tableData.map((category: ICategory & { status?: Ref<boolean> }) => {
       category.createdAt = dateFormat(category.createdAt);
       if (category.deletedAt) {
         category.deletedAt = dateFormat(category.deletedAt);
       }
-      category.swtichStatus = ref(!category.deletedAt)
+      category.status = ref(!category.deletedAt)
       return category;
     }))
   }

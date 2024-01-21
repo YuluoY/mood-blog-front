@@ -28,7 +28,7 @@
           </el-tooltip>
           <el-switch
             v-else-if="c.type === 'switch'"
-            v-model="row['swtichStatus']"
+            v-model="row['switchStatus']"
             style="
 
 --el-switch-on-color: #13ce66"
@@ -50,7 +50,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ElMessageBox } from 'element-plus'
 import { MTableBaseMap, MTableProps } from '../types/index.ts'
 
 defineEmits(['handleEdit', 'handleDelete'])
@@ -70,14 +69,7 @@ const handleEdit = <T = any,>(index: number, row: T): void => {
   emit('handleEdit', index, row)
 }
 const handleDelete = <T = any,>(index: number, row: T): void => {
-  ElMessageBox({
-    type: 'warning',
-    title: '警告',
-    message: '确认删除该条数据吗？',
-  }).then((_) => {
-    tableDataCopy.splice(index, 1);
-    emit('handleDelete', index, row)
-  })
+    emit('handleDelete', index, row, () => tableDataCopy.splice(index, 1))
 }
 </script>
 <style scoped lang="scss">

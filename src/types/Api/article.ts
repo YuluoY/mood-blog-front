@@ -18,6 +18,7 @@ interface IBaseArticle {
   description: string,
   status: EnumStatus,
   words: number
+  author?: string
 }
 
 export interface ICreateArticle extends Partial<IExractArticle>, IBaseArticle {

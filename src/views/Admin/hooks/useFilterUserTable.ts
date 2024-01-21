@@ -42,8 +42,6 @@ export const useFilterUserTable = (tableData: IUser[]) => {
   }
 
 
-
-
   return {
     userTableMap,
     filterTableData

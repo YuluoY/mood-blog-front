@@ -9,7 +9,7 @@ export interface MTableBaseMap<T = any> {
   tip: string
   width: string
   extraLink?: boolean
-  swtichStatus: Ref<boolean>
+  status: Ref<boolean>
   onSwitchChange: (row: any) => void
 }
 export interface MTableProps<T = any, D = any> extends MPaginationProps {
