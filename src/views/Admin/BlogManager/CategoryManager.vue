@@ -68,7 +68,7 @@ const handleDelete = (index: number, row: ICategory, onDeleteTableRowCb: Functio
   ElMessageBox({
     type: 'warning',
     title: '警告',
-    message: `此操作会将分类"${row.cateName}"相关的数据都删除，确认执行删除吗？`,
+    message: `此操作会将分类"${row.cateName}"相关数据删除，且不能恢复，确认执行删除吗？`,
   }).then(async () => {
     const r = await removeCategory(row.id, true)
     if (r.success) {

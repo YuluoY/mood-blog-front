@@ -5,12 +5,13 @@ export interface MTableBaseMap<T = any> {
   label: string
   prop: T
   visible: true
-  type: 'date' | 'text' | 'image' | 'link' | 'switch'
+  type: 'date' | 'text' | 'image' | 'link' | 'delSwitch' | 'switch' | 'dialog'
   tip: string
   width: string
   extraLink?: boolean
-  status: Ref<boolean>
+  onDelSwitchChange: (row: any) => void
   onSwitchChange: (row: any) => void
+  onDialogClick: (row: any) => void
 }
 export interface MTableProps<T = any, D = any> extends MPaginationProps {
   isPagination: boolean

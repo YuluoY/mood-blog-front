@@ -19,8 +19,9 @@ export interface IResponseBaseData {
 export const enum EnumStatus {
   Normal, // 正常
   Disabled, // 禁用
-  Deleted, // 删除
   UnAudit, // 审核中
+  Private, // 私密
+  Draft, // 草根
 }
 
 // 角色

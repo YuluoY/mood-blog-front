@@ -30,7 +30,7 @@ export const useFilterBaseData = <T extends MTableBaseData>(tableData: T | T[]) 
     }
   }
 
-  const onSwitchChange = (row: T) => {
+  const onDelSwitchChange = (row: T) => {
     swtichRow.value = row;
   }
 
@@ -43,8 +43,9 @@ export const useFilterBaseData = <T extends MTableBaseData>(tableData: T | T[]) 
   }
 
   const baseTableMap: Partial<MTableBaseMap<keyof T>>[] = [
-    { prop: 'deletedAt', label: '状态', type: 'switch', onSwitchChange },
+    { prop: 'deletedAt', label: '状态', type: 'delSwitch', onDelSwitchChange },
     { prop: 'createdAt', label: '创建时间', type: 'date' },
+    { prop: 'updatedAt', label: '最近更新', type: 'date' }
   ]
 
   return {

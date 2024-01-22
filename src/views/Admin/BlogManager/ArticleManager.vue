@@ -4,9 +4,22 @@
       <template #add></template>
 
       <template #table>
-        <MTable :table-data="tableData" :column-label-map="columnLabelMap">
+        <MTable
+          :table-data="tableData"
+          :column-label-map="columnLabelMap"
+          @handle-delete="handleDelete"
+          @handle-edit="handleEdit"
+          @handle-edit-confirm="handleEditConfirm"
+        >
+          <template #edit>
+            <MForm
+              ref="articleEditFormRef"
+              :form-configures="articleEditFormConfigures"
+              :form-data="articleEditFormData"
+            ></MForm>
+          </template>
           <template #pagination>
-            <MPagination :total="total"/>
+            <MPagination :total="total" />
           </template>
         </MTable>
       </template>
@@ -14,9 +27,22 @@
   </div>
 </template>
 <script setup lang="ts">
-import { getArticlesByPage } from '@/api/article.ts'
+import { getArticlesByPage, removeArticle } from '@/api/article.ts'
+import MForm from '@/components/global/MForm/index.ts'
+import { MFormItemConfig } from '@/components/global/MForm/types/index.ts'
 import { IArticle } from '@/types/api/article.ts'
 import { useFilterArticleTable } from '@/views/Admin/hooks/useFilterArticleTable.ts'
+import { ElMessage, ElMessageBox } from 'element-plus'
+
+const articleEditFormConfigures: MFormItemConfig[] = [
+  { prop: 'title', label: '标题' },
+  { prop: 'status', label: '状态', type: 'switch' },
+]
+const articleEditFormData = reactive<Partial<IArticle>>({
+  title: '',
+  status: 0,
+})
+const articleEditFormRef = ref<InstanceType<typeof MForm>>()
 
 const tableData = reactive([])
 const columnLabelMap = reactive([])
@@ -33,6 +59,33 @@ if (res.success) {
   const { filterTableData, articleTableMap } = useFilterArticleTable(res.data.list as IArticle[])
   tableData.push(...filterTableData)
   columnLabelMap.push(...articleTableMap)
+}
+
+const handleEdit = (index: number, row: Partial<IArticle>) => {
+  Object.assign(articleEditFormData, row)
+}
+const handleEditConfirm = (editorDialogVisible: Ref<boolean>) => {
+  articleEditFormRef.value.validator().then((vaildte: boolean) => {
+    console.log(vaildte)
+  })
+  editorDialogVisible.value = !editorDialogVisible.value
+}
+
+const handleDelete = (index: number, row: IArticle, deleteTableRowCb: Function) => {
+  ElMessageBox({
+    type: 'warning',
+    title: '警告',
+    message: `此操作将会删除文章《${row.title}》相关数据，且不能恢复，确认执行删除吗？`,
+  }).then(async () => {
+    const r = await removeArticle(row.id, true)
+    if (r.success) {
+      deleteTableRowCb()
+      ElMessage({
+        type: 'success',
+        message: `文章《${row.title}》已被彻底删除！`,
+      })
+    }
+  })
 }
 </script>
 <style scoped lang="scss"></style>

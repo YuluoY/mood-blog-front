@@ -29,7 +29,9 @@
   will-change: width, opacity;
 
   .y-aside__menu {
+    width: inherit;
     height: 100vh;
+    position: fixed;
   }
 }
 

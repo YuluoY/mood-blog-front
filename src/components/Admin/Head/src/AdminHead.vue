@@ -82,6 +82,10 @@ const onScaleAside = (event: Event) => {
   align-items: center;
   background-color: var(--el-bg-color);
   box-shadow: var(--el-box-shadow-light);
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 9;
 
   .y-admin__head--left {
     .y-left__scale {
