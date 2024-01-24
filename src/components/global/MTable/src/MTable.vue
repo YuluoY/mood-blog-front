@@ -29,13 +29,28 @@
           <el-switch
             v-else-if="c.type === 'delSwitch'"
             v-model="row['switchStatus']"
-            @change="async () => c.onDelSwitchChange && await c.onDelSwitchChange(row)"
+            @change="async () => c.onDeldelSwitchChange && (await c.onDeldelSwitchChange(row))"
           ></el-switch>
           <el-switch
             v-else-if="c.type === 'switch'"
             v-model="row[c.prop]"
-            @change="async () => c.onSwitchChange && await c.onSwitchChange(row)"
+            @change="async () => c.ondelSwitchChange && (await c.ondelSwitchChange(row))"
           ></el-switch>
+          <div
+            v-else-if="c.type === 'color'"
+            :style="{
+              display: 'flex',
+              justifyContent: 'center',
+            }"
+          >
+            <div
+              :style="{
+                width: '100%',
+                height: '25px',
+                backgroundColor: row[c.prop],
+              }"
+            ></div>
+          </div>
         </template>
       </el-table-column>
 

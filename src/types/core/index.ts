@@ -83,5 +83,5 @@ export interface IBaseApi {
   update?: <T, D>(id: string, data: T & object) => Promise<IResponseTemplate<T | D>>
   remove: <T>(id: string | string[], force?: boolean) => Promise<IResponseTemplate<T>>
   restore: <T>(id: string | string[]) => Promise<IResponseTemplate<T>>
-  paination: <T, Q = any>(page: number, limit: number, query?: Partial<IQainationQueryBase & Q>) => Promise<IResponseTemplate<IPaginationResponse<T>>>
+  pagination: <T, Q = any>(page: number, limit: number, query?: Partial<IQainationQueryBase & Q>) => Promise<IResponseTemplate<IPaginationResponse<T>>>
 }

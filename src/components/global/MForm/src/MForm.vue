@@ -4,8 +4,8 @@
       <slot name="prefix"></slot>
       <el-form-item
         v-for="(item, index) in formConfigures"
-        :key="`${index}-${item.prop}`"
-        :prop="item.prop"
+        :key="`${index}-${String(item.prop)}`"
+        :prop="String(item.prop)"
         :label="item.label"
         :label-width="item.labelWidth || '100px'"
         :rules="item.rules"
@@ -23,6 +23,7 @@
           ></el-input>
           <svg-captcha></svg-captcha>
         </div>
+        <el-color-picker v-else-if="item.type === 'color'" v-model="formData[item.prop]"></el-color-picker>
         <el-input
           v-else
           v-model="formData[item.prop]"

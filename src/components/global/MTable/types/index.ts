@@ -5,12 +5,12 @@ export interface MTableBaseMap<T = any> {
   label: string
   prop: T
   visible: true
-  type: 'date' | 'text' | 'image' | 'link' | 'delSwitch' | 'switch' | 'dialog'
+  type: 'date' | 'text' | 'image' | 'link' | 'delSwitch' | 'switch' | 'dialog' | 'color'
   tip: string
   width: string
   extraLink?: boolean
-  onDelSwitchChange: (row: any) => void
-  onSwitchChange: (row: any) => void
+  onDeldelSwitchChange: (row: any) => void
+  ondelSwitchChange: (row: any) => void
   onDialogClick: (row: any) => void
 }
 export interface MTableProps<T = any, D = any> extends MPaginationProps {

@@ -20,7 +20,7 @@ export const useFilterCategoryTable = (tableData: ICategory[]) => {
       prop: 'deletedAt',
       label: '状态',
       type: 'delSwitch',
-      onDelSwitchChange: async (row: ICategory & { switchStatus?: boolean }) => {
+      onDeldelSwitchChange: async (row: ICategory & { switchStatus?: boolean }) => {
         if (row.switchStatus) {
           const res = await restoreCategory(row.id);
           if (res.success) {

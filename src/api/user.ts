@@ -14,7 +14,7 @@ export const addUser: IBaseApi['add'] = (data) => {
 };
 
 export const updateUser: IBaseApi['update'] = (id, data) => {
-  return request.putch(`${prefix}/update/${id}`, data || {});
+  return request.post(`${prefix}/update/${id}`, data || {});
 }
 
 export const getUser: IBaseApi['getAll'] = () => {
@@ -29,6 +29,6 @@ export const removeUser: IBaseApi['remove'] = (id) => {
   return request.delete(`${prefix}/remove`, { id })
 }
 
-export const getUsersByPage: IBaseApi['paination'] = (page, limit, data) => {
+export const getUsersByPage: IBaseApi['pagination'] = (page, limit, data) => {
   return request.get(`${prefix}/pagination/${page}/${limit}`, data || {});
 }

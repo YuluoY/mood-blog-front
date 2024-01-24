@@ -199,5 +199,36 @@ export const idleCallback = async (cb: Function): Promise<number> => {
  */
 export const preText = (str: string): string => {
   const reg = /\s+/g;
-  return str.replace(reg, ''); 
+  return str.replace(reg, '');
+}
+
+
+/**
+ * @description：将字符串颜色名称转换成十六进制颜色
+ * @param {string} colorName 颜色名称
+ * @return {string} 
+ */
+export const colorStringToHex = (colorName: string) => {
+  // 创建一个临时 DOM 元素（用于计算颜色值）
+  let tempElement = document.createElement("div");
+  tempElement.style.color = colorName;
+  tempElement.style.display = 'none';
+  document.body.appendChild(tempElement);
+
+  // 获取计算后的颜色值
+  let computedColor = window.getComputedStyle(tempElement).color;
+
+  // 从计算后的颜色值中提取 RGB 部分
+  let rgbArray = computedColor.match(/\d+/g);
+
+  // 将 RGB 转换为十六进制
+  let hexColor = "#";
+  for (let i = 0; i < 3; i++) {
+    hexColor += (`0${parseInt(rgbArray[i], 10).toString(16)}`).slice(-2);
+  }
+
+  // 移除临时元素
+  document.body.removeChild(tempElement);
+
+  return hexColor;
 }

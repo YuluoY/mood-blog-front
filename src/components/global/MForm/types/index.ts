@@ -1,8 +1,8 @@
 import { InputEmits } from 'element-plus'
 
-export interface MFormItemConfig {
+export interface MFormItemConfig<T = any> {
     rules?: import('element-plus').FormItemRule[],
-    prop: string
+    prop: keyof T
     labelWidth?: string
     label?: string
     showPassword?: boolean
@@ -13,7 +13,7 @@ export interface MFormItemConfig {
     type?: string
     autocomplete?: string
     autofocus?: boolean
-    autoSize?:boolean | { minRows?: number, maxRows?: number }
+    autoSize?: boolean | { minRows?: number, maxRows?: number }
     resize?: 'none' | 'both' | 'horizontal' | 'vertical'
     placeholder?: string
     clearable?: boolean
@@ -28,7 +28,7 @@ export interface MFormItemConfig {
     formatter?: (value: string) => string
     parser?: (value: string) => string
     onBlur?: InputEmits['blur']
-    onChange?:InputEmits['change']
+    onChange?: InputEmits['change']
     onInput?: InputEmits['input']
     onFocus?: InputEmits['focus']
     onClear?: InputEmits['clear']

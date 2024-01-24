@@ -23,6 +23,6 @@ export const restoreArticle: IBaseApi['restore'] = (id) => {
   return request.post(`${prefix}/restore`, { id })
 }
 
-export const getArticlesByPage: IBaseApi['paination'] = (page, limit, data) => {
+export const getArticlesByPage: IBaseApi['pagination'] = (page, limit, data) => {
   return request.get(`${prefix}/pagination/${page}/${limit}`, data || {});
 }

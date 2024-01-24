@@ -7,10 +7,10 @@ import { useFilterBaseData } from "./useFilterBaseData.ts";
 
 export const useFilterArticleTable = (tableData: IArticle | IArticle[]) => {
 
-  const { data, baseTableMap, switchChange } = useFilterBaseData<IArticle>(tableData)
+  const { data, baseTableMap, delSwitchChange } = useFilterBaseData<IArticle>(tableData)
 
   // 软硬删除的switch状态切换
-  switchChange(async (row: IArticle & { switchStatus?: boolean }) => {
+  delSwitchChange(async (row: IArticle & { switchStatus?: boolean }) => {
     if (row.switchStatus) {
       const res = await restoreArticle(row.id);
       if (res.success) {
@@ -60,7 +60,7 @@ export const useFilterArticleTable = (tableData: IArticle | IArticle[]) => {
     { prop: 'words', label: '字数' },
     { prop: 'visibility', label: '可见性' },
     {
-      prop: 'isTop', label: '置顶', type: 'switch', onSwitchChange: async (row: IArticle) => {
+      prop: 'isTop', label: '置顶', type: 'switch', ondelSwitchChange: async (row: IArticle) => {
         const res = await updateArticle<Partial<IArticle>, any>(row.id, { isTop: row.isTop });
         if (res.success) {
           ElNotification({
@@ -71,7 +71,7 @@ export const useFilterArticleTable = (tableData: IArticle | IArticle[]) => {
       }
     },
     {
-      prop: 'isRecommend', label: '推荐', type: 'switch', onSwitchChange: async (row: IArticle) => {
+      prop: 'isRecommend', label: '推荐', type: 'switch', ondelSwitchChange: async (row: IArticle) => {
         const res = await updateArticle<Partial<IArticle>, any>(row.id, { isRecommend: row.isRecommend });
         if (res.success) {
           ElNotification({
