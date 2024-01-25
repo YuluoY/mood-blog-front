@@ -34,13 +34,19 @@ import { IArticle } from '@/types/api/article.ts'
 import { useFilterArticleTable } from '@/views/Admin/hooks/useFilterArticleTable.ts'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
-const articleEditFormConfigures: MFormItemConfig[] = [
+const articleEditFormConfigures: MFormItemConfig<IArticle>[] = [
   { prop: 'title', label: '标题' },
-  { prop: 'status', label: '状态', type: 'switch' },
+  { prop: 'cover', label: '封面', type: 'upload' },
+  { prop: 'description', label: '描述', type: 'textarea' },
+  { prop: 'isTop', label: '置顶', type: 'switch' },
+  { prop: 'isRecommend', label: '推荐', type: 'switch' },
 ]
 const articleEditFormData = reactive<Partial<IArticle>>({
   title: '',
-  status: 0,
+  cover:'',
+  description: '',
+  isTop: null,
+  isRecommend: null,
 })
 const articleEditFormRef = ref<InstanceType<typeof MForm>>()
 
@@ -63,6 +69,7 @@ if (res.success) {
 
 const handleEdit = (index: number, row: Partial<IArticle>) => {
   Object.assign(articleEditFormData, row)
+  console.log(articleEditFormData)
 }
 const handleEditConfirm = (editorDialogVisible: Ref<boolean>) => {
   articleEditFormRef.value.validator().then((vaildte: boolean) => {

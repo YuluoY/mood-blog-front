@@ -26,7 +26,7 @@ export const useHome = async () => {
             order: 'DESC'
         });
         if (success) {
-            articleStore.articleList.push(...data.list);
+            articleStore.articleList = data.list as any
         } else {
             ElMessage.error(message || t('homeView.loadMoreArticleError'))
         }

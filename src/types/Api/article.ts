@@ -23,7 +23,7 @@ interface IBaseArticle {
   isTop: boolean | Ref<boolean>   // 置顶
 }
 
-export interface ICreateArticle extends Partial<IExractArticle>, IBaseArticle {
+export interface ICreateArticle extends Partial<IExractArticle>, Partial<IBaseArticle> {
   userId: string,
 }
 

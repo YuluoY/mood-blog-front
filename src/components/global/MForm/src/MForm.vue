@@ -24,6 +24,8 @@
           <svg-captcha></svg-captcha>
         </div>
         <el-color-picker v-else-if="item.type === 'color'" v-model="formData[item.prop]"></el-color-picker>
+        <el-switch v-else-if="item.type === 'switch'" v-model="formData[item.prop]"></el-switch>
+        <m-upload v-else-if="item.type === 'upload'" :imageUrl="formData[item.prop]"></m-upload>
         <el-input
           v-else
           v-model="formData[item.prop]"

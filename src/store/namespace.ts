@@ -6,4 +6,6 @@ export const enum StoreNames {
   User = 'useUserStore',
   Article = 'useArticleStore',
   Write = 'useWriteStore',
+  Tag = 'useTagStore',
+  Category = 'useCategoryStore'
 }

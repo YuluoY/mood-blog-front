@@ -9,14 +9,15 @@
         :width="c.width"
       >
         <template #default="{ row }">
-          <img
+          <el-image
             v-if="c.type === 'image'"
             :style="{
               width: '40px',
               height: '40px',
             }"
-            v-lazy="row[c.prop]"
-          />
+            :src="row[c.prop]"
+            lazy
+          ></el-image>
           <el-link
             v-else-if="c.type === 'link'"
             type="primary"
