@@ -1,9 +1,9 @@
 <template>
   <div class="y-form">
-    <el-form ref="ruleFormRef" :model="formData" :inline-message="inlineMessage">
+    <el-form ref="ruleFormRef" :model="data" :inline-message="inlineMessage">
       <slot name="prefix"></slot>
       <el-form-item
-        v-for="(item, index) in formConfigures"
+        v-for="(item, index) in configures"
         :key="`${index}-${String(item.prop)}`"
         :prop="String(item.prop)"
         :label="item.label"
@@ -23,9 +23,16 @@
           ></el-input>
           <svg-captcha></svg-captcha>
         </div>
-        <el-color-picker v-else-if="item.type === 'color'" v-model="formData[item.prop]"></el-color-picker>
+        <el-color-picker
+          v-else-if="item.type === 'color'"
+          v-model="formData[item.prop]"
+        ></el-color-picker>
         <el-switch v-else-if="item.type === 'switch'" v-model="formData[item.prop]"></el-switch>
-        <m-upload v-else-if="item.type === 'upload'" :imageUrl="formData[item.prop]"></m-upload>
+        <m-upload
+          v-else-if="item.type === 'upload'"
+          :imageUrl="formData[item.prop]"
+          @onChangeImageUrl="(val: string) => (formData[item.prop] = val)"
+        ></m-upload>
         <el-input
           v-else
           v-model="formData[item.prop]"
@@ -65,18 +72,33 @@
 import type { FormInstance } from 'element-plus'
 import { MFormProps } from '../types/index.ts'
 
-withDefaults(defineProps<MFormProps<any>>(), {})
+const props = withDefaults(defineProps<MFormProps<any>>(), {})
+
+const data = reactive(props.formData)
+const configures = reactive(props.formConfigures)
 
 const ruleFormRef = ref<FormInstance>()
 
 const validator = async (): Promise<boolean> => {
   if (!ruleFormRef.value) return
-  const res = await ruleFormRef.value.validate((valid) => valid) as boolean;
+  const res = (await ruleFormRef.value.validate((valid) => valid)) as boolean
   // eslint-disable-next-line consistent-return
-  return res;
+  return res
 }
 
+const formDataWatcher = watch(
+  props.formData,
+  (newVal) => {
+    Object.assign(data, newVal)
+  },
+  { deep: true }
+)
+
+onBeforeUnmount(() => {
+  formDataWatcher()
+})
+
 defineExpose({
-    validator
+  validator,
 })
 </script>

@@ -43,7 +43,7 @@ const articleEditFormConfigures: MFormItemConfig<IArticle>[] = [
 ]
 const articleEditFormData = reactive<Partial<IArticle>>({
   title: '',
-  cover:'',
+  cover: '',
   description: '',
   isTop: null,
   isRecommend: null,
@@ -57,27 +57,35 @@ const page = ref(1)
 const limit = ref(10)
 const total = ref(0)
 
-const res = await getArticlesByPage(page.value, limit.value, {
-  withDeleted: true,
-})
-if (res.success) {
-  total.value = res.data.total
-  const { filterTableData, articleTableMap } = useFilterArticleTable(res.data.list as IArticle[])
-  tableData.push(...filterTableData)
-  columnLabelMap.push(...articleTableMap)
+const init = async () => {
+  const res = await getArticlesByPage(page.value, limit.value, {
+    withDeleted: true,
+  })
+  if (res.success) {
+    total.value = res.data.total
+    const { filterTableData, articleTableMap } = useFilterArticleTable(res.data.list as IArticle[])
+    tableData.push(...filterTableData)
+    columnLabelMap.push(...articleTableMap)
+  }
 }
 
+// 初始化
+await init()
+
+// 编辑按钮
 const handleEdit = (index: number, row: Partial<IArticle>) => {
   Object.assign(articleEditFormData, row)
-  console.log(articleEditFormData)
 }
+
+// 编辑点击确认后的操作
 const handleEditConfirm = (editorDialogVisible: Ref<boolean>) => {
   articleEditFormRef.value.validator().then((vaildte: boolean) => {
-    console.log(vaildte)
+    console.log(articleEditFormData)
   })
   editorDialogVisible.value = !editorDialogVisible.value
 }
 
+// 删除
 const handleDelete = (index: number, row: IArticle, deleteTableRowCb: Function) => {
   ElMessageBox({
     type: 'warning',

@@ -28,10 +28,9 @@ export const useFilterBaseData = <T extends MTableBaseData>(tableData: T | T[]) 
 
   const delSwitchChange = (cb: Function) => {
     // watch默认如果监听的对象没有数据一样，就不执行回调，但使用deep可以深度监听，不仅是数据
-    const switchRowWatcher = watch(() => swtichRow.value, async (newVal) => {
+    watch(() => swtichRow.value, async (newVal) => {
       await cb(newVal)
     }, { deep: true });
-    onUnmounted(() => switchRowWatcher())
   }
 
   const baseTableMap: Partial<MTableBaseMap<keyof T>>[] = [
