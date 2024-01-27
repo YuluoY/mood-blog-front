@@ -165,7 +165,7 @@ export const firstToUpperCase = (value: string): string => {
  * @return {string}
  */
 export const toTrim = (value: string, pos?: 'start' | 'end'): string => {
-  if (!value.length) return value;
+  if (!value?.length) return value;
   if (pos === 'start') return value.trimStart();
   if (pos === 'end') return value.trimEnd();
   return value.trim();

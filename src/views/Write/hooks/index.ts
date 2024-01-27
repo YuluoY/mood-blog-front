@@ -1,3 +1,13 @@
+/*
+ * @Author: huyongle 568055454@qq.com
+ * @Date: 2023-11-30 00:37:00
+ * @LastEditors: huyongle 568055454@qq.com
+ * @LastEditTime: 2024-01-27 23:53:38
+ * @FilePath: \mood-blog-front\src\views\Write\hooks\index.ts
+ * @Description: 攥写文章的页面。逻辑：攥写文章内容 --> 保存出现弹窗 --> 填写文章的相关表单 --> 校验表单
+ * 
+ * Copyright (c) 2024 by 雨落, All Rights Reserved. 
+ */
 import { MFormItemConfig } from '@/components/global/MForm/types/index.ts';
 import { useWriteStore } from '@/store/writeStore.ts'
 import { ExposeParam, ToolbarNames } from 'md-editor-v3'
@@ -5,26 +15,60 @@ import 'md-editor-v3/lib/style.css'
 import { ElMessage, UploadFile, UploadUserFile } from 'element-plus';
 import { IResponseTemplate } from '@/types/core/index.ts'
 import { preText, toTrim } from '@/utils/core.ts';
+import { useTagStore } from '@/store/tagStore.ts';
+import { useCategoryStore } from '@/store/categoryStore.ts';
+import { IArticle } from '@/types/api/article.ts';
+import MForm from '@/components/global/MForm/index.ts';
+import { ITag } from '@/types/api/tag.ts';
+import { ICategory } from '@/types/api/category.ts';
 
-export const useEditor = ({
+export const useWritePage = async ({
   editorRef,
   uploadRef,
-  useUserStore
+  useUserStore,
+  mFormRef
 }: {
   editorRef: Ref<ExposeParam | null>,
   uploadRef: Ref<{ submit: Function; abort: Function, handleRemove: Function } | null>,
   useUserStore: () => any
+  mFormRef: Ref<InstanceType<typeof MForm>>
 }) => {
 
   const { t } = useI18n();
   const writeStore = useWriteStore();
+  const tagStore = useTagStore();
+  const categoryStore = useCategoryStore()
+
   const isVisiableDialog = ref(false); // 是否显示上传图片的弹窗
   const parser = new DOMParser(); // 用于解析dom
+
+
+  if (!tagStore.tags?.length) {
+    await tagStore.fetchTags();
+  }
+
+  if (!categoryStore.categories?.length) {
+    await categoryStore.fetchCategories();
+  }
+
+  const tagOptions: { label: string, value: any }[] = tagStore.tags.map((tag: ITag) => {
+    return {
+      label: tag.tagName,
+      value: tag.id
+    }
+  })
+  const categoryOptions: { label: string, value: any }[] = categoryStore.categories.map((c: ICategory) => {
+    return {
+      label: c.cateName,
+      value: c.id
+    }
+  })
+
 
   /**
    * 这是表单的配置，默认是text的el-input
    */
-  const publishFormConfigure: MFormItemConfig[] = [
+  const publishFormConfigure: (MFormItemConfig<IArticle> & Partial<import('element-plus').ISelectProps>)[] = [
     {
       prop: 'title',
       label: '标题',
@@ -42,6 +86,24 @@ export const useEditor = ({
       rules: [
         { required: true, message: '请输入描述', trigger: 'blur' },
       ]
+    },
+    {
+      prop: 'category',
+      type: 'select',
+      label: '类别',
+      labelWidth: '70',
+      options: categoryOptions,
+      rules: [
+        { required: true, message: '请选择类别', trigger: 'blur' }
+      ]
+    },
+    {
+      prop: 'tags',
+      type: 'select',
+      label: '标签',
+      multiple: true,
+      labelWidth: '70',
+      options: tagOptions
     }
   ]
 
@@ -111,6 +173,13 @@ export const useEditor = ({
     ElMessage.info(t(`writeView.fileLimitError`, [files.length.toString()]));
   }
 
+  // 表单校验
+  const handleValidate = async () => {
+    if (await mFormRef.value.validator()) {
+      await onSaveArticle();
+    }
+  }
+
   /**
    * @description: 文件上传失败的钩子
    * @param {Error} err 错误信息
@@ -120,7 +189,7 @@ export const useEditor = ({
    */
   const handleError = async (err: Error, file: UploadFile, fileList: UploadFile[]): Promise<void> => {
     ElMessage.error(t('writeView.fileUploadError'));
-    await onSaveArticle();
+    handleValidate();
   }
 
   /**
@@ -130,7 +199,7 @@ export const useEditor = ({
    */
   const handleSuccess = async (response: IResponseTemplate<string>): Promise<void> => {
     writeStore.setFormCover(response.data);
-    await onSaveArticle();
+    handleValidate();
   }
 
   /**
@@ -139,6 +208,9 @@ export const useEditor = ({
    */
   const onSubmitForm = async (): Promise<void> => {
     uploadRef.value?.submit()
+    console.log(writeStore.form);
+
+    if (!writeStore.form.cover) handleValidate();
   }
 
   /**
@@ -170,9 +242,11 @@ export const useEditor = ({
     })
   }
 
+
+
   return {
     writeStore: computed(() => writeStore),
-    form: computed(() => writeStore.form),
+    form: writeStore.form,
     editorOptions: computed(() => writeStore.editorOptions),
     onSave,
     isVisiableDialog,

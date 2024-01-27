@@ -8,7 +8,7 @@
       :limit="limit"
       :on-preview="handlePictureCardPreview"
       :on-remove="handleRemove"
-      :on-change="handleChange"
+      ref="elUploadRef"
     >
       <el-icon><svg-icon name="plus" /></el-icon>
     </el-upload>
@@ -20,7 +20,7 @@
   </div>
 </template>
 <script setup lang="ts" name="MUpload">
-import type { UploadFile, UploadFiles, UploadProps, UploadUserFile } from 'element-plus'
+import type { UploadProps, UploadUserFile, ElUpload } from 'element-plus'
 
 interface MUploadProps {
   imageUrl: string
@@ -42,6 +42,7 @@ const props = withDefaults(defineProps<Partial<MUploadProps>>(), {
   previewImages: () => [],
 })
 
+const elUploadRef = ref<InstanceType<typeof ElUpload>>()
 const dialogImageUrl = ref(props.imageUrl)
 const dialogVisible = ref(false)
 
@@ -60,11 +61,6 @@ const handleRemove: UploadProps['onRemove'] = (uploadFile, uploadFiles) => {
 const handlePictureCardPreview: UploadProps['onPreview'] = (uploadFile) => {
   dialogImageUrl.value = uploadFile.url!
   dialogVisible.value = true
-}
-
-const handleChange = (uploadFile: UploadFile, uploadFiles: UploadFiles) => {
-  console.log(uploadFile);
-  
 }
 
 const imageUrlWatcher = watch(
@@ -89,6 +85,7 @@ defineExpose({
   fileList,
   dialogImageUrl,
   dialogVisible,
+  elUploadRef,
 })
 </script>
 <style scoped lang="scss"></style>

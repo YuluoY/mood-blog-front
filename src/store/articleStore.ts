@@ -32,7 +32,7 @@ export const useArticleStore = defineStore(StoreNames.Article, {
       });
       const { success, data, message } = res;
       if (success) {
-        this.articleList = data.list as T[];
+        this.articleList = data.list as any;
         this.total = data.total;
         this.limit = data.limit;
         this.page = data.page;

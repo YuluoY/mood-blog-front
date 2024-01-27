@@ -1,5 +1,6 @@
 import { EnumStatus, IResponseBaseData } from "../core/index.ts"
 import { ILike } from "./like.ts"
+import { ITag } from "./tag.ts"
 import { IUser } from "./user.ts"
 import { IView } from "./view.ts"
 
@@ -9,6 +10,7 @@ interface IExractArticle {
   category: any[],
   comments: any[],
   file: any[],
+  tags: ITag[]
 }
 
 interface IBaseArticle {

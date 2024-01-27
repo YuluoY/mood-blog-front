@@ -17,13 +17,14 @@ export const useWriteStore = defineStore(StoreNames.Write, {
     const form: ICreateArticle = {
       title: '',
       content: '',
-      cover: 'cover.png',
+      cover: '',
       status: 0,
       description: '',
       userId: '',
       likes: [],
       views: [],
       category: [],
+      tags: [],
       words: 0
     }
 
@@ -59,11 +60,12 @@ export const useWriteStore = defineStore(StoreNames.Write, {
       this.form = {
         title: '',
         content: '',
-        cover: 'cover.png',
+        cover: '',
         status: 0,
         description: '',
         userId: '',
         category: [],
+        tags: [],
         words: 0
       }
     }

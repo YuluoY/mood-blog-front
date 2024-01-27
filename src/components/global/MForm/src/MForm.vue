@@ -18,24 +18,29 @@
             :on-focus="item.onFocus"
             :on-clear="item.onClear"
             :on-input="item.onInput"
-            v-model="formData[item.prop]"
+            v-model="data[item.prop]"
             class="y-mr-20"
           ></el-input>
           <svg-captcha></svg-captcha>
         </div>
         <el-color-picker
           v-else-if="item.type === 'color'"
-          v-model="formData[item.prop]"
+          v-model="data[item.prop]"
         ></el-color-picker>
-        <el-switch v-else-if="item.type === 'switch'" v-model="formData[item.prop]"></el-switch>
+        <el-switch v-else-if="item.type === 'switch'" v-model="data[item.prop]"></el-switch>
         <m-upload
           v-else-if="item.type === 'upload'"
-          :imageUrl="formData[item.prop]"
-          @onChangeImageUrl="(val: string) => (formData[item.prop] = val)"
+          :imageUrl="data[item.prop]"
+          @onChangeImageUrl="(val: string) => (data[item.prop] = val)"
         ></m-upload>
+        <el-select v-else-if="item.type === 'select'" v-model="data[item.prop]" :multiple="item.multiple">
+          <el-option v-for="o in item.options" :key="o.value" :label="o.label" :value="o.value">
+
+          </el-option>
+        </el-select>
         <el-input
           v-else
-          v-model="formData[item.prop]"
+          v-model="data[item.prop]"
           :type="item.type || 'text'"
           :autocomplete="item.autocomplete"
           :placeholder="item.placeholder"
@@ -70,12 +75,12 @@
 
 <script setup lang="ts" name="MFrom">
 import type { FormInstance } from 'element-plus'
-import { MFormProps } from '../types/index.ts'
+import { MFormItemConfig, MFormProps } from '../types/index.ts'
 
 const props = withDefaults(defineProps<MFormProps<any>>(), {})
 
 const data = reactive(props.formData)
-const configures = reactive(props.formConfigures)
+const configures = reactive<MFormItemConfig[]>(props.formConfigures)
 
 const ruleFormRef = ref<FormInstance>()
 
@@ -100,5 +105,6 @@ onBeforeUnmount(() => {
 
 defineExpose({
   validator,
+  data
 })
 </script>

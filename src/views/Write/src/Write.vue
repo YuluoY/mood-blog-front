@@ -13,20 +13,20 @@
       @on-save="onSave"
       :toolbars="toolbars"
     >
-    <template #defToolbars>
-      <Emoji>
-        <template #trigger> 
-          <svg-icon name="emoji" size="1.2"></svg-icon>
-        </template>
-      </Emoji>
-    </template>
+      <template #defToolbars>
+        <Emoji>
+          <template #trigger>
+            <svg-icon name="emoji" size="1.2"></svg-icon>
+          </template>
+        </Emoji>
+      </template>
     </MdEditor>
     <el-dialog v-model="isVisiableDialog">
       <template #header>
         <h3>{{ $t('writeView.save') }}</h3>
       </template>
       <template #default>
-        <MForm :form-data="form" :form-configures="publishFormConfigure">
+        <MForm ref="mFormRef" :form-data="form" :form-configures="publishFormConfigure">
           <template #suffix>
             <el-form-item label="封面" prop="cover" label-width="70">
               <el-upload
@@ -80,14 +80,16 @@
 </template>
 
 <script lang="ts" setup name="Write">
+import MForm from '@/components/global/MForm/index.ts'
 import { ExposeParam, MdEditor } from 'md-editor-v3'
 import { useUserStore } from '@/store/userStore.ts'
-import { Emoji } from '@vavt/v3-extension';
-import { useEditor } from '../hooks/index.ts'
-import '@vavt/v3-extension/lib/asset/Emoji.css';
+import { Emoji } from '@vavt/v3-extension'
+import { useWritePage } from '../hooks/index.ts'
+import '@vavt/v3-extension/lib/asset/Emoji.css'
 
 const editorRef = ref<ExposeParam | null>()
 const uploadRef = ref<{ submit: Function; abort: Function; handleRemove: Function } | null>()
+const mFormRef = ref<InstanceType<typeof MForm>>()
 // const action = `${import.meta.env.VITE_BASE_URL}/file`
 const action = `${import.meta.env.VITE_BASE_URL}/file/localUpload`
 const headers = computed(() => {
@@ -116,11 +118,12 @@ const {
   handlePictureCardPreview,
   handleExceed,
   handleSuccess,
-  handleError
-} = useEditor({
+  handleError,
+} = await useWritePage({
   editorRef,
   uploadRef,
   useUserStore,
+  mFormRef,
 })
 </script>
 
@@ -135,7 +138,7 @@ const {
   min-height: inherit;
 }
 
-:deep(.emojis li){
+:deep(.emojis li) {
   box-sizing: content-box;
 }
 </style>

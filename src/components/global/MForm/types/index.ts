@@ -1,6 +1,7 @@
 import { InputEmits } from 'element-plus'
 
 export interface MFormItemConfig<T = any> {
+    [key: string]: any
     rules?: import('element-plus').FormItemRule[],
     prop: keyof T
     labelWidth?: string
