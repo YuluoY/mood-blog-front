@@ -8,6 +8,7 @@ import duration from 'dayjs/plugin/duration'
  * @return {string} 格式化后的日期
  */
 export const dateFormat = (date: string | number | Date, format: string = 'YYYY-MM-DD HH:mm:ss'): string => {
+    dayjs.locale('zh-cn')
     return dayjs(date).format(format)
 }
 

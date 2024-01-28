@@ -2,7 +2,7 @@
  * @Author: huyongle 568055454@qq.com
  * @Date: 2023-11-30 00:37:00
  * @LastEditors: huyongle 568055454@qq.com
- * @LastEditTime: 2024-01-27 23:53:38
+ * @LastEditTime: 2024-01-28 08:13:27
  * @FilePath: \mood-blog-front\src\views\Write\hooks\index.ts
  * @Description: 攥写文章的页面。逻辑：攥写文章内容 --> 保存出现弹窗 --> 填写文章的相关表单 --> 校验表单
  * 
@@ -12,7 +12,7 @@ import { MFormItemConfig } from '@/components/global/MForm/types/index.ts';
 import { useWriteStore } from '@/store/writeStore.ts'
 import { ExposeParam, ToolbarNames } from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
-import { ElMessage, UploadFile, UploadUserFile } from 'element-plus';
+import { ElMessage, ElUpload, UploadFile, UploadFiles, UploadUserFile } from 'element-plus';
 import { IResponseTemplate } from '@/types/core/index.ts'
 import { preText, toTrim } from '@/utils/core.ts';
 import { useTagStore } from '@/store/tagStore.ts';
@@ -21,6 +21,7 @@ import { IArticle } from '@/types/api/article.ts';
 import MForm from '@/components/global/MForm/index.ts';
 import { ITag } from '@/types/api/tag.ts';
 import { ICategory } from '@/types/api/category.ts';
+import { useGlobalStore } from '@/store/globalStore.ts';
 
 export const useWritePage = async ({
   editorRef,
@@ -29,7 +30,7 @@ export const useWritePage = async ({
   mFormRef
 }: {
   editorRef: Ref<ExposeParam | null>,
-  uploadRef: Ref<{ submit: Function; abort: Function, handleRemove: Function } | null>,
+  uploadRef: Ref<InstanceType<typeof ElUpload>>,
   useUserStore: () => any
   mFormRef: Ref<InstanceType<typeof MForm>>
 }) => {
@@ -41,6 +42,7 @@ export const useWritePage = async ({
 
   const isVisiableDialog = ref(false); // 是否显示上传图片的弹窗
   const parser = new DOMParser(); // 用于解析dom
+  const uploadFileChange = ref(false);
 
 
   if (!tagStore.tags?.length) {
@@ -51,10 +53,11 @@ export const useWritePage = async ({
     await categoryStore.fetchCategories();
   }
 
-  const tagOptions: { label: string, value: any }[] = tagStore.tags.map((tag: ITag) => {
+  const tagOptions: { label: string, value: any, color: string }[] = tagStore.tags.map((tag: ITag) => {
     return {
       label: tag.tagName,
-      value: tag.id
+      value: tag.id,
+      color: tag.tagColor
     }
   })
   const categoryOptions: { label: string, value: any }[] = categoryStore.categories.map((c: ICategory) => {
@@ -102,8 +105,13 @@ export const useWritePage = async ({
       type: 'select',
       label: '标签',
       multiple: true,
+      filterable: true,
+      allowCreate: true,
       labelWidth: '70',
-      options: tagOptions
+      options: tagOptions,
+      style: {
+        width: '100%'
+      }
     }
   ]
 
@@ -137,10 +145,14 @@ export const useWritePage = async ({
    * @return {void}
    */
   const onSaveArticle = async (): Promise<void> => {
+    console.log(writeStore.form, '12312321');
+
     const res = await writeStore.onSave();
     if (res) {
       isVisiableDialog.value = false;
-      writeStore.setFormContent('');
+      // writeStore.setFormContent('');
+      writeStore.initForm();
+      uploadFileChange.value = false;
     }
   }
 
@@ -151,6 +163,7 @@ export const useWritePage = async ({
    */
   const handleRemove = (file: UploadFile): void => {
     uploadRef.value.handleRemove(file);
+    uploadFileChange.value = false;
   }
 
   /**
@@ -176,6 +189,9 @@ export const useWritePage = async ({
   // 表单校验
   const handleValidate = async () => {
     if (await mFormRef.value.validator()) {
+      writeStore.form.tags = writeStore.form.tags.map((item: any) => tagStore.tags?.find((tag: ITag) => tag.id === item) || item)
+      writeStore.form.category = categoryStore.categories.find((category: ICategory) => category.id === writeStore.form.category);
+      writeStore.form.cover = writeStore.form.cover || useGlobalStore().getDefaultCover;
       await onSaveArticle();
     }
   }
@@ -202,15 +218,17 @@ export const useWritePage = async ({
     handleValidate();
   }
 
+  const handleChange = (uploadFile: UploadFile, uploadFiles: UploadFiles) => {
+    uploadFileChange.value = true;
+  }
+
   /**
    * @description: 提交表单，填写弹出框的更多信息后点击提交按钮
    * @return {void}
    */
   const onSubmitForm = async (): Promise<void> => {
-    uploadRef.value?.submit()
-    console.log(writeStore.form);
-
-    if (!writeStore.form.cover) handleValidate();
+    if (uploadFileChange.value) uploadRef.value?.submit()
+    else handleValidate();
   }
 
   /**
@@ -263,6 +281,7 @@ export const useWritePage = async ({
     handlePictureCardPreview,
     handleExceed,
     handleSuccess,
-    handleError
+    handleError,
+    handleChange
   }
 }

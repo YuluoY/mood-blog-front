@@ -18,6 +18,7 @@
             :on-focus="item.onFocus"
             :on-clear="item.onClear"
             :on-input="item.onInput"
+            :style="item.style"
             v-model="data[item.prop]"
             class="y-mr-20"
           ></el-input>
@@ -33,14 +34,29 @@
           :imageUrl="data[item.prop]"
           @onChangeImageUrl="(val: string) => (data[item.prop] = val)"
         ></m-upload>
-        <el-select v-else-if="item.type === 'select'" v-model="data[item.prop]" :multiple="item.multiple">
-          <el-option v-for="o in item.options" :key="o.value" :label="o.label" :value="o.value">
-
-          </el-option>
+        <el-select
+          v-else-if="item.type === 'select'"
+          v-model="data[item.prop]"
+          :multiple="item.multiple"
+          :filterable="item.filterable"
+          :allow-create="item.allowCreate"
+          :default-first-option="item.defaultFirstOption"
+          :style="item.style"
+        >
+          <el-option
+            v-for="o in item.options"
+            :key="o.value"
+            :label="o.label"
+            :value="o.value"
+          ></el-option>
+          <template #tag>
+            <el-tag v-for="color in data[item.prop]" :key="color.value" :color="color" />
+          </template>
         </el-select>
         <el-input
           v-else
           v-model="data[item.prop]"
+          :style="item.style"
           :type="item.type || 'text'"
           :autocomplete="item.autocomplete"
           :placeholder="item.placeholder"
@@ -105,6 +121,11 @@ onBeforeUnmount(() => {
 
 defineExpose({
   validator,
-  data
+  data,
 })
 </script>
+<style scoped>
+:deep(.el-tag__content) {
+  display: inline-flex;
+}
+</style>

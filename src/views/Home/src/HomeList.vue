@@ -9,11 +9,19 @@
         <div class="y-article__img">
           <img v-lazy="item.cover" :alt="item.title" loading="lazy" />
         </div>
-        <div class="y-article__publish y-fs-12 y-mt-10" type="info">
-          <span>发布日期：</span>
-          <span>{{ dateFormat(item.createdAt) }}</span>
+        <div class="y-article__info y-flex y-f-align-center y-mt-10">
+          <div class="y-article__info--avatar y-mr-6">
+            <img v-lazy="userStore.avatar" :alt="userStore.username" loading="lazy" />
+          </div>
+          <div class="y-ml-6">
+            <span>{{ userStore.username }}</span>
+          </div>
+          <div class="y-ml-10 y-flex-1 y-text-right y-flex y-f-align-center y-f-justify-end">
+            <svg-icon name="date" size="1.3" />
+            <span class="y-ml-6">{{ dateFormat(item.createdAt, 'YYYY-MM-DD') }}</span>
+          </div>
         </div>
-        <div class="y-article__title y-mt-10">
+        <div class="y-article__title y-mt-10 y-text-center">
           <p
             class="y-underline-trans y-cursor-p y-inline-block"
             @click="() => emit('onViewArticle', item)"
@@ -25,23 +33,36 @@
           class="y-article__desc y-ellipsis-clamp y-clamp-5 y-mt-10"
           v-html="item.description"
         ></div>
-        <div class="y-article__info y-flex y-mt-10">
-          <div class="y-article__hot y-flex-1 y-text-center">
-            <span>热度：</span>
-            <span>{{ item.views.length }}</span>
+        <div class="y-flex y-f-w">
+          <div class="y-article__tags y-flex y-f-align-center y-mt-10 y-mr-10">
+            <svg-icon name="tag" class="y-mr-6" />
+            <el-tag class="y-mr-6" v-for="tag in item.tags" :key="tag.id">
+              <span>{{ tag.tagName }}</span>
+            </el-tag>
           </div>
-          <div class="y-article__commit y-flex-1 y-text-center">
-            <span>评论：</span>
-            <span>{{ item.comments.length }}</span>
-          </div>
-          <div class="y-article__pick y-flex-1 y-text-center">
-            <span>点赞：</span>
-            <span>{{ item.likes.length }}</span>
+          <div class="y-flex y-f-align-center y-mt-10">
+            <div class="y-flex y-f-align-center y-mr-10">
+              <svg-icon name="view" />
+              <span class="y-ml-6">{{ item.views.length }}</span>
+            </div>
+            <div class="y-flex y-f-align-center y-mr-10">
+              <svg-icon name="like" />
+              <span class="y-ml-6">{{ item.likes.length }}</span>
+            </div>
+            <div class="y-flex y-f-align-center y-mr-10">
+              <svg-icon name="comment" />
+              <span class="y-ml-6">{{ item.comments.length }}</span>
+            </div>
           </div>
         </div>
-        <div class="y-article__tags y-flex y-f-align-center y-mt-10">
-          <span>标签：</span>
-          <el-tag>Tag 1</el-tag>
+        <m-category-tag
+          :text="item.category?.cateName"
+          :bg-color="item.category?.cateColor"
+          v-if="item.category?.cateName"
+        ></m-category-tag>
+        <div class="y-article__top" v-if="item.isTop">
+          <!-- <svg-icon name="top" /> -->
+          <span>top</span>
         </div>
       </el-card>
     </div>
@@ -59,13 +80,48 @@
 </template>
 <script setup lang="ts">
 import { useArticleStore } from '@/store/articleStore.ts'
+import { useUserStore } from '@/store/userStore.ts'
 import { dateFormat } from '@/utils/dayjs.ts'
 
 const { emit } = getCurrentInstance()
 
 const articleStore = computed(() => useArticleStore())
+const userStore = computed(() => useUserStore())
 </script>
 <style scoped lang="scss">
+.y-article__top {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  border-left: 40px solid transparent; /* 通过调整这个值来控制底边的宽度 */
+  border-top: 40px solid; /* 通过调整这个值来控制高度 */
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    color: red;
+    position: absolute;
+    top: 10px;
+  }
+}
+
+.y-article__info {
+  .y-article__info--avatar {
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+}
+
+:deep(.el-card) {
+  overflow: unset;
+}
+
 :deep(.el-card__body) {
   width: inherit;
 }
@@ -79,7 +135,7 @@ const articleStore = computed(() => useArticleStore())
   width: 100%;
   height: 100%;
   position: relative;
-  overflow: hidden;
+  overflow: unset;
   z-index: 1;
 }
 

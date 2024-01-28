@@ -18,7 +18,8 @@ export const useFilterBaseData = <T extends MTableBaseData>(tableData: T | T[]) 
     if (item.deletedAt) {
       item.deletedAt = dateFormat(item.deletedAt);
     }
-    item.switchStatus = ref(!item.deletedAt)
+    item.switchStatus = ref(!item.deletedAt);
+    if(item.status === 2) item.switchStatus.value = false
     return item;
   }
 

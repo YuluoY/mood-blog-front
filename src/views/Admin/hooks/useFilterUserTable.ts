@@ -13,7 +13,7 @@ export const useFilterUserTable = (tableData: IUser[]) => {
     { prop: 'avatar', label: '头像', type: 'image', width: '80' },
     { prop: 'email', label: '邮箱', width: '200' },
     { prop: 'role', label: '权限', tip: 'superAdmin,admin,vipUser,user,visitor', width: '100' },
-    { prop: 'status', label: '状态', tip: '0:正常,1:禁用,2:删除,3:审核', width: '80' },
+    { prop: 'status', label: '状态', tip: '0:正常,1:禁用,2:审核,3:私密,4:密码,5:草稿', width: '80' },
     { prop: 'createdAt', label: '创建时间', tip: '用户创建账号日期', width: '180' },
     { prop: 'lastLoginAt', label: '登录时间', type: 'date', tip: '最后登录时间', width: '180' }
   ]

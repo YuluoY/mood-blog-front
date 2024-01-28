@@ -3,6 +3,7 @@ import { IEditorOptions } from '@/types/store/writeStore.ts'
 import { ICreateArticle } from '@/types/api/article.ts'
 import { addArticle } from '@/api/article.ts'
 import { ElMessage } from 'element-plus'
+import { EnumStatus } from '@/types/core/index.ts'
 import { StoreNames } from './namespace.ts'
 
 export const useWriteStore = defineStore(StoreNames.Write, {
@@ -18,12 +19,12 @@ export const useWriteStore = defineStore(StoreNames.Write, {
       title: '',
       content: '',
       cover: '',
-      status: 0,
+      status: EnumStatus.UnAudit,
       description: '',
       userId: '',
       likes: [],
       views: [],
-      category: [],
+      category: null,
       tags: [],
       words: 0
     }
@@ -61,10 +62,10 @@ export const useWriteStore = defineStore(StoreNames.Write, {
         title: '',
         content: '',
         cover: '',
-        status: 0,
+        status: EnumStatus.UnAudit,
         description: '',
         userId: '',
-        category: [],
+        category: null,
         tags: [],
         words: 0
       }

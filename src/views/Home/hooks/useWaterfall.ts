@@ -48,7 +48,7 @@ export const useWaterfall = (options: Partial<IUseWaterfallOptions>): IUseWaterf
             position: 'relative',
             width: '100%',
             height: '100%',
-            overflow: 'hidden',
+            overflow: 'unset',
             boxSizing: 'content-box',
             paddingBottom: `${opts.gap}px`,
         }

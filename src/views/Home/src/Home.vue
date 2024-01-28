@@ -26,6 +26,7 @@ import { useWaterfall } from '../hooks/useWaterfall.ts'
 const { onLoadMore, onViewArticle } = await useHome()
 const { raw } = useWaterfall({
   container: '.y-homeList__waterfall',
+  gap: 40,
   breakpoint: [
     {
       point: 1500,

@@ -23,7 +23,7 @@ export const useFilterTagTable = (tableData: ITag | ITag[]) => {
     { prop: 'id', label: 'id' },
     { prop: 'tagName', label: '名称' },
     { prop: 'tagColorDisplay', label: '颜色', type: 'color', width: '100' },
-    { prop: 'tagColor', label: '哈希值' },
+    { prop: 'tagColor', label: '颜色值' },
     ...baseTableMap
   ]
 

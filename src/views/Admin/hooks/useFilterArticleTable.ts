@@ -33,10 +33,10 @@ export const useFilterArticleTable = (tableData: IArticle | IArticle[]) => {
   const articleStatusMap = {
     0: '正常',
     1: '禁用',
-    3: '审核',
-    4: '私密',
-    5: '密码',
-    6: '草稿'
+    2: '审核',
+    3: '私密',
+    4: '密码',
+    5: '草稿'
   }
 
   interface IArticleExtraProp {
@@ -58,7 +58,7 @@ export const useFilterArticleTable = (tableData: IArticle | IArticle[]) => {
     { prop: 'title', label: '标题' },
     { prop: 'cover', label: '封面', type: 'image' },
     { prop: 'words', label: '字数' },
-    { prop: 'visibility', label: '可见性' },
+    { prop: 'visibility', label: '可见性', tip: JSON.stringify(articleStatusMap)},
     {
       prop: 'isTop', label: '置顶', type: 'switch', ondelSwitchChange: async (row: IArticle) => {
         const res = await updateArticle<Partial<IArticle>, any>(row.id, { isTop: row.isTop });

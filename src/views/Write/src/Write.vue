@@ -40,6 +40,7 @@
                 @exceed="handleExceed"
                 @success="handleSuccess"
                 @error="handleError"
+                @change="handleChange"
               >
                 <el-icon><svg-icon name="plus" /></el-icon>
 
@@ -88,7 +89,7 @@ import { useWritePage } from '../hooks/index.ts'
 import '@vavt/v3-extension/lib/asset/Emoji.css'
 
 const editorRef = ref<ExposeParam | null>()
-const uploadRef = ref<{ submit: Function; abort: Function; handleRemove: Function } | null>()
+const uploadRef = ref<InstanceType<typeof import('element-plus')['ElUpload']>>()
 const mFormRef = ref<InstanceType<typeof MForm>>()
 // const action = `${import.meta.env.VITE_BASE_URL}/file`
 const action = `${import.meta.env.VITE_BASE_URL}/file/localUpload`
@@ -119,6 +120,7 @@ const {
   handleExceed,
   handleSuccess,
   handleError,
+  handleChange
 } = await useWritePage({
   editorRef,
   uploadRef,

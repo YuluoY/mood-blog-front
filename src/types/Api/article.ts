@@ -1,13 +1,16 @@
+/* eslint-disable import/no-cycle */
 import { EnumStatus, IResponseBaseData } from "../core/index.ts"
+import { ICategory } from "./category.ts"
 import { ILike } from "./like.ts"
 import { ITag } from "./tag.ts"
 import { IUser } from "./user.ts"
 import { IView } from "./view.ts"
 
+
 interface IExractArticle {
   views: IView[],
   likes: ILike[],
-  category: any[],
+  category: ICategory,
   comments: any[],
   file: any[],
   tags: ITag[]

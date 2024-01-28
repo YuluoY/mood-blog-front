@@ -7,15 +7,12 @@ import { ElNotification } from "element-plus";
 export const useFilterCategoryTable = (tableData: ICategory[]) => {
   const filterTableData = reactive([]);
 
-  const categoryTableMap: Partial<MTableBaseMap<keyof ICategory>>[] = [
-    {
-      prop: 'id',
-      label: 'id'
-    },
-    {
-      prop: 'cateName',
-      label: '分类名称',
-    },
+  const categoryTableMap: Partial<MTableBaseMap<keyof (ICategory & { cateColorVal: string })>>[] = [
+    { prop: 'id', label: 'id' },
+    { prop: 'cateName', label: '名称' },
+    { prop: 'cateAlias', label: '别名' },
+    { prop: 'cateColor', label: '颜色', type: 'color', width: '100' },
+    { prop: 'cateColorVal', label: '颜色值' },
     {
       prop: 'deletedAt',
       label: '状态',
@@ -50,12 +47,13 @@ export const useFilterCategoryTable = (tableData: ICategory[]) => {
   ]
 
   if (tableData.length) {
-    filterTableData.push(...tableData.map((category: ICategory & { switchStatus?: Ref<boolean> }) => {
+    filterTableData.push(...tableData.map((category: ICategory & { switchStatus?: Ref<boolean>, cateColorVal?: string }) => {
       category.createdAt = dateFormat(category.createdAt);
       if (category.deletedAt) {
         category.deletedAt = dateFormat(category.deletedAt);
       }
-      category.switchStatus = ref(!category.deletedAt)
+      category.switchStatus = ref(!category.deletedAt);
+      category.cateColorVal = category.cateColor;
       return category;
     }))
   }

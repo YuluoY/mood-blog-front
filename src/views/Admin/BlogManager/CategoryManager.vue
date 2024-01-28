@@ -29,15 +29,33 @@ import { addCategory, getCategorys, removeCategory } from '@/api/category.ts'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useFilterCategoryTable } from '../hooks/useFilterCategoryTable.ts'
 
-const addFormConfigures: MFormItemConfig[] = [
+const addFormConfigures: MFormItemConfig<ICategory>[] = [
   {
     prop: 'cateName',
-    label: '分类名称',
+    label: '名称',
+    labelWidth: '70',
+    placeholder: '请输入分类名称',
     rules: [{ required: true, message: '分类名称不能为空', trigger: 'blur' }],
+  },
+  {
+    prop: 'cateAlias',
+    label: '别名',
+    labelWidth: '70',
+    placeholder: '请输入分类别名（地址名）',
+    rules: [{ required: true, message: '分类别名不能为空', trigger: 'blur' }],
+  },
+  {
+    prop: 'cateColor',
+    label: '颜色',
+    type: 'color',
+    labelWidth: '70',
+    placeholder: '请输入分类颜色',
   },
 ]
 const addFormData = reactive<ICreateCategory>({
   cateName: '',
+  cateAlias: '',
+  cateColor: '#000000',
 })
 
 const mFormRef = ref<InstanceType<typeof MForm>>()
