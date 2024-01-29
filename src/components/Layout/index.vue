@@ -15,21 +15,23 @@
       <Main>
         <slot></slot>
       </Main>
+      <KeepAlive>
+        <Foot></Foot>
+      </KeepAlive>
     </el-container>
     <Sider></Sider>
     <MBackTop></MBackTop>
   </el-container>
-  <ParticlesBg v-if="isShow"/>
+  <ParticlesBg v-if="isShow" />
 </template>
 
 <script setup lang="ts" name="Layout">
 import { ParticlesBg } from '@/plugins/VueParticles/index.ts'
 import { useMProgress } from '@/plugins/MProgress/index.ts'
 
-const router = useRouter();
+const router = useRouter()
 useMProgress()
 const loginRef = ref<Ref | null>(null)
-
 
 const isShow = ref<boolean>(true)
 const headBlackList = ['/admin']

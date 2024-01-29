@@ -11,9 +11,6 @@
       ></HomeList>
       <HomeSidebar class="y-home__sidebar"></HomeSidebar>
     </div>
-    <KeepAlive>
-      <Foot></Foot>
-    </KeepAlive>
   </div>
 </template>
 

@@ -25,7 +25,8 @@ const styles = computed(() => {
     backgroundImage: `url(${props.imageUrl})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat'
+    backgroundRepeat: 'no-repeat',
+    backgroundAttachment: 'fixed'
   } as CSSProperties
 })
 

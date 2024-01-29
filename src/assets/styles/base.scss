@@ -27,6 +27,9 @@ html.dark {
   .y-hero {
     filter: brightness(0.7);
   }
+  svg {
+    fill: var(--el-color-white);
+  }
 }
 
 body {

@@ -34,9 +34,9 @@
           v-html="item.description"
         ></div>
         <div class="y-flex y-f-w">
-          <div class="y-article__tags y-flex y-f-align-center y-mt-10 y-mr-10">
-            <svg-icon name="tag" class="y-mr-6" />
-            <el-tag class="y-mr-6" v-for="tag in item.tags" :key="tag.id">
+          <div class="y-article__tags y-flex y-f-align-center y-f-w y-mr-10 y-flex-1">
+            <!-- <svg-icon name="tag" class="y-mr-6 y-mt-10" /> -->
+            <el-tag class="y-mr-6 y-mt-10" v-for="tag in item.tags" :key="tag.id">
               <span>{{ tag.tagName }}</span>
             </el-tag>
           </div>
@@ -58,12 +58,9 @@
         <m-category-tag
           :text="item.category?.cateName"
           :bg-color="item.category?.cateColor"
+          :opacity="0.7"
           v-if="item.category?.cateName"
         ></m-category-tag>
-        <div class="y-article__top" v-if="item.isTop">
-          <!-- <svg-icon name="top" /> -->
-          <span>top</span>
-        </div>
       </el-card>
     </div>
     <div class="y-load__more y-flex y-f-justify-center">
@@ -95,8 +92,6 @@ const userStore = computed(() => useUserStore())
   top: 0;
   width: 40px;
   height: 40px;
-  border-left: 40px solid transparent; /* 通过调整这个值来控制底边的宽度 */
-  border-top: 40px solid; /* 通过调整这个值来控制高度 */
   z-index: 9;
   display: flex;
   align-items: center;

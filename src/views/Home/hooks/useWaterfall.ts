@@ -117,7 +117,7 @@ export const useWaterfall = (options: Partial<IUseWaterfallOptions>): IUseWaterf
                 position: 'absolute',
                 top: `${top}px`,
                 left: `${left}px`,
-            })
+            } as import('vue').CSSProperties)
             injectProp(el, 'data-loaded', 'true');
             injectStyle(opts.container as HTMLElement, 'height', `${Math.max(...colHeight)}px`);
         }

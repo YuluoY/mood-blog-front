@@ -7,7 +7,7 @@
       ref="mCategoryTagBackgroundRef"
       :style="{
         backgroundColor: bgColor,
-        opacity: 0.8,
+        opacity: opacity,
       }"
     ></div>
     <i
@@ -26,11 +26,13 @@ const props = withDefaults(
     Partial<{
       text: string
       bgColor: string
+      opacity: string | number
     }>
   >(),
   {
     text: '',
     bgColor: '#409eff',
+    opacity: '0.6',
   }
 )
 
@@ -40,11 +42,11 @@ const mCategoryTagTriangleRef = ref<HTMLDivElement | null>()
 
 const handleMouseenter = () => {
   mCategoryTagBackgroundRef.value.style.opacity = '1'
-  mCategoryTagTriangleRef.value.style.opacity = '0.8'
+  mCategoryTagTriangleRef.value.style.opacity = String(props.opacity)
 }
 
 const handleMouseleave = () => {
-  mCategoryTagBackgroundRef.value.style.opacity = '0.8'
+  mCategoryTagBackgroundRef.value.style.opacity = String(props.opacity)
   mCategoryTagTriangleRef.value.style.opacity = '1'
 }
 
