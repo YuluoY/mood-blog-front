@@ -39,18 +39,13 @@ export const useWriteStore = defineStore(StoreNames.Write, {
     setEditorOptions(options: Partial<IEditorOptions>) {
       this.editorOptions = Object.assign(this.editorOptions, options);
     },
-    setFormCover(url: string) {
-      this.form.cover = url;
-    },
-    setFormContent(content: string) {
-      this.form.content = content;
-    },
-    async onSave() {
-      const res = await addArticle(this.form);
+    async onSave<T>(data: T & object) {
+      const res = await addArticle<T>(data);
+      console.log(res, 'res');
+
       if (res.success) {
         ElMessage.success(res.data);
         this.initForm();
-        this.content = '';
         return true;
       } else {
         ElMessage.error(res.data);
@@ -58,21 +53,32 @@ export const useWriteStore = defineStore(StoreNames.Write, {
       }
     },
     initForm() {
-      this.form = {
+
+      console.log(this.rawForm, 'raw');
+
+      this.form = this.getRawForm() as any
+      this.content = '';
+      console.log(this.form);
+
+    },
+    getRawForm() {
+      return {
         title: '',
         content: '',
         cover: '',
         status: EnumStatus.UnAudit,
         description: '',
         userId: '',
+        likes: [],
+        views: [],
         category: null,
         tags: [],
         words: 0
-      }
+      } as ICreateArticle
     }
   },
   getters: {
-
+  
   },
 
   persist: {

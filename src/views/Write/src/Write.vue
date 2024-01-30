@@ -1,82 +1,90 @@
 <template>
   <div class="y-write">
-    <MdEditor
-      ref="editorRef"
-      class="y-write__editor"
-      v-model="writeStore.content"
-      :placeholder="$t('writeView.editorPlaceholder')"
-      :theme="editorOptions.theme"
-      :language="editorOptions.language"
-      :show-code-row-number="editorOptions.showCodeRowNumber"
-      :preview-theme="editorOptions.previewTheme"
-      :code-theme="editorOptions.codeTheme"
-      @on-save="onSave"
-      :toolbars="toolbars"
+    <MForm
+      ref="mFormRef"
+      style="padding: 20px"
+      :form-data="writeStore.form"
+      :form-configures="publishFormConfigure"
     >
-      <template #defToolbars>
-        <Emoji>
-          <template #trigger>
-            <svg-icon name="emoji" size="1.2"></svg-icon>
-          </template>
-        </Emoji>
-      </template>
-    </MdEditor>
-    <el-dialog v-model="isVisiableDialog">
-      <template #header>
-        <h3>{{ $t('writeView.save') }}</h3>
-      </template>
-      <template #default>
-        <MForm ref="mFormRef" :form-data="form" :form-configures="publishFormConfigure">
-          <template #suffix>
-            <el-form-item label="封面" prop="cover" label-width="70">
-              <el-upload
-                ref="uploadRef"
-                :action="action"
-                :data="extraData"
-                :headers="headers"
-                list-type="picture-card"
-                :auto-upload="false"
-                :limit="1"
-                @exceed="handleExceed"
-                @success="handleSuccess"
-                @error="handleError"
-                @change="handleChange"
-              >
-                <el-icon><svg-icon name="plus" /></el-icon>
+      <template #suffix>
+        <el-form-item label="封面" prop="cover" label-width="70">
+          <el-upload
+            ref="uploadRef"
+            :action="action"
+            :data="extraData"
+            :headers="headers"
+            list-type="picture-card"
+            :auto-upload="false"
+            :limit="1"
+            @exceed="handleExceed"
+            @success="handleSuccess"
+            @error="handleError"
+            @change="handleChange"
+          >
+            <el-icon><svg-icon name="plus" /></el-icon>
 
-                <template #file="{ file }">
-                  <div>
-                    <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
-                    <span class="el-upload-list__item-actions">
-                      <span
-                        class="el-upload-list__item-preview"
-                        @click="handlePictureCardPreview(file)"
-                      >
-                        <el-icon><svg-icon name="zoom-in" /></el-icon>
-                      </span>
-                      <span
-                        v-if="!disabled"
-                        class="el-upload-list__item-delete"
-                        @click="handleRemove(file)"
-                      >
-                        <el-icon><svg-icon name="delete" /></el-icon>
-                      </span>
-                    </span>
-                  </div>
+            <template #file="{ file }">
+              <div>
+                <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
+                <span class="el-upload-list__item-actions">
+                  <span
+                    class="el-upload-list__item-preview"
+                    @click="handlePictureCardPreview(file)"
+                  >
+                    <el-icon><svg-icon name="zoom-in" /></el-icon>
+                  </span>
+                  <span
+                    v-if="!disabled"
+                    class="el-upload-list__item-delete"
+                    @click="handleRemove(file)"
+                  >
+                    <el-icon><svg-icon name="delete" /></el-icon>
+                  </span>
+                </span>
+              </div>
+            </template>
+          </el-upload>
+
+          <el-dialog v-model="dialogVisible">
+            <img w-full :src="dialogImageUrl" alt="Preview Image" />
+          </el-dialog>
+        </el-form-item>
+
+        <el-form-item
+          label="内容"
+          prop="content"
+          label-width="70"
+        >
+          <MdEditor
+            ref="editorRef"
+            class="y-write__editor"
+            v-model="writeStore.content"
+            :placeholder="$t('writeView.editorPlaceholder')"
+            :theme="editorOptions.theme"
+            :language="editorOptions.language"
+            :show-code-row-number="editorOptions.showCodeRowNumber"
+            :preview-theme="editorOptions.previewTheme"
+            :code-theme="editorOptions.codeTheme"
+            :toolbars="toolbars"
+            @on-html-changed="onHtmlChanged"
+          >
+            <template #defToolbars>
+              <Emoji>
+                <template #trigger>
+                  <svg-icon name="emoji" size="1.2"></svg-icon>
                 </template>
-              </el-upload>
-
-              <el-dialog v-model="dialogVisible">
-                <img w-full :src="dialogImageUrl" alt="Preview Image" />
-              </el-dialog>
-            </el-form-item>
-          </template>
-        </MForm>
+              </Emoji>
+            </template>
+          </MdEditor>
+        </el-form-item>
+        <el-form-item label-width="70">
+          <el-button type="primary" @click="onSubmitForm" class="y-mt-20">
+            <svg-icon name="submit-form" class="y-mr-6" color="#fff"></svg-icon>
+            <span>{{ $t('writeView.save') }}</span>
+          </el-button>
+        </el-form-item>
       </template>
-      <template #footer>
-        <el-button type="primary" @click="onSubmitForm">{{ $t('writeView.submit') }}</el-button>
-      </template>
-    </el-dialog>
+    </MForm>
   </div>
 </template>
 
@@ -89,7 +97,7 @@ import { useWritePage } from '../hooks/index.ts'
 import '@vavt/v3-extension/lib/asset/Emoji.css'
 
 const editorRef = ref<ExposeParam | null>()
-const uploadRef = ref<InstanceType<typeof import('element-plus')['ElUpload']>>()
+const uploadRef = ref<InstanceType<(typeof import('element-plus'))['ElUpload']>>()
 const mFormRef = ref<InstanceType<typeof MForm>>()
 // const action = `${import.meta.env.VITE_BASE_URL}/file`
 const action = `${import.meta.env.VITE_BASE_URL}/file/localUpload`
@@ -102,10 +110,8 @@ const extraData = computed(() => {
 
 const {
   writeStore,
-  form,
   editorOptions,
-  onSave,
-  isVisiableDialog,
+  onHtmlChanged,
   publishFormConfigure,
   onSubmitForm,
 
@@ -120,7 +126,7 @@ const {
   handleExceed,
   handleSuccess,
   handleError,
-  handleChange
+  handleChange,
 } = await useWritePage({
   editorRef,
   uploadRef,
@@ -133,11 +139,31 @@ const {
 @include b(write) {
   width: 100%;
   min-height: calc(100vh - 60px);
+
+  .y-write__row {
+    margin: 20px;
+
+    .el-input {
+      display: inline;
+    }
+
+    h2 {
+      min-width: 55px;
+      display: inline;
+      font-size: 1.5em;
+      font-weight: 500;
+      padding: 20px 0;
+    }
+  }
 }
 
 @include be(write, editor) {
-  width: 100%;
-  min-height: inherit;
+  // width: 100%;
+  // min-height: inherit;
+}
+
+:deep(.el-form-item__content) {
+  padding-right: 20px;
 }
 
 :deep(.emojis li) {

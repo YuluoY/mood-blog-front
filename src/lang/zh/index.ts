@@ -56,7 +56,7 @@ export default {
   },
   writeView: {
     editorPlaceholder: '来都来了，这不整一篇高质量文章？👻',
-    save: '发布文章',
+    save: '发布',
     submit: '提交',
     cancel: '取消',
     title: '请输入标题',

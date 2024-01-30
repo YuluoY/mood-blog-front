@@ -9,7 +9,7 @@ export interface ICreateCategory {
   article?: IArticle[]
 }
 
-export interface ICategory extends ICreateCategory, Partial<IResponseBaseData> {
+export interface ICategory extends Partial<ICreateCategory>, Partial<IResponseBaseData> {
 
 }
 

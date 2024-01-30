@@ -77,7 +77,7 @@ export interface IQainationQueryBase extends Partial<IResponseBaseData> {
   order: 'ASC' | 'DESC'
 }
 export interface IBaseApi {
-  add: <T, D>(data: T & object) => Promise<IResponseTemplate<D | T>>
+  add: <T, D = any>(data: T & object) => Promise<IResponseTemplate<D | T>>
   getAll?: <T>() => Promise<IResponseTemplate<T>>
   getById?: <T = any, D = any>(data: T & object) => Promise<IResponseTemplate<D>>
   update?: <T, D>(id: string, data: T & object) => Promise<IResponseTemplate<T | D>>

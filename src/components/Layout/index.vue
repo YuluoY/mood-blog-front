@@ -22,7 +22,7 @@
     <Sider></Sider>
     <MBackTop></MBackTop>
   </el-container>
-  <ParticlesBg v-if="isShow" />
+  <ParticlesBg v-if="isShow && isShowParticleBg" />
 </template>
 
 <script setup lang="ts" name="Layout">
@@ -35,11 +35,15 @@ const loginRef = ref<Ref | null>(null)
 
 const isShow = ref<boolean>(true)
 const headBlackList = ['/admin']
+const particleBgBlackList = ['/write']
 watch(
   () => router.currentRoute.value,
   () => {
     isShow.value = !headBlackList.every((path) => router.currentRoute.value.path.indexOf(path) > -1)
   }
+)
+const isShowParticleBg = computed(
+  () => !particleBgBlackList.every((path) => router.currentRoute.value.path.indexOf(path) > -1)
 )
 </script>
 

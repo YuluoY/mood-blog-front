@@ -232,3 +232,56 @@ export const colorStringToHex = (colorName: string) => {
 
   return hexColor;
 }
+
+/**
+ * @description: 深拷贝函数，用于创建输入对象的副本，处理不同数据类型，防止循环引用。
+ * @template T - 输入对象的类型
+ * @param {T} obj - 要拷贝的对象
+ * @param {WeakMap<object, object>} [hash=new WeakMap()] - 用于处理循环引用的 WeakMap
+ * @returns {T} - 输入对象的深拷贝
+ */
+export const deepClone = <T = any>(obj: T & WeakKey, hash = new WeakMap()): T => {
+  // 处理循环引用
+  if (hash.has(obj)) return hash.get(obj) as T;
+
+  if (obj === null || typeof obj !== 'object') {
+    // 基本数据类型和函数直接返回
+    return obj;
+  }
+
+  if (obj instanceof Date) {
+    // 处理日期对象
+    return new Date(obj) as T;
+  }
+
+  if (obj instanceof RegExp) {
+    // 处理正则表达式对象
+    return new RegExp(obj) as T;
+  }
+
+  if (Array.isArray(obj)) {
+    // 处理数组
+    const arrCopy = [] as Array<unknown>;
+    hash.set(obj, arrCopy);
+
+    for (let i = 0; i < obj.length; i++) {
+      arrCopy[i] = deepClone(obj[i], hash);
+    }
+
+    return arrCopy as T;
+  }
+
+  // 处理普通对象
+  const objCopy = Object.create(Object.getPrototypeOf(obj)) as Record<string, unknown>;
+  hash.set(obj, objCopy);
+
+  // eslint-disable-next-line no-restricted-syntax
+  for (let key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      // @ts-ignore
+      objCopy[key] = deepClone(obj[key], hash);
+    }
+  }
+
+  return objCopy as T;
+}

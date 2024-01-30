@@ -90,6 +90,15 @@ a {
 .md-editor-toolbar-wrapper .md-editor-toolbar-right {
   flex-wrap: wrap;
 }
+.md-editor-toolbar-item {
+  display: inline-flex !important;
+  align-items: center !important;
+}
+.emojis li {
+  box-sizing: content-box;
+}
+
+
 // 预览背景色
 .md-editor-preview-wrapper {
   background-color: var(--el-bg-color) !important;

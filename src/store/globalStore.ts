@@ -12,6 +12,9 @@ export const useGlobalStore = defineStore(StoreNames.Global, {
   getters: {
     getDefaultCover(): string {
       return '//localhost:3000/cover.png';
+    },
+    getDefaultAvatar(): string {
+      return '//localhost:3000/avatar.png'
     }
   },
   actions: {

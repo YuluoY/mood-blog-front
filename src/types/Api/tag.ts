@@ -2,7 +2,7 @@ import { IResponseBaseData } from "../core/index.ts";
 
 export interface ICreateTag {
   tagName: string
-  tagColor: string
+  tagColor?: string
 }
 
 

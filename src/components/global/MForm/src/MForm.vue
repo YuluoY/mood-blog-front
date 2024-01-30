@@ -41,14 +41,26 @@
           :filterable="item.filterable"
           :allow-create="item.allowCreate"
           :default-first-option="item.defaultFirstOption"
+          :reserve-keyword="item.reserveKeyword"
+          :placeholder="item.placeholder"
+          :clearable="item.clearable"
           :style="item.style"
         >
-          <el-option
-            v-for="o in item.options"
-            :key="o.value"
-            :label="o.label"
-            :value="o.value"
-          ></el-option>
+          <el-option v-for="o in item.options" :key="o.value" :label="o.label" :value="o.value">
+            <div class="y-flex y-f-align-center y-f-justify-between">
+              <span>{{ o.label }}</span>
+              <span
+                v-if="o.color"
+                class="y-ml-20 y-mr-20"
+                :style="{
+                  display: 'inline-block',
+                  backgroundColor: o.color,
+                  width: '50px',
+                  height: '20px',
+                }"
+              ></span>
+            </div>
+          </el-option>
           <template #tag>
             <el-tag v-for="color in data[item.prop]" :key="color.value" :color="color" />
           </template>
@@ -95,8 +107,8 @@ import { MFormItemConfig, MFormProps } from '../types/index.ts'
 
 const props = withDefaults(defineProps<MFormProps<any>>(), {})
 
-const data = reactive(props.formData)
-const configures = reactive<MFormItemConfig[]>(props.formConfigures)
+const data = ref(props.formData)
+const configures = ref<MFormItemConfig[]>(props.formConfigures)
 
 const ruleFormRef = ref<FormInstance>()
 
@@ -107,21 +119,14 @@ const validator = async (): Promise<boolean> => {
   return res
 }
 
-const formDataWatcher = watch(
-  props.formData,
-  (newVal) => {
-    Object.assign(data, newVal)
-  },
-  { deep: true }
-)
-
-onBeforeUnmount(() => {
-  formDataWatcher()
-})
+const cleanFormData = <T extends object>(rawData: T) => {
+  data.value = rawData
+}
 
 defineExpose({
   validator,
   data,
+  cleanFormData,
 })
 </script>
 <style scoped>

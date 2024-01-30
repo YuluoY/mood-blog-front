@@ -45,6 +45,7 @@ export default defineComponent({
           width: addSignByPos(props.size, props.unit, 'suffix'),
           height: addSignByPos(props.size, props.unit, 'suffix'),
           color: props.color,
+          fill: props.color,
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
