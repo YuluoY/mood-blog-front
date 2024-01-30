@@ -2,7 +2,7 @@
  * @Author: huyongle 568055454@qq.com
  * @Date: 2023-11-30 00:37:00
  * @LastEditors: huyongle 568055454@qq.com
- * @LastEditTime: 2024-01-28 08:13:27
+ * @LastEditTime: 2024-01-30 08:58:37
  * @FilePath: \mood-blog-front\src\views\Write\hooks\index.ts
  * @Description: 攥写文章的页面。逻辑：攥写文章内容 --> 保存出现弹窗 --> 填写文章的相关表单 --> 校验表单
  * 
@@ -253,8 +253,8 @@ export const useWritePage = async ({
 
       setTimeout(() => {
         writeStore.form.words = preText(doc.body.innerText)?.length;
-        writeStore.form.title = toTrim(doc.querySelector('h1')?.innerText);
-        writeStore.form.description = toTrim(doc.querySelector('blockquote')?.innerText);
+        writeStore.form.title = writeStore.form.title ? writeStore.form.title : toTrim(doc.querySelector('h1')?.innerText);
+        writeStore.form.description = writeStore.form.description ? writeStore.form.description : toTrim(doc.querySelector('blockquote')?.innerText);
         writeStore.setFormContent(doc.body.innerHTML);
       }, 100);
     })
