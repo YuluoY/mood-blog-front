@@ -1,6 +1,6 @@
 <template>
   <div class="y-aboutManager">
-    <el-card>
+    <el-card shadow="hover">
       <el-form v-model="formData">
         <el-form-item prop="title" label="标题">
           <el-input

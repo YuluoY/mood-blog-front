@@ -1,6 +1,6 @@
 <template>
   <div class="y-homeSidebar">
-    <el-card class="y-homeSidebar__card y-card__info">
+    <el-card class="y-homeSidebar__card y-card__info" v-if="isPersonalShow" shadow="hover">
       <div class="y-card__avatar y-w-100 y-flex y-f-justify-center">
         <img
           class="y-card__image y-b-radius-50"
@@ -53,7 +53,7 @@
         <div>最新评论</div>
       </template>
     </el-card> -->
-    <el-card class="y-homeSidebar__card y-card__tags y-mt-20">
+    <el-card class="y-homeSidebar__card y-card__tags y-mt-20" v-if="isTagCloudShow" shadow="hover">
       <template #header>
         <div>标签云</div>
       </template>
@@ -72,7 +72,7 @@
       </el-tag>
     </el-card>
 
-    <el-card class="y-homeSidebar__card y-mt-20">
+    <el-card class="y-homeSidebar__card y-mt-20" v-if="isLoveShow" shadow="hover">
       <template #header>
         <div>我们</div>
       </template>
@@ -122,18 +122,35 @@ const categoryStroe = computed(() => useCategoryStore())
 await tagStore.value.fetchTags()
 await categoryStroe.value.fetchCategories()
 
+const props = withDefaults(
+  defineProps<Partial<{
+    isLoveShow: boolean
+    isTagCloudShow: boolean
+    isPersonalShow: boolean
+  }>>(),
+  {
+    isLoveShow: true,
+    isTagCloudShow: true,
+    isPersonalShow: true,
+  }
+)
+
 const handleTagClick = (tag: ITag) => {
   router.push({
     name: 'Tag',
     params: {
-      tagName: tag.tagName,
+      name: tag.tagName,
     },
   })
 }
 
 onMounted(() => {
-  const loveTime = document.querySelector('.y-card__loveTime span') as HTMLElement
-  injectStyle(loveTime, '-webkit-background-clip', 'text')
+  if (props.isLoveShow) {
+    const loveTime = document.querySelector('.y-card__loveTime span') as HTMLElement
+    if (loveTime) {
+      injectStyle(loveTime, '-webkit-background-clip', 'text')
+    }
+  }
 })
 </script>
 <style scoped lang="scss">

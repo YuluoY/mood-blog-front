@@ -130,7 +130,7 @@ export const staticRoutes: Readonly<RouteRecordRaw[]> = [
     ]
   },
   {
-    path: '/tag/:tagName',
+    path: '/tag/:name',
     name: 'Tag',
     component: () => import('@/views/Tag/index.ts'),
     meta: { roles: ['visitor'], title: 'Tag', icon: 'tag-view', affix: false },

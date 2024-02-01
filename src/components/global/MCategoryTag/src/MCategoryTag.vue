@@ -51,8 +51,14 @@ const handleMouseleave = () => {
 }
 
 onMounted(() => {
-  mCategoryTagRef.value.addEventListener('mouseenter', handleMouseenter)
-  mCategoryTagRef.value.addEventListener('mouseleave', handleMouseleave)
+  if (mCategoryTagRef.value) {
+    mCategoryTagRef.value.addEventListener('mouseenter', handleMouseenter)
+    mCategoryTagRef.value.addEventListener('mouseleave', handleMouseleave)
+    if(mCategoryTagRef.value.parentElement) {
+      mCategoryTagRef.value.parentElement.style.overflow = 'unset';
+      mCategoryTagRef.value.parentElement.style.position = 'relative';
+    }
+  }
 })
 
 onBeforeUnmount(() => {
@@ -80,6 +86,7 @@ onBeforeUnmount(() => {
     width: 100%;
     height: 100%;
     left: 0;
+    z-index: 2;
     transition: inherit;
   }
 
@@ -99,7 +106,7 @@ onBeforeUnmount(() => {
   .m-categoryTag__icon,
   .m-categoryTag__text {
     position: relative;
-    z-index: 2;
+    z-index: 3;
   }
 
   .m-categoryTag__text {

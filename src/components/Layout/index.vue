@@ -1,6 +1,6 @@
 <template>
   <el-container class="y-layout" direction="vertical">
-    <Head :loginRef="loginRef" v-if="isShow">
+    <Head :loginRef="loginRef" v-if="isShowHead">
       <template #Search>
         <Search></Search>
       </template>
@@ -15,14 +15,12 @@
       <Main>
         <slot></slot>
       </Main>
-      <KeepAlive>
-        <Foot></Foot>
-      </KeepAlive>
+      <Foot v-if="isShowHead"></Foot>
     </el-container>
     <Sider></Sider>
     <MBackTop></MBackTop>
   </el-container>
-  <ParticlesBg v-if="isShow && isShowParticleBg" />
+  <ParticlesBg v-if="isShowHead && isShowParticleBg" />
 </template>
 
 <script setup lang="ts" name="Layout">
@@ -33,13 +31,13 @@ const router = useRouter()
 useMProgress()
 const loginRef = ref<Ref | null>(null)
 
-const isShow = ref<boolean>(true)
+const isShowHead = ref<boolean>(true)
 const headBlackList = ['/admin']
 const particleBgBlackList = ['/write']
 watch(
   () => router.currentRoute.value,
   () => {
-    isShow.value = !headBlackList.every((path) => router.currentRoute.value.path.indexOf(path) > -1)
+    isShowHead.value = !headBlackList.every((path) => router.currentRoute.value.path.indexOf(path) > -1)
   }
 )
 const isShowParticleBg = computed(

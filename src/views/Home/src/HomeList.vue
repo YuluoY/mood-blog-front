@@ -2,6 +2,7 @@
   <div class="y-homeList">
     <div class="y-homeList__waterfall" ref="waterfall">
       <el-card
+        shadow="hover"
         class="y-homeList__item y-flex y-f-col y-f-align-center"
         v-for="item in articleStore.articleList"
         :key="item.id"
@@ -136,8 +137,9 @@ const userStore = computed(() => useUserStore())
 
 @include be(homeList, item) {
   border-radius: 5px;
-  box-shadow: var(--el-box-shadow-light);
-  transition: all 0.3s;
+
+  // box-shadow: var(--el-box-shadow-light);
+  // transition: all 0.3s;
   width: inherit;
 
   &:hover {

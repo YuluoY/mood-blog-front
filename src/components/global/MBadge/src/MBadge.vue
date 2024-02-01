@@ -2,7 +2,7 @@
   <div
     class="m-badge"
     :style="{
-      margin: '10px',
+      margin: '4px 10px',
     }"
   >
     <a

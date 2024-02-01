@@ -2,7 +2,7 @@
  * @Author: huyongle 568055454@qq.com
  * @Date: 2023-11-30 00:37:00
  * @LastEditors: huyongle 568055454@qq.com
- * @LastEditTime: 2024-01-30 17:12:46
+ * @LastEditTime: 2024-01-30 18:32:51
  * @FilePath: \mood-blog-front\src\views\Write\hooks\index.ts
  * @Description: 攥写文章的页面。逻辑：攥写文章内容 --> 保存出现弹窗 --> 填写文章的相关表单 --> 校验表单
  * 
@@ -61,7 +61,8 @@ export const useWritePage = async ({
   let categoryOptions: { label: string, value: any }[] = categoryStore.categories.map((c: ICategory) => {
     return {
       label: c.cateName,
-      value: c.id
+      value: c.id,
+      color: c.cateColor
     }
   })
 

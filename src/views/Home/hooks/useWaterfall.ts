@@ -56,7 +56,7 @@ export const useWaterfall = (options: Partial<IUseWaterfallOptions>): IUseWaterf
             position: 'absolute',
             top: 0,
             left: 0,
-            transition: `left ${opts.leftAnimateDelay}ms ${opts.animateEase}, top ${opts.topAnimateDelay}ms ${opts.animateEase}`,
+            transition: `left ${opts.leftAnimateDelay}ms ${opts.animateEase}, top ${opts.topAnimateDelay}ms ${opts.animateEase}, box-shadow .3s ease`,
             zIndex: 1,
             width: `${colWidth}px`,
         }

@@ -1,5 +1,5 @@
 <template>
-  <el-card v-if="$slots.add || $slots.del || $slots.update" class="y-mb-20">
+  <el-card v-if="$slots.add || $slots.del || $slots.update" class="y-mb-20" shadow="hover">
     <template #header>
       <span>{{ operateAreaTitle }}</span>
     </template>
@@ -66,12 +66,12 @@
       </div>
     </div>
   </el-card>
-  <el-card v-if="$slots?.search" class="y-mb-20">
+  <el-card v-if="$slots?.search" class="y-mb-20" shadow="hover">
     <template #header>
       <span>{{ searchAreaTitle }}</span>
     </template>
   </el-card>
-  <el-card v-if="$slots?.table" class="y-mb-20">
+  <el-card v-if="$slots?.table" class="y-mb-20" shadow="hover">
     <template #header>
       <span>{{ tableAreaTitle }}</span>
     </template>

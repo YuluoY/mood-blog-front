@@ -1,7 +1,7 @@
 <template>
   <div class="y-foot">
     <div class="y-foot__inner">
-      <div class="y-flex y-f-justify-center y-f-align-center y-mt-10">
+      <div class="y-flex y-f-justify-center y-f-align-center y-mt-10 y-f-w">
         <div class="running-time">
           <span>小破站已运行：{{ runningTime }}</span>
         </div>
@@ -14,7 +14,7 @@
           <span>访问次数：{{ 0 }}</span>
         </div>
       </div>
-      <div class="y-flex y-f-justify-center y-f-align-center y-mt-10">
+      <div class="y-flex y-f-justify-center y-f-align-center y-mt-10 y-f-w">
         <div class="copyright">
           <span class="y-mr-10">Copyright &copy; 2023 - {{ new Date().getFullYear() }}</span>
           <a href="/">Yuluo's Blog</a>
@@ -28,7 +28,7 @@
           <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备2021111111号</a>
         </div>
       </div>
-      <div class="y-foot__badge--box y-flex y-f-justify-center">
+      <div class="y-foot__badge--box y-flex y-f-justify-center y-f-w y-mt-6">
         <MBadge left-text="MBlog" right-text="Open Source" right-color="#5CCB34" target="_self" />
         <MBadge
           left-text="Powered"

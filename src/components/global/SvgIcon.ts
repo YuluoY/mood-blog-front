@@ -14,7 +14,7 @@ export default defineComponent({
     },
     size: {
       type: [String, Number] as PropType<string | number>,
-      default: 1,
+      default: 1.2,
     },
     unit: {
       type: String as PropType<'em' | 'px' | 'rem' | '%'>,
