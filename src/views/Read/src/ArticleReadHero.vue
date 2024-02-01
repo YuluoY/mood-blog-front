@@ -3,6 +3,14 @@
     <div class="y-hero__inner">
       <h1 class="y-hero__title y-text-center">{{ article.title }}</h1>
       <div class="y-hero__item y-flex y-f-align-center">
+
+        <div class="author y-flex y-f-align-center">
+          <svg-icon name="author"></svg-icon>
+          <span class="y-ml-6">作者：</span>
+          <span>{{ article.author || article.user.username }}</span>
+        </div>
+        <el-divider direction="vertical" />
+        
         <div class="date y-flex y-f-align-center">
           <svg-icon name="publish-date"></svg-icon>
           <span class="y-ml-6">发表于</span>
@@ -10,15 +18,29 @@
         </div>
         <el-divider direction="vertical" />
         <div class="category y-flex y-f-align-center">
-          <svg-icon name="tag"></svg-icon>
-          <span class="y-ml-6">分类于</span>
-          <span>{{ article.category }}</span>
+          <svg-icon name="category"></svg-icon>
+          <span class="y-ml-6">分类：</span>
+          <span>{{ article.category.cateName }}</span>
         </div>
         <el-divider direction="vertical" />
+        <div class="tag y-flex y-f-align-center">
+          <svg-icon name="tag"></svg-icon>
+          <span class="y-ml-6">标签：</span>
+          <span>{{ article.tags.map((item) => item.tagName).join() }}</span>
+        </div>
+      
+      </div>
+      <div class="y-hero__item y-flex y-f-align-center y-f-justify-center y-mt-10">
         <div class="view y-flex y-f-align-center">
           <svg-icon name="view"></svg-icon>
           <span class="y-ml-6">阅读量：</span>
           <span>{{ article.views.length }}</span>
+        </div>
+        <el-divider direction="vertical" />
+        <div class="like y-flex y-f-align-center">
+          <svg-icon name="like"></svg-icon>
+          <span class="y-ml-6">点赞：</span>
+          <span>{{ article.likes.length }}</span>
         </div>
         <el-divider direction="vertical" />
         <div class="comment y-flex y-f-align-center">
@@ -26,17 +48,17 @@
           <span class="y-ml-6">评论数：</span>
           <span>{{ article.comments.length }}</span>
         </div>
-      </div>
-      <div class="y-hero__item y-flex y-f-align-center y-f-justify-center y-mt-10">
+        <el-divider direction="vertical" />
+
         <div class="words y-flex y-f-align-center">
           <svg-icon name="article-view"></svg-icon>
-          <span class="y-ml-6">本文字数：</span>
+          <span class="y-ml-6">字数：</span>
           <span>{{ calculateWords }}</span>
         </div>
         <el-divider direction="vertical" />
         <div class="time-circle y-flex y-f-align-center">
           <svg-icon name="time-circle"></svg-icon>
-          <span class="y-ml-6">阅读时长</span>
+          <span class="y-ml-6">时长</span>
           <b class="y-ml-4 y-mr-4">≈</b>
           <span>{{ calculateTimeCircle }}</span>
         </div>

@@ -72,9 +72,11 @@ export interface IPaginationResponse<T> extends IPaginationRequest {
   list: T[]
 }
 
-export interface IQainationQueryBase extends Partial<IResponseBaseData> {
+export interface IQueryFindManyOptions<T = any> extends Partial<IResponseBaseData> {
   sort: string
   order: 'ASC' | 'DESC'
+  withDeleted: boolean
+  where: T
 }
 export interface IBaseApi {
   add: <T, D = any>(data: T & object) => Promise<IResponseTemplate<D | T>>
@@ -83,5 +85,5 @@ export interface IBaseApi {
   update?: <T, D>(id: string, data: T & object) => Promise<IResponseTemplate<T | D>>
   remove: <T>(id: string | string[], force?: boolean) => Promise<IResponseTemplate<T>>
   restore: <T>(id: string | string[]) => Promise<IResponseTemplate<T>>
-  pagination: <T, Q = any>(page: number, limit: number, query?: Partial<IQainationQueryBase & Q>) => Promise<IResponseTemplate<IPaginationResponse<T>>>
+  pagination: <T>(page: number, limit: number, query?: Partial<IQueryFindManyOptions<Partial<T>>>) => Promise<IResponseTemplate<IPaginationResponse<T>>>
 }

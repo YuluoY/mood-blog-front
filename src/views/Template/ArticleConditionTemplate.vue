@@ -23,6 +23,19 @@
             ></ArticleItemStyleOne>
           </template>
         </div>
+        <div class="y-template__pagination y-mt-40 y-mb-40 y-flex y-f-justify-center">
+          <el-pagination
+            background
+            layout="prev, pager, next"
+            :total="total"
+            v-model:page-size="pageSize"
+            v-model:current-page="currentPage"
+            prev-text="上一页"
+            next-text="下一页"
+            @prev-click="(value: number) => handleJump(value, 0)"
+            @next-click="(value: number) => handleJump(value, 1)"
+          />
+        </div>
       </div>
       <div class="y-template__sidebar" v-if="$slots.sidebar">
         <slot name="sidebar"></slot>
@@ -32,20 +45,41 @@
 </template>
 <script setup lang="ts">
 import { IArticle } from '@/types/api/article.ts'
+import { EnumStatus, IPaginationRequest, IQueryFindManyOptions } from '@/types/core/index.ts'
 import ArticleItemStyleOne from './ArticleItemStyleOne.vue'
 
-withDefaults(
-  defineProps<Partial<{
-    articleList: IArticle[]
-    typeText: string
-    styleIndex: string
-  }>>(),
+defineEmits(['onJumpPage'])
+
+const { emit } = getCurrentInstance()
+const route = useRoute()
+
+const props = withDefaults(
+  defineProps<
+    Partial<{
+      articleList: IArticle[]
+      typeText: string
+      styleIndex: string
+      total: number
+      page: number
+      limit: number
+    }>
+  >(),
   {
     articleList: () => [],
     typeText: '',
     styleIndex: '1',
   }
 )
+
+const currentPage = ref(props.page)
+const pageSize = ref(props.limit)
+
+const handleJump = (value: number, sign: number) => {
+  emit('onJumpPage', {
+    page: sign ? value + 1 : value - 1,
+    limit: props.limit,
+  } as IPaginationRequest)
+}
 </script>
 <style scoped lang="scss">
 .y-template__article {
@@ -69,6 +103,15 @@ withDefaults(
       width: 300px;
       margin-left: 20px;
     }
+  }
+}
+
+:deep(.el-pagination) {
+  width: 100%;
+
+  .el-pager {
+    flex: 1;
+    justify-content: center;
   }
 }
 </style>

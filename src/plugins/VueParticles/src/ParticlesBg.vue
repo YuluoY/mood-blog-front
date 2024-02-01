@@ -1,16 +1,27 @@
 <template>
-  <div class='vue-particles'>
+  <div class="vue-particles" v-if="isShow">
     <vue-particles id="tsparticles" :options="configs" />
   </div>
 </template>
-<script setup lang='ts' name="ParticlesBg">
+<script setup lang="ts" name="ParticlesBg">
+const isShow = ref(true)
+
+watch(useRoute(),
+  () => {
+    isShow.value = false
+    nextTick(() => {
+      isShow.value = true
+    })
+  }
+)
+
 const configs = {
   background: {
     color: {
       value: '#fff',
     },
   },
-  fpsLimit: 120,
+  fpsLimit: 100,
   interactivity: {
     events: {
       onClick: {
@@ -24,7 +35,7 @@ const configs = {
     },
     modes: {
       bubble: {
-        distance: 400,
+        distance: 300,
         duration: 2,
         opacity: 0.8,
         size: 40,
@@ -33,7 +44,7 @@ const configs = {
         quantity: 3,
       },
       repulse: {
-        distance: 200,
+        distance: 100,
         duration: 0.4,
       },
     },
@@ -61,13 +72,13 @@ const configs = {
       density: {
         enable: true,
       },
-      value: 80,
+      value: 150,
     },
     opacity: {
       value: 0.5,
     },
     shape: {
-      type: 'circle',
+      type: 'star',
     },
     size: {
       value: { min: 1, max: 5 },
@@ -76,6 +87,4 @@ const configs = {
   detectRetina: true,
 }
 </script>
-<style scoped lang='scss'>
-
-</style>
+<style scoped lang="scss"></style>

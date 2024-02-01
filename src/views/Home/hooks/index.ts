@@ -34,12 +34,7 @@ export const useHome = async () => {
 
     const onViewArticle = (article: IArticle) => {
         console.log(article);
-        router.push({
-            name: 'ArticleRead',
-            params: {
-                id: article.id
-            }
-        })
+        articleStore.jumpReadArticlePage(router, article.id)
     }
 
 

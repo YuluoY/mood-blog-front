@@ -27,7 +27,7 @@
         <div class="y-item__desc y-flex-1">
           <p>{{ article.description }}</p>
         </div>
-        <div class="y-item__info y-flex y-f-align-en y-pt-10">
+        <div class="y-item__info y-flex y-f-align-center y-f-w y-pt-10">
           <el-space class="y-item__info--author y-mr-6">
             <svg-icon name="author" />
             <span>{{ article.author || article.user.username }}</span>
@@ -36,17 +36,40 @@
             <svg-icon name="date" />
             <span>{{ dateFormat(article.createdAt, 'YYYY-MM-DD') }}</span>
           </el-space>
-          <el-space class="y-item__info--tags">
+          <el-space class="y-item__info--tags y-mr-6">
             <el-tag v-for="tag in article.tags" :key="tag.id" :color="tag.tagColor">
               {{ tag.tagName }}
             </el-tag>
           </el-space>
+          <el-space class="y-item__info--view y-mr-6">
+            <svg-icon name="view" />
+            <span>{{ article.views.length }}</span>
+          </el-space>
+          <el-space class="y-item__info--like y-mr-6">
+            <svg-icon name="like" />
+            <span>{{ article.likes.length }}</span>
+          </el-space>
+          <el-space class="y-item__info--comment y-mr-6">
+            <svg-icon name="comment" />
+            <span>{{ article.comments.length }}</span>
+          </el-space>
+          <el-text
+            class="y-text-right"
+            :style="{
+              flex: '1',
+            }"
+          >
+            <span class="y-cursor-p" @click="() => articleStore.jumpReadArticlePage($router, article.id)">
+              阅读全文
+            </span>
+          </el-text>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
+import { useArticleStore } from '@/store/articleStore.ts'
 import { IArticle } from '@/types/api/article.ts'
 import { dateFormat } from '@/utils/dayjs.ts'
 
@@ -63,6 +86,8 @@ withDefaults(
     rightRatio: 7,
   }
 )
+
+const articleStore = useArticleStore()
 </script>
 <style scoped lang="scss">
 .y-template__itemStyle--one {
@@ -76,6 +101,8 @@ withDefaults(
   }
 
   .y-item__left {
+    height: 200px;
+
     .y-item__image {
       width: 100%;
       height: 100%;

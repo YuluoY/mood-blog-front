@@ -43,6 +43,12 @@ export const useArticleStore = defineStore(StoreNames.Article, {
       } else {
         ElMessage.error(message)
       }
+    },
+    jumpReadArticlePage(router: import('vue-router').Router, id: string): void {
+      router.push({
+        name: 'ArticleRead',
+        params: { id }
+      })
     }
   },
   persist: {

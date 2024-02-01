@@ -25,7 +25,7 @@
         <div class="y-article__title y-mt-10 y-text-center">
           <p
             class="y-underline-trans y-cursor-p y-inline-block"
-            @click="() => emit('onViewArticle', item)"
+            @click="() => $emit('onViewArticle', item)"
           >
             {{ item.title }}
           </p>
@@ -63,13 +63,13 @@
           v-if="item.category?.cateName"
         ></m-category-tag>
       </el-card>
-    </div>
+  </div>
     <div class="y-load__more y-flex y-f-justify-center">
       <el-button
         type="primary"
         :disabled="articleStore.total === articleStore.articleList.length"
         plain
-        @click="() => emit('onLoadMore')"
+        @click="() => $emit('onLoadMore')"
       >
         {{ $t('homeView.loadMoreText') }}
       </el-button>
@@ -81,7 +81,7 @@ import { useArticleStore } from '@/store/articleStore.ts'
 import { useUserStore } from '@/store/userStore.ts'
 import { dateFormat } from '@/utils/dayjs.ts'
 
-const { emit } = getCurrentInstance()
+defineEmits(['onViewArticle', 'onLoadMore'])
 
 const articleStore = computed(() => useArticleStore())
 const userStore = computed(() => useUserStore())
