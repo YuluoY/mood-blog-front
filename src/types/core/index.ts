@@ -73,9 +73,9 @@ export interface IPaginationResponse<T> extends IPaginationRequest {
 }
 
 export interface IQueryFindManyOptions<T = any> extends Partial<IResponseBaseData> {
-  sort: string
-  order: 'ASC' | 'DESC'
-  withDeleted: boolean
+  sort?: string
+  order?: 'ASC' | 'DESC'
+  withDeleted?: boolean
   where: T
 }
 export interface IBaseApi {

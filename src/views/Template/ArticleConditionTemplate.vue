@@ -32,8 +32,7 @@
             v-model:current-page="currentPage"
             prev-text="上一页"
             next-text="下一页"
-            @prev-click="(value: number) => handleJump(value, 0)"
-            @next-click="(value: number) => handleJump(value, 1)"
+            @current-change="handleJump"
           />
         </div>
       </div>
@@ -45,13 +44,12 @@
 </template>
 <script setup lang="ts">
 import { IArticle } from '@/types/api/article.ts'
-import { EnumStatus, IPaginationRequest, IQueryFindManyOptions } from '@/types/core/index.ts'
+import { IPaginationRequest } from '@/types/core/index.ts'
 import ArticleItemStyleOne from './ArticleItemStyleOne.vue'
 
 defineEmits(['onJumpPage'])
 
 const { emit } = getCurrentInstance()
-const route = useRoute()
 
 const props = withDefaults(
   defineProps<
@@ -74,12 +72,18 @@ const props = withDefaults(
 const currentPage = ref(props.page)
 const pageSize = ref(props.limit)
 
-const handleJump = (value: number, sign: number) => {
+const handleJump = (page: number) => {
   emit('onJumpPage', {
-    page: sign ? value + 1 : value - 1,
+    page,
     limit: props.limit,
   } as IPaginationRequest)
 }
+
+defineExpose({
+  currentPage,
+  pageSize,
+  handleJump,
+})
 </script>
 <style scoped lang="scss">
 .y-template__article {

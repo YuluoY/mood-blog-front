@@ -25,7 +25,7 @@
           <h2>{{ article.title }}</h2>
         </div>
         <div class="y-item__desc y-flex-1">
-          <p>{{ article.description }}</p>
+          <p class="y-ellipsis-clamp y-clamp-5">{{ article.description }}</p>
         </div>
         <div class="y-item__info y-flex y-f-align-center y-f-w y-pt-10">
           <el-space class="y-item__info--author y-mr-6">
@@ -49,17 +49,15 @@
             <svg-icon name="like" />
             <span>{{ article.likes.length }}</span>
           </el-space>
-          <el-space class="y-item__info--comment y-mr-6">
+          <el-space class="y-item__info--comment y-mr-20">
             <svg-icon name="comment" />
             <span>{{ article.comments.length }}</span>
           </el-space>
-          <el-text
-            class="y-text-right"
-            :style="{
-              flex: '1',
-            }"
-          >
-            <span class="y-cursor-p" @click="() => articleStore.jumpReadArticlePage($router, article.id)">
+          <el-text class="y-text-right y-flex-1">
+            <span
+              class="y-cursor-p"
+              @click="() => articleStore.jumpReadArticlePage($router, article.id)"
+            >
               阅读全文
             </span>
           </el-text>
@@ -124,6 +122,7 @@ const articleStore = useArticleStore()
     .y-item__desc {
       line-height: 2;
       padding: 10px 0;
+      text-indent: 2em;
     }
 
     .y-item__info {
