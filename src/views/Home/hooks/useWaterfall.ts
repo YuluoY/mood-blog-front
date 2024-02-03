@@ -136,6 +136,7 @@ export const useWaterfall = (options: Partial<IUseWaterfallOptions>): IUseWaterf
                     opts.gap = item.gap || options.gap;
                 }
             })
+            
             // 如果当前宽度比断点最大值还大，就恢复默认
             if (window.innerWidth > opts.breakpoint[0].point) {
                 opts.column = options.column;

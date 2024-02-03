@@ -26,6 +26,7 @@
         <div class="y-template__pagination y-mt-40 y-mb-40 y-flex y-f-justify-center">
           <el-pagination
             background
+            v-if="total > limit"
             layout="prev, pager, next"
             :total="total"
             v-model:page-size="pageSize"
@@ -79,7 +80,18 @@ const handleJump = (page: number) => {
   } as IPaginationRequest)
 }
 
+// watch(
+//   () => props.page,
+//   (newVal) => {
+//     currentPage.value = newVal
+//   }
+// )
+const changeCurrentPage = (val:number)=>{
+  currentPage.value = val;
+}
+
 defineExpose({
+  changeCurrentPage,
   currentPage,
   pageSize,
   handleJump,

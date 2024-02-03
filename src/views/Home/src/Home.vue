@@ -24,6 +24,7 @@ const { onLoadMore, onViewArticle } = await useHome()
 const { raw } = useWaterfall({
   container: '.y-homeList__waterfall',
   gap: 40,
+  column: 3,
   breakpoint: [
     {
       point: 1500,
@@ -44,11 +45,14 @@ const { raw } = useWaterfall({
 <style scoped lang="scss">
 @include b(home) {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 @include be(home, inner) {
   display: flex;
-  width: 100%;
+  width: 70%;
   padding: 20px;
   box-sizing: border-box;
 }

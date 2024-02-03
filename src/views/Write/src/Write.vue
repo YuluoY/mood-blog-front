@@ -2,7 +2,7 @@
   <div class="y-write">
     <MForm
       ref="mFormRef"
-      style="padding: 20px"
+      style="padding: 40px"
       :form-data="writeStore.form"
       :form-configures="publishFormConfigure"
     >

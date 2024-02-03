@@ -1,6 +1,7 @@
 <template>
   <div class="y-tag">
     <ArticleConditionTemplate
+      ref="articleTemplateRef"
       type-text="标签"
       :article-list="articleList"
       :total="total"
@@ -19,9 +20,7 @@ import ArticleConditionTemplate from '@/views/Template/ArticleConditionTemplate.
 import { HomeSidebar } from '@/views/Home/index.ts'
 import { getArticlesByPage } from '@/api/article.ts'
 import { IArticle } from '@/types/api/article.ts'
-import {
-  IQueryFindManyOptions,
-} from '@/types/core/index.ts'
+import { IQueryFindManyOptions } from '@/types/core/index.ts'
 
 const route = useRoute()
 const page = ref(1)
@@ -34,21 +33,22 @@ const query: IQueryFindManyOptions<Partial<IArticle>> = {
     tags: [route.params.name] as any,
   },
 }
+const articleTemplateRef = ref<InstanceType<typeof ArticleConditionTemplate>>()
 
 const refreshArticlesByTag = async (): Promise<void> => {
-  const res = await getArticlesByPage(page.value, limit.value, query);
-  if(res.success) {
-    articleList.length = 0;
-    articleList.push(...res.data.list as any[])
-    total.value = res.data.total;
+  const res = await getArticlesByPage(page.value, limit.value, query)
+  if (res.success) {
+    articleList.length = 0
+    articleList.push(...(res.data.list as any[]))
+    total.value = res.data.total
   }
 }
 
 await refreshArticlesByTag()
 
 const onJumpPage = async (opts: { page: number; limit: number }) => {
-  page.value = opts.page;
-  limit.value = opts.limit;
+  page.value = opts.page
+  limit.value = opts.limit
   await refreshArticlesByTag()
 }
 
@@ -58,6 +58,8 @@ const tagNameWatcher = watch(
     if (query?.where) {
       query.where.tags = [route.params.name] as any
     }
+    page.value = 1
+    articleTemplateRef.value.changeCurrentPage(1);
     await refreshArticlesByTag()
   }
 )

@@ -74,3 +74,46 @@ export const dateDiffNow = (date: string | number | Date): string => {
     const secondStr = second ? `${second}秒` : ''
     return `${yearStr}${monthStr}${dayStr}${hourStr}${minuteStr}${secondStr}`
 }
+
+
+/**
+ * @description: 获取第几周
+ * @param {string} date 日期
+ * @returns {string} weekend 星期
+ */
+export const getWeekend = (date: string): string => {
+    const weekend = dayjs(date).day();
+    switch (weekend) {
+        case 0: return '星期日';
+        case 1: return '星期一';
+        case 2: return '星期二';
+        case 3: return '星期三';
+        case 4: return '星期四';
+        case 5: return '星期五';
+        case 6: return '星期六';
+        default: return weekend.toString();
+    }
+}
+
+/**
+ * @description: 获取中午月份
+ * @param {string | number} month 月份数字
+ * @returns {string} cmonth
+ */
+export const getChineseMonth = (month: string | number): string => {
+    switch(String(month)) {
+        case '1': return '一月';
+        case '2': return '二月';
+        case '3': return '三月';
+        case '4': return '四月';
+        case '5': return '五月';
+        case '6': return '六月';
+        case '7': return '七月';
+        case '8': return '八月';
+        case '9': return '九月';
+        case '10': return '十月';
+        case '11': return '十一月';
+        case '12': return '十二月';
+        default: return month;
+    }
+}
