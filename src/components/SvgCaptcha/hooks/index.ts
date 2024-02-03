@@ -1,5 +1,6 @@
 import { getCode } from '@/api/rest.ts'
 import { debounce } from '@/utils/core.ts'
+import Mitt from '@/plugins/Mitt/index.ts'
 
 export const useCaptcha = () => {
   const svgHTML = ref('')
@@ -10,7 +11,9 @@ export const useCaptcha = () => {
     })
   }
 
-  const refresh = debounce(init)
+  const refresh = debounce(init);
+
+  Mitt.on('refreshSvgCaptcha', init);
 
   init();
   return {
