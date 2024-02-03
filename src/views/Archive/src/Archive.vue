@@ -22,6 +22,7 @@
                 v-for="(day, index2) in Object.keys(timelineDataStruct[year][month])"
                 :key="`${day}-${index2}`"
                 :day="day"
+                :index="index2"
                 :month="month"
                 :year="year"
                 order="DESC"

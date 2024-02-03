@@ -36,7 +36,7 @@
           </el-space>
         </el-space>
         <div class="m-timeline-item__desc">
-          <p>{{ item.description }}</p>
+          <p class="y-ellipsis-clamp y-clamp-3">{{ item.description }}</p>
         </div>
         <div class="m-timeline-item__more y-mt-20 y-text-center">
           <el-button
