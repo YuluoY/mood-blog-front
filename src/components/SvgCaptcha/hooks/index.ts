@@ -10,11 +10,11 @@ export const useCaptcha = () => {
     })
   }
 
-  const reflush = debounce(init)
+  const refresh = debounce(init)
 
   init();
   return {
     svgHTML,
-    reflush,
+    refresh,
   }
 }

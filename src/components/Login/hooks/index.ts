@@ -1,13 +1,18 @@
-import {ElMessage} from "element-plus";
-import {isEmail, debounce} from "@/utils/core.ts";
-import {useUserStore} from "@/store/userStore.ts";
-import {useMainStore} from "@/store/mainStore.ts";
-import {IUser, IUserForm} from "@/types/api/user.ts";
-import {login} from "@/api/user.ts";
+import { ElMessage } from "element-plus";
+import { isEmail, debounce } from "@/utils/core.ts";
+import { useUserStore } from "@/store/userStore.ts";
+import { useMainStore } from "@/store/mainStore.ts";
+import { IUser, IUserForm } from "@/types/api/user.ts";
+import { login } from "@/api/user.ts";
+import SvgCaptcha from "@/components/SvgCaptcha/index.ts";
 
-export const useLogin = () => {
+export const useLogin = ({
+    svgCaptchaRef
+}: {
+    svgCaptchaRef: Ref<InstanceType<typeof SvgCaptcha>>
+}) => {
     const loginVisiable = ref(false);
-    const {t} = useI18n();
+    const { t } = useI18n();
     const userStore = useUserStore();
 
     const loginForm = reactive<IUserForm>({
@@ -35,7 +40,7 @@ export const useLogin = () => {
             ElMessage.info(t('head.login.completeTips'));
             return;
         }
-        const newLoginForm = {...loginForm};
+        const newLoginForm = { ...loginForm };
         newLoginForm[isEmail(newLoginForm.unique) ? 'email' : 'username'] = newLoginForm.unique;
         delete newLoginForm.unique;
         const res = await login<any, IUser>(newLoginForm);
@@ -45,6 +50,8 @@ export const useLogin = () => {
             useUserStore().setUser(res.data);
             initLoginForm();
             await useMainStore().logined();
+        } else {
+            svgCaptchaRef.value.refresh();
         }
     }
 

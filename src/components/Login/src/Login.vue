@@ -19,7 +19,7 @@
             :placeholder="$t(`head.login.${key}`)"
             :showPassword="key === 'password'"
           ></el-input>
-          <svg-captcha class="y-ml-10" v-if="key === 'code'"></svg-captcha>
+          <svg-captcha ref="svgCaptchaRef" class="y-ml-10" v-if="key === 'code'"></svg-captcha>
         </div>
       </div>
 
@@ -32,9 +32,14 @@
   </div>
 </template>
 <script setup lang="ts" name="Login">
+import SvgCaptcha from '@/components/SvgCaptcha/index.ts'
 import { useLogin } from '../hooks/index.ts'
 
-const { loginVisiable, showLogin, loginForm, submitFrom } = useLogin()
+const svgCaptchaRef = ref<InstanceType<typeof SvgCaptcha>>()
+
+const { loginVisiable, showLogin, loginForm, submitFrom } = useLogin({
+  svgCaptchaRef
+})
 
 defineExpose({
   loginVisiable,
