@@ -17,8 +17,7 @@ export const useCategoryStore = defineStore(StoreNames.Category, {
           path: `/category/${item.cateAlias}`,
           name,
           component: () => import('@/views/Category/index.ts'),
-          meta: { roles: ['visitor'], title: name, affix: false },
-          props: true
+          meta: { roles: ['visitor'], title: name, affix: false, id: item.id },
         } as RouteRecordRaw
       })
     }

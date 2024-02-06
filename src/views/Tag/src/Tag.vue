@@ -9,8 +9,8 @@
       :limit="limit"
       :isSidebar="true"
       @on-jump-page="onJumpPage"
-    >
-    </ArticleConditionTemplate>
+      @on-refresh="() => refreshArticlesByTag(true)"
+    ></ArticleConditionTemplate>
   </div>
 </template>
 <script setup lang="ts">
@@ -32,7 +32,13 @@ const query: IQueryFindManyOptions<Partial<IArticle>> = {
 }
 const articleTemplateRef = ref<InstanceType<typeof ArticleConditionTemplate>>()
 
-const refreshArticlesByTag = async (): Promise<void> => {
+const refreshArticlesByTag = async (force: boolean = false): Promise<void> => {
+  if (force) {
+    if (query?.where) {
+      query.where.tags = [route.params.name] as any
+    }
+    page.value = 1
+  }
   const res = await getArticlesByPage(page.value, limit.value, query)
   if (res.success) {
     articleList.length = 0
@@ -49,21 +55,21 @@ const onJumpPage = async (opts: { page: number; limit: number }) => {
   await refreshArticlesByTag()
 }
 
-const tagNameWatcher = watch(
-  () => route.params.name,
-  async () => {
-    if (query?.where) {
-      query.where.tags = [route.params.name] as any
-    }
-    page.value = 1
-    articleTemplateRef.value.changeCurrentPage(1);
-    await refreshArticlesByTag()
-  }
-)
+// const tagNameWatcher = watch(
+//   () => route.params.name,
+//   async () => {
+//     if (query?.where) {
+//       query.where.tags = [route.params.name] as any
+//     }
+//     page.value = 1
+//     articleTemplateRef.value.changeCurrentPage(1);
+//     await refreshArticlesByTag()
+//   }
+// )
 
-onBeforeUnmount(() => {
-  tagNameWatcher()
-})
+// onBeforeUnmount(() => {
+//   tagNameWatcher()
+// })
 </script>
 <style scoped lang="scss">
 .y-tag {

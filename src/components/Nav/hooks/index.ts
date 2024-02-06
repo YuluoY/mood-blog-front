@@ -1,5 +1,4 @@
 import { injectStyle, getStyle } from "@/utils/dom.ts";
-import { RouteRecordRaw } from "vue-router"
 
 
 export const useNav = (
@@ -10,9 +9,9 @@ export const useNav = (
   const { currentRoute } = router;
   const { t } = useI18n();
 
-  const handleSubNavClick = (item: RouteRecordRaw): void => {
+  const handleSubNavClick = (item: import("../src/Nav.vue").INavPropsRoute): void => {
     router.push({
-      path: item.path,
+      path: `${item.path}`,
     })
   }
 

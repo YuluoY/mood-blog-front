@@ -44,7 +44,7 @@ export interface INavProps {
 
 withDefaults(
   defineProps<{
-    routes: RouteRecordRaw[]
+    routes: INavPropsRoute[]
     currentRoute: import('vue').Ref<RouteLocationNormalizedLoaded>
   }>(),
   {}

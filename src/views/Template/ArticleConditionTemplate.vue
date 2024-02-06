@@ -11,18 +11,38 @@
               padding: '10px 0',
             }"
           >
-            <h2>{{ `${typeText}${$route.params.name}下的文章` }}</h2>
+            <h2>
+              {{
+                `${
+                  $route.params.name || $t(`head.nav.${String($route.name)}`)
+                }${typeText}下的文章（${total}）`
+              }}
+            </h2>
           </el-card>
         </div>
-        <div class="y-template__list">
-          <template v-if="styleIndex === '1'">
-            <ArticleItemStyleOne
-              v-for="article in articleList"
-              :key="article.id"
-              :article="article"
-            ></ArticleItemStyleOne>
-          </template>
-        </div>
+        <template v-if="articleList.length">
+          <div class="y-template__list">
+            <template v-if="styleIndex === '1'">
+              <ArticleItemStyleOne
+                v-for="article in articleList"
+                :key="article.id"
+                :article="article"
+                :is-category-tag="isCategoryTag"
+                @hanlde-category-tag-click="hanldeCategoryTagClick"
+              ></ArticleItemStyleOne>
+            </template>
+          </div>
+        </template>
+        <template v-else>
+          <div
+            class="y-f-center y-fs-30"
+            :style="{
+              flex: 1,
+            }"
+          >
+            <p>暂无文章！</p>
+          </div>
+        </template>
         <div class="y-template__pagination y-mt-40 y-mb-40 y-flex y-f-justify-center">
           <el-pagination
             background
@@ -55,6 +75,7 @@ import { HomeSidebar } from '@/views/Home/index.ts'
 import ArticleItemStyleOne from './ArticleItemStyleOne.vue'
 import { IHomeSidebarProps } from '../Home/src/HomeSidebar.vue'
 
+
 export interface IArticleConditionTemplate extends IHomeSidebarProps {
   articleList: IArticle[]
   typeText: string
@@ -63,10 +84,13 @@ export interface IArticleConditionTemplate extends IHomeSidebarProps {
   page: number
   limit: number
   isSidebar: boolean
+  isCategoryTag: boolean
 }
 
-defineEmits(['onJumpPage'])
+defineEmits(['onJumpPage', 'onRefresh'])
 const { emit } = getCurrentInstance()
+const route = useRoute()
+const router = useRouter();
 const props = withDefaults(defineProps<Partial<IArticleConditionTemplate>>(), {
   articleList: () => [],
   typeText: '',
@@ -75,6 +99,7 @@ const props = withDefaults(defineProps<Partial<IArticleConditionTemplate>>(), {
   isLoveShow: true,
   isPersonalShow: true,
   isTagCloudShow: true,
+  isCategoryTag: true,
 })
 const currentPage = ref(props.page)
 const pageSize = ref(props.limit)
@@ -86,14 +111,21 @@ const handleJump = (page: number) => {
   } as IPaginationRequest)
 }
 
-// watch(
-//   () => props.page,
-//   (newVal) => {
-//     currentPage.value = newVal
-//   }
-// )
+const onRefreshWatcher = watch(
+  () => route.path,
+  () => {
+    currentPage.value = 1
+    emit('onRefresh')
+  }
+)
 const changeCurrentPage = (val: number) => {
   currentPage.value = val
+}
+
+const hanldeCategoryTagClick = (path: string) => {
+  router.push({
+    path: `/category/${path}`,
+  })
 }
 
 defineExpose({
@@ -101,6 +133,10 @@ defineExpose({
   currentPage,
   pageSize,
   handleJump,
+})
+
+onBeforeUnmount(() => {
+  onRefreshWatcher()
 })
 </script>
 <style scoped lang="scss">

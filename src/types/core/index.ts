@@ -76,7 +76,7 @@ export interface IQueryFindManyOptions<T = any> extends Partial<IResponseBaseDat
   sort?: string
   order?: 'ASC' | 'DESC'
   withDeleted?: boolean
-  where: T
+  where?: T
 }
 export interface IBaseApi {
   add: <T, D = any>(data: T & object) => Promise<IResponseTemplate<D | T>>

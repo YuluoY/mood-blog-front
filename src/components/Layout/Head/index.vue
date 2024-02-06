@@ -59,14 +59,15 @@ const navRoutes = ref<INavPropsRoute[]>(
       children: route?.children ? [...route.children] : [],
     } as INavPropsRoute
     if (route.name === 'Category') {
-      cateogryStore.getCategoryRoutes.forEach((r) =>
+      cateogryStore.getCategoryRoutes.forEach((r) => {
+        if (!router.hasRoute(r.name)) router.addRoute(r)
         newRoute.children.push({
           path: r.path,
           name: r.name as string,
           meta: { ...(r.meta as any) },
           children: r?.children ? [...(r.children as any)] : [],
         })
-      )
+      })
     }
     return newRoute
   })

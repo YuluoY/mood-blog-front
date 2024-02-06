@@ -1,8 +1,10 @@
 <template>
   <div class="y-template__itemStyle--one el-card" :data-id="article.id">
     <m-category-tag
+      v-if="isCategoryTag"
       :text="article.category.cateName"
       :bg-color="article.category.cateColor"
+      @click="() => $emit('hanldeCategoryTagClick', article.category.cateAlias)"
     ></m-category-tag>
     <div class="y-item__inner y-flex">
       <div
@@ -53,7 +55,7 @@
             <svg-icon name="comment" />
             <span>{{ article.comments.length }}</span>
           </el-space>
-          <el-text class="y-text-right y-flex-1">
+          <el-text class="y-item__more y-text-right y-flex-1">
             <span
               class="y-cursor-p"
               @click="() => articleStore.jumpReadArticlePage($router, article.id)"
@@ -71,17 +73,21 @@ import { useArticleStore } from '@/store/articleStore.ts'
 import { IArticle } from '@/types/api/article.ts'
 import { dateFormat } from '@/utils/dayjs.ts'
 
+defineEmits(['hanldeCategoryTagClick'])
+
 withDefaults(
   defineProps<
     Partial<{
       article: IArticle
       leftRatio: number
       rightRatio: number
+      isCategoryTag: boolean
     }>
   >(),
   {
     leftRatio: 3,
     rightRatio: 7,
+    isCategoryTag: true,
   }
 )
 
@@ -127,6 +133,15 @@ const articleStore = useArticleStore()
 
     .y-item__info {
       border-top: solid 1px var(--el-border-color);
+    }
+
+    .y-item__more {
+      span {
+        &:hover {
+          transition: color 0.3s ease-in-out;
+          color: var(--el-color-primary);
+        }
+      }
     }
   }
 }

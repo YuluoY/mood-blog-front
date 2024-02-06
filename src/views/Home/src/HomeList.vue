@@ -60,10 +60,11 @@
           :text="item.category?.cateName"
           :bg-color="item.category?.cateColor"
           :opacity="0.7"
+          @click="() => $router.push({ path: `/category/${item.category.cateAlias}` })"
           v-if="item.category?.cateName"
         ></m-category-tag>
       </el-card>
-  </div>
+    </div>
     <div class="y-load__more y-flex y-f-justify-center">
       <el-button
         type="primary"

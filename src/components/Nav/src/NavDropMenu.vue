@@ -13,11 +13,12 @@
   </div>
 </template>
 <script setup lang="ts" name="NavDropMenu">
-import { RouteRecordRaw } from 'vue-router'
+import { INavPropsRoute } from './Nav.vue';
+
 
 withDefaults(
   defineProps<{
-    items: RouteRecordRaw[]
+    items: INavPropsRoute[]
   }>(),
   {
     items: () => [],

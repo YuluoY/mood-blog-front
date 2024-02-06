@@ -23,5 +23,6 @@ declare module 'vue-router' {
     affix?: boolean;
     roles?: TypeRole[];
     jump?: boolean
+    id?: string
   }
 }
