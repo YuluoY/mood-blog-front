@@ -7,17 +7,14 @@
       :total="total"
       :page="page"
       :limit="limit"
+      :isSidebar="true"
       @on-jump-page="onJumpPage"
     >
-      <template #sidebar>
-        <HomeSidebar :is-love-show="false"></HomeSidebar>
-      </template>
     </ArticleConditionTemplate>
   </div>
 </template>
 <script setup lang="ts">
 import ArticleConditionTemplate from '@/views/Template/ArticleConditionTemplate.vue'
-import { HomeSidebar } from '@/views/Home/index.ts'
 import { getArticlesByPage } from '@/api/article.ts'
 import { IArticle } from '@/types/api/article.ts'
 import { IQueryFindManyOptions } from '@/types/core/index.ts'

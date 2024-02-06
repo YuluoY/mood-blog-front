@@ -27,6 +27,21 @@
 import { RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router'
 import { useNav } from '../hooks/index.ts'
 
+export interface INavPropsRoute {
+  path: string
+  name: string
+  children: INavPropsRoute[]
+  meta: {
+    icon: string
+    title: string
+    affix: boolean
+  }
+}
+
+export interface INavProps {
+  routes: INavPropsRoute[]
+}
+
 withDefaults(
   defineProps<{
     routes: RouteRecordRaw[]

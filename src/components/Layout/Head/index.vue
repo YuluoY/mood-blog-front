@@ -14,7 +14,7 @@
           <slot name="Search"></slot>
         </div>
         <div class="y-head__right--nav">
-          <slot name="Nav" :routes="router.getRoutes()" :currentRoute="router.currentRoute"></slot>
+          <slot name="Nav" :routes="navRoutes" :currentRoute="router.currentRoute"></slot>
         </div>
         <div class="y-head__right--login y-pl-20">
           <slot name="Login"></slot>
@@ -33,11 +33,13 @@
   </div>
 </template>
 <script setup lang="ts" name="Head">
+import { INavProps, INavPropsRoute } from '@/components/Nav/src/Nav.vue'
+import { useCategoryStore } from '@/store/categoryStore.ts'
 import { useUserStore } from '@/store/userStore.ts'
 import { getImageUrl, firstToUpperCase } from '@/utils/core.ts'
 
 const userStore = useUserStore()
-
+const cateogryStore = useCategoryStore()
 const router = useRouter()
 const props = withDefaults(
   defineProps<{
@@ -48,6 +50,27 @@ const props = withDefaults(
   }
 )
 
+const navRoutes = ref<INavPropsRoute[]>(
+  router.getRoutes().map((route) => {
+    const newRoute = {
+      path: route.path,
+      name: route.name,
+      meta: { ...route.meta },
+      children: route?.children ? [...route.children] : [],
+    } as INavPropsRoute
+    if (route.name === 'Category') {
+      cateogryStore.getCategoryRoutes.forEach((r) =>
+        newRoute.children.push({
+          path: r.path,
+          name: r.name as string,
+          meta: { ...(r.meta as any) },
+          children: r?.children ? [...(r.children as any)] : [],
+        })
+      )
+    }
+    return newRoute
+  })
+)
 
 const com = reactive({
   loginRef: props.loginRef,
@@ -60,8 +83,6 @@ const handleLogin = () => {
 const watchEffectInstance = watchEffect(() => {
   com.loginRef = props.loginRef
 })
-
-
 
 onUnmounted(() => {
   watchEffectInstance()

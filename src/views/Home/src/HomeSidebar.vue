@@ -112,6 +112,12 @@ import { useTagStore } from '@/store/tagStore.ts'
 import { ITag } from '@/types/api/tag.ts'
 import { useCategoryStore } from '@/store/categoryStore.ts'
 
+export interface IHomeSidebarProps {
+  isLoveShow: boolean
+  isTagCloudShow: boolean
+  isPersonalShow: boolean
+}
+
 const router = useRouter()
 const mainStore = computed(() => useMainStore())
 const userStore = computed(() => useUserStore())
@@ -122,18 +128,11 @@ const categoryStroe = computed(() => useCategoryStore())
 await tagStore.value.fetchTags()
 await categoryStroe.value.fetchCategories()
 
-const props = withDefaults(
-  defineProps<Partial<{
-    isLoveShow: boolean
-    isTagCloudShow: boolean
-    isPersonalShow: boolean
-  }>>(),
-  {
-    isLoveShow: true,
-    isTagCloudShow: true,
-    isPersonalShow: true,
-  }
-)
+const props = withDefaults(defineProps<Partial<IHomeSidebarProps>>(), {
+  isLoveShow: true,
+  isTagCloudShow: true,
+  isPersonalShow: true,
+})
 
 const handleTagClick = (tag: ITag) => {
   router.push({

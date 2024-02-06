@@ -11,7 +11,6 @@ const ArticleReadView = () => import('@/views/Read/index.ts')
 const ArchiveView = () => import('@/views/Archive/index.ts')
 const CategoryTemplate = () => import('@/views/Category/index.ts')
 
-
 // 仪表盘
 const DashbardView = () => import('@/views/Admin/Dashboard/index.ts');
 
@@ -29,6 +28,7 @@ const AboutManagerView = () => import('@/views/Admin/PageManager/AboutManager.vu
 
 // 数据统计
 const VisitorManagerView = () => import('@/views/Admin/StatManager/VisitorManager.vue');
+
 
 export const staticRoutes: Readonly<RouteRecordRaw[]> = [
   {
@@ -139,32 +139,7 @@ export const staticRoutes: Readonly<RouteRecordRaw[]> = [
     path: '/category',
     name: 'Category',
     meta: { roles: ['visitor'], title: 'Category', icon: 'category-view', affix: true },
-    children: [
-      {
-        path: '/category/tech',
-        name: 'Tech',
-        component: CategoryTemplate,
-        meta: { roles: ['visitor'], title: 'Tech', affix: false },
-      },
-      {
-        path: '/category/life',
-        name: 'Life',
-        component: CategoryTemplate,
-        meta: { roles: ['visitor'], title: 'Life', affix: false },
-      },
-      {
-        path: '/category/project',
-        name: 'Project',
-        component: CategoryTemplate,
-        meta: { roles: ['visitor'], title: 'Project', affix: false },
-      },
-      {
-        path: '/category/note',
-        name: 'Note',
-        component: CategoryTemplate,
-        meta: { roles: ['visitor'], title: 'Note', affix: false },
-      },
-    ]
+    children: []
   },
   {
     path: '/article/read/:id',
@@ -213,7 +188,7 @@ export const staticRoutes: Readonly<RouteRecordRaw[]> = [
 const router = createRouter({
   history: createWebHistory(),
   routes: staticRoutes,
-  strict: true, // applies to all routes
+  // strict: true, // applies to all routes
   linkActiveClass: 'y-router__link--active',
   scrollBehavior: () => ({ left: 0, top: 0 }),
 } as RouterOptions)

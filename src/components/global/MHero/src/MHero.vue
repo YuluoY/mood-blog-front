@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<{
   top?: number
 }>(), {
   classname: '',
-  imageUrl: useGlobalStore().getDefaultCover,
+  imageUrl: '',
   top: 200
 })
 
@@ -22,7 +22,7 @@ const styles = computed(() => {
   return {
     width:'100%',
     minHeight: `calc(100vh - ${props.top}px)`,
-    backgroundImage: `url(${props.imageUrl})`,
+    backgroundImage: `url(${props.imageUrl ||  useGlobalStore().getDefaultCover})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',

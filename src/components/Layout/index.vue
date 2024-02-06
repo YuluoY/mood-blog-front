@@ -20,7 +20,7 @@
     <Sider></Sider>
     <MBackTop></MBackTop>
   </el-container>
-  <ParticlesBg v-if="isShowHead && isShowParticleBg" />
+  <!-- <ParticlesBg v-if="isShowHead && isShowParticleBg" /> -->
 </template>
 
 <script setup lang="ts" name="Layout">

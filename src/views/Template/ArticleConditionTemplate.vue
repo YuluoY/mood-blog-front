@@ -37,8 +37,13 @@
           />
         </div>
       </div>
-      <div class="y-template__sidebar" v-if="$slots.sidebar">
-        <slot name="sidebar"></slot>
+      <div class="y-template__sidebar" v-if="isSidebar">
+        <!-- <slot name="sidebar"></slot> -->
+        <HomeSidebar
+          :is-love-show="isLoveShow"
+          :is-personal-show="isPersonalShow"
+          :is-tag-cloud-show="isTagCloudShow"
+        ></HomeSidebar>
       </div>
     </div>
   </div>
@@ -46,30 +51,31 @@
 <script setup lang="ts">
 import { IArticle } from '@/types/api/article.ts'
 import { IPaginationRequest } from '@/types/core/index.ts'
+import { HomeSidebar } from '@/views/Home/index.ts'
 import ArticleItemStyleOne from './ArticleItemStyleOne.vue'
+import { IHomeSidebarProps } from '../Home/src/HomeSidebar.vue'
+
+export interface IArticleConditionTemplate extends IHomeSidebarProps {
+  articleList: IArticle[]
+  typeText: string
+  styleIndex: string
+  total: number
+  page: number
+  limit: number
+  isSidebar: boolean
+}
 
 defineEmits(['onJumpPage'])
-
 const { emit } = getCurrentInstance()
-
-const props = withDefaults(
-  defineProps<
-    Partial<{
-      articleList: IArticle[]
-      typeText: string
-      styleIndex: string
-      total: number
-      page: number
-      limit: number
-    }>
-  >(),
-  {
-    articleList: () => [],
-    typeText: '',
-    styleIndex: '1',
-  }
-)
-
+const props = withDefaults(defineProps<Partial<IArticleConditionTemplate>>(), {
+  articleList: () => [],
+  typeText: '',
+  styleIndex: '1',
+  isSidebar: true,
+  isLoveShow: true,
+  isPersonalShow: true,
+  isTagCloudShow: true,
+})
 const currentPage = ref(props.page)
 const pageSize = ref(props.limit)
 
@@ -86,8 +92,8 @@ const handleJump = (page: number) => {
 //     currentPage.value = newVal
 //   }
 // )
-const changeCurrentPage = (val:number)=>{
-  currentPage.value = val;
+const changeCurrentPage = (val: number) => {
+  currentPage.value = val
 }
 
 defineExpose({

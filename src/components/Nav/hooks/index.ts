@@ -8,13 +8,11 @@ export const useNav = (
 
   const router = useRouter();
   const { currentRoute } = router;
+  const { t } = useI18n();
 
   const handleSubNavClick = (item: RouteRecordRaw): void => {
     router.push({
       path: item.path,
-      params: {
-
-      }
     })
   }
 
@@ -30,7 +28,8 @@ export const useNav = (
   }
 
   const subMenuWatcher = watch(currentRoute, () => {
-    injectStyle(document.querySelector(`.${subMenuClassname}`), 'height', `0px`)
+    const el = document.querySelector(`.${subMenuClassname}`) as HTMLElement;
+    el && injectStyle(el, 'height', `0px`)
   })
 
   onUnmounted(() => {
