@@ -10,6 +10,7 @@ export const useNav = (
   const { t } = useI18n();
 
   const handleSubNavClick = (item: import("../src/Nav.vue").INavPropsRoute): void => {
+    
     router.push({
       path: `${item.path}`,
     })

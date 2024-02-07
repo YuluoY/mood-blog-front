@@ -35,6 +35,7 @@
 <script setup lang="ts" name="Head">
 import { INavProps, INavPropsRoute } from '@/components/Nav/src/Nav.vue'
 import { useCategoryStore } from '@/store/categoryStore.ts'
+import { useMainStore } from '@/store/mainStore.ts'
 import { useUserStore } from '@/store/userStore.ts'
 import { getImageUrl, firstToUpperCase } from '@/utils/core.ts'
 
@@ -84,6 +85,7 @@ const handleLogin = () => {
 const watchEffectInstance = watchEffect(() => {
   com.loginRef = props.loginRef
 })
+await useMainStore().fetchIp()
 
 onUnmounted(() => {
   watchEffectInstance()

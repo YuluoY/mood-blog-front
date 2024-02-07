@@ -1,11 +1,12 @@
 <template>
   <div class="y-navDropMenu">
-    <div v-for="item in items" :key="String(item.name)" class="y-nav__link--sub">
-      <RouterLink
-        :to="item.path"
-        class="y-flex y-f-align-center"
-        @click="() => emit('handleSubNavClick', item)"
-      >
+    <div
+      v-for="item in items"
+      :key="String(item.name)"
+      class="y-nav__link--sub y-cursor-p"
+      @click="() => emit('handleSubNavClick', item)"
+    >
+      <RouterLink :to="item.path" class="y-flex y-f-align-center">
         <svg-icon v-if="item.meta.icon" :name="item.meta.icon" size="1.2"></svg-icon>
         <span class="y-nav__title">{{ $t(`head.nav.${item.meta.title}`) }}</span>
       </RouterLink>
@@ -13,8 +14,7 @@
   </div>
 </template>
 <script setup lang="ts" name="NavDropMenu">
-import { INavPropsRoute } from './Nav.vue';
-
+import { INavPropsRoute } from './Nav.vue'
 
 withDefaults(
   defineProps<{
@@ -47,6 +47,10 @@ const { emit } = getCurrentInstance()
   padding: 6px 20px;
   fill: var(--el-text-color-primary) !important;
 
+  & * {
+    pointer-events: none;
+  }
+
   a {
     color: var(--el-text-color-primary);
   }
@@ -59,5 +63,4 @@ const { emit } = getCurrentInstance()
     }
   }
 }
-
 </style>

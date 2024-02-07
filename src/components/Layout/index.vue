@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts" name="Layout">
-import { ParticlesBg } from '@/plugins/VueParticles/index.ts'
+// import { ParticlesBg } from '@/plugins/VueParticles/index.ts'
 import { useMProgress } from '@/plugins/MProgress/index.ts'
 
 const router = useRouter()
@@ -37,13 +37,16 @@ const particleBgBlackList = ['/write']
 watch(
   () => router.currentRoute.value,
   () => {
-    isShowHead.value = !headBlackList.every((path) => router.currentRoute.value.path.indexOf(path) > -1)
+    isShowHead.value = !headBlackList.every(
+      (path) => router.currentRoute.value.path.indexOf(path) > -1
+    )
   }
 )
 const isShowParticleBg = computed(
   () => !particleBgBlackList.every((path) => router.currentRoute.value.path.indexOf(path) > -1)
 )
-</script>
+
+ </script>
 
 <style scoped lang="scss">
 .y-layout {

@@ -138,6 +138,7 @@ export const staticRoutes: Readonly<RouteRecordRaw[]> = [
   {
     path: '/category',
     name: 'Category',
+    component: CategoryTemplate,
     meta: { roles: ['visitor'], title: 'Category', icon: 'category-view', affix: true },
     children: []
   },

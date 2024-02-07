@@ -1,8 +1,8 @@
 <template>
   <div class="y-article__read y-flex y-f-align-center y-f-col">
     <ArticleReadHero :article="article" />
-    <div class="y-read__inner y-flex y-f-justify-center y-w-80">
-      <div class="y-read__catalog y-mr-20">
+    <div class="y-read__inner y-flex y-f-justify-center y-f-align-center y-f-col y-w-80">
+      <div class="y-read__catalog y-mr-20" v-if="toc.length">
         <div class="y-catalog__title">文章目录</div>
         <div class="y-catalog__inner y-flex y-f-col">
           <el-link
@@ -19,9 +19,16 @@
         </div>
         <div class="y-read__progress y-text-center">阅读进度：{{ progress }}%</div>
       </div>
-      <div class="y-read__content">
+      <div
+        class="y-read__content"
+        :style="{
+          width: `calc(100% - 250px)`,
+          marginLeft: toc.length ? '250px' : '0',
+        }"
+      >
         <MdPreview :editorId="'article_id'" v-model="article.content" />
       </div>
+      <MComment></MComment>
     </div>
   </div>
 </template>
@@ -31,7 +38,7 @@ import { MdPreview } from 'md-editor-v3'
 import { useArticleRead } from '@/views/Read/hooks/index.ts'
 import { getStyle, injectStyle } from '@/utils/dom.ts'
 import { useCatalog } from '../hooks/useCatalog.ts'
-import ArticleReadHero from './ArticleReadHero.vue';
+import ArticleReadHero from './ArticleReadHero.vue'
 
 const { article } = useArticleRead()
 
@@ -39,8 +46,8 @@ const { toc, progress } = useCatalog({
   selector: 'y-read__catalog',
   referSelector: 'y-read__inner',
   catalogLinkSelector: 'el-link',
-  catalogLinkActive:'el-link--active',
-  catalogScrollSelector:'y-catalog__inner',
+  catalogLinkActive: 'el-link--active',
+  catalogScrollSelector: 'y-catalog__inner',
   html: article.value.content,
 })
 
@@ -48,6 +55,8 @@ const progressWatcher = watch(
   () => progress.value,
   () => {
     const progressEl = document.querySelector('.y-read__progress') as HTMLElement
+    if(!progressEl) return;
+    if(progress.value >= 100) progress.value = 100;
     if (progress.value > 0) {
       injectStyle(progressEl, {
         bottom: `-${getStyle(progressEl, 'height')}`,
@@ -68,7 +77,6 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
-
 @include be(read, inner) {
   padding: 20px;
   position: relative;
@@ -167,11 +175,6 @@ onUnmounted(() => {
   [data-level='3'] {
     padding-left: 40px;
   }
-}
-
-@include be(read, content) {
-  width: calc(100% - 250px);
-  margin-left: 250px;
 }
 
 .y-read__content,

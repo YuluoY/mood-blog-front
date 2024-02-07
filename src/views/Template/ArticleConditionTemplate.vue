@@ -40,7 +40,7 @@
               flex: 1,
             }"
           >
-            <p>暂无文章！</p>
+            <el-empty description="空空如也~" />
           </div>
         </template>
         <div class="y-template__pagination y-mt-40 y-mb-40 y-flex y-f-justify-center">
@@ -75,7 +75,6 @@ import { HomeSidebar } from '@/views/Home/index.ts'
 import ArticleItemStyleOne from './ArticleItemStyleOne.vue'
 import { IHomeSidebarProps } from '../Home/src/HomeSidebar.vue'
 
-
 export interface IArticleConditionTemplate extends IHomeSidebarProps {
   articleList: IArticle[]
   typeText: string
@@ -90,7 +89,7 @@ export interface IArticleConditionTemplate extends IHomeSidebarProps {
 defineEmits(['onJumpPage', 'onRefresh'])
 const { emit } = getCurrentInstance()
 const route = useRoute()
-const router = useRouter();
+const router = useRouter()
 const props = withDefaults(defineProps<Partial<IArticleConditionTemplate>>(), {
   articleList: () => [],
   typeText: '',

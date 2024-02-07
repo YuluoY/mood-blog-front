@@ -10,7 +10,7 @@ export default {
     nav: {
       Home: '首页',
       Category:'分类',
-      Tech: '技术文章',
+      Tech: '技术博客',
       Life: '生活随感',
       Project: '个人项目',
       Note: '学习笔记',

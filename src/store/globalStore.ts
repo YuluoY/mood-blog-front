@@ -4,6 +4,16 @@ import { StoreNames } from './namespace.ts'
 
 export const useGlobalStore = defineStore(StoreNames.Global, {
   state: () => ({
+    ip: '',
+    address: '',
+    country: '',
+    province: '',
+    city: '',
+    district: '',
+    street: '',
+    point: { x: '', y: '' },
+    adcode: '',
+
     theme: 'dark',
     lang: 'zh',
     loginStatus: false,

@@ -21,3 +21,6 @@ export const getCode: IRest['getCode'] = () => request.get(`/code`)
 
 export const getQQInfo: IRest['getQQInfo'] = (qqNumber) => axios.get(`https://api.kit9.cn/api/qq_material/api.php?qq=${qqNumber}`)
 
+export const getIp: IRest['getIp'] = () => axios.get('https://api.ipify.org?format=json');
+
+export const getPositionByIp: IRest['getPositionByIp'] = (ip:string) => request.get(`/position/${ip}`)

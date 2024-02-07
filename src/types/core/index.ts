@@ -87,3 +87,14 @@ export interface IBaseApi {
   restore: <T>(id: string | string[]) => Promise<IResponseTemplate<T>>
   pagination: <T>(page: number, limit: number, query?: Partial<IQueryFindManyOptions<Partial<T>>>) => Promise<IResponseTemplate<IPaginationResponse<T>>>
 }
+
+export interface IBaiduMapPosition {
+  address: string
+  country: string
+  province: string
+  city: string
+  district: string
+  street: string
+  point: { x: string, y: string },
+  adcode: string
+}

@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios'
 import { DatabaseTableName, IPaginationResponse, IResponseTemplate } from '../core/index.ts'
 
 // rest common CRUD
@@ -30,4 +31,10 @@ export interface IRest {
 
   // 获取QQ信息
   getQQInfo<T>(qqNumber: string | number): Promise<IResponseTemplate<T>>
+
+  // 获取ip
+  getIp<T>(): Promise<AxiosResponse<T>>
+
+  // 根据ip获取地址
+  getPositionByIp<T>(ip:string): Promise<IResponseTemplate<T>>
 }
