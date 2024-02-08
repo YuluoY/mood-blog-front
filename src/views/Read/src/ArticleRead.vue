@@ -37,10 +37,16 @@ import { MdPreview } from 'md-editor-v3'
 
 import { useArticleRead } from '@/views/Read/hooks/index.ts'
 import { getStyle, injectStyle } from '@/utils/dom.ts'
+import { useViewStore } from '@/store/viewStore.ts'
 import { useCatalog } from '../hooks/useCatalog.ts'
 import ArticleReadHero from './ArticleReadHero.vue'
 
+const viewStore = useViewStore()
 const { article } = useArticleRead()
+
+await viewStore.addView({
+  articleId: article.value.id,
+})
 
 const { toc, progress } = useCatalog({
   selector: 'y-read__catalog',
@@ -55,8 +61,8 @@ const progressWatcher = watch(
   () => progress.value,
   () => {
     const progressEl = document.querySelector('.y-read__progress') as HTMLElement
-    if(!progressEl) return;
-    if(progress.value >= 100) progress.value = 100;
+    if (!progressEl) return
+    if (progress.value >= 100) progress.value = 100
     if (progress.value > 0) {
       injectStyle(progressEl, {
         bottom: `-${getStyle(progressEl, 'height')}`,

@@ -2,6 +2,7 @@ import { IResponseBaseData } from "../core/index.ts";
 
 export interface ICreateView {
   userid: string
+  visitorId:string
   articleId: string
 }
 

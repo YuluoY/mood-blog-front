@@ -285,3 +285,27 @@ export const deepClone = <T = any>(obj: T & WeakKey, hash = new WeakMap()): T =>
 
   return objCopy as T;
 }
+
+/**
+ * @description: 获取操作系统型号
+ * @param {string} userAgent 
+ * @returns {string}
+ */
+export const getWindowsOS = (userAgent?: string): string => {
+  if ((!window || !window.navigator) && !userAgent) return '';
+  userAgent = userAgent || window.navigator.userAgent;
+  let osMatch = userAgent.match(/\((.*?)\)/);
+  return osMatch[1].split(';')[0]?.trim()
+}
+
+/**
+ * @description: 获取浏览器型号
+ * @param {string} userAgent
+ * @returns {string}
+ */
+export const getBrowser = (userAgent?: string): string => {
+  if ((!window || !window.navigator) && !userAgent) return '';
+  userAgent = userAgent || window.navigator.userAgent;
+  const browserMatch = userAgent.match(/(Firefox|Chrome|Safari|Opera|Edge)\/([\d.]+)/i);
+  return `${browserMatch[1]}/${browserMatch[2]}`
+}

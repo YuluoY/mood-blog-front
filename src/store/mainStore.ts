@@ -1,12 +1,11 @@
 import { defineStore } from 'pinia'
 import { IArticle } from '@/types/api/article.ts';
 import { dateDiffNow } from "@/utils/dayjs.ts";
-import { getIp, getPositionByIp } from '@/api/rest.ts';
-import { IBaiduMapPosition } from '@/types/core/index.ts';
+import { get, getCount, getIp, getPositionByIp } from '@/api/rest.ts';
+import { DatabaseTableName, IBaiduMapPosition } from '@/types/core/index.ts';
 import { StoreNames } from './namespace.ts'
 import { useArticleStore } from './articleStore.ts';
 import { useGlobalStore } from './globalStore.ts';
-
 
 export const useMainStore = defineStore(StoreNames.Main, {
     state: () => ({
@@ -27,19 +26,22 @@ export const useMainStore = defineStore(StoreNames.Main, {
         },
         async fetchIp() {
             const globalStore = useGlobalStore();
-            if (globalStore.ip && globalStore.address) return;
+            if (globalStore.visitor.ip) return;
             const res = await getIp<{ ip: string }>();
-            let pos = await getPositionByIp<IBaiduMapPosition>(res.data.ip as string);
-
-            globalStore.ip = res.data.ip;
-            globalStore.address = pos.data.adcode;
-            globalStore.country = pos.data.country;
-            globalStore.province = pos.data.province;
-            globalStore.city = pos.data.city;
-            globalStore.district = pos.data.district;
-            globalStore.street = pos.data.street;
-            globalStore.point = pos.data.point;
-            globalStore.adcode = pos.data.adcode;
+            globalStore.visitor.ip = res.data.ip;
         },
+        async fetchPosition(ip: string = '') {
+            const globalStore = useGlobalStore();
+            if (globalStore.visitor.address) return;
+            ip = ip || globalStore.visitor.ip;
+            let pos = await getPositionByIp<IBaiduMapPosition>(ip as string);
+            Object.assign(globalStore.visitor, pos.data);
+        },
+        async fetchCounts() {
+            const globalStore = useGlobalStore();
+            const res = await getCount<{ visitorCount: string, viewCount: string }>(DatabaseTableName.VISITOR)
+            globalStore.visitorCount = Number(res.data.visitorCount || 0);
+            globalStore.viewCount = Number(res.data.viewCount || 0);
+        }
     },
 })

@@ -5,6 +5,7 @@ import { DatabaseTableName, IPaginationResponse, IResponseTemplate } from '../co
 export interface IRest {
   // 通过唯一值获取
   get<T>(model: DatabaseTableName, unique: Object): Promise<IResponseTemplate<T>>
+  getCount<T>(model: DatabaseTableName): Promise<IResponseTemplate<T>>
   // 创建
   create<D extends Object, T>(model: DatabaseTableName, data: D): Promise<IResponseTemplate<T>>
   // 更新

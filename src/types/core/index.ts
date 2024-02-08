@@ -52,14 +52,16 @@ export const enum EnumLang {
 
 // eslint-disable-next-line no-shadow
 export const enum DatabaseTableName {
-  User = 'user',
-  Article = 'article',
-  Tag = 'tag',
-  Category = 'category',
-  Comment = 'comment',
-  Role = 'role',
-  Like = 'like',
-  Router = 'router',
+  USER = 'user',
+  ARTICLE = 'article',
+  TAG = 'tag',
+  CATEGORY = 'category',
+  COMMENT = 'comment',
+  ROLE = 'role',
+  LIKE = 'like',
+  ROUTER = 'router',
+  VIEW = 'view',
+  VISITOR = 'visitor'
 }
 
 // pagation 分页

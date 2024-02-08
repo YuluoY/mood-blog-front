@@ -7,5 +7,6 @@ export const enum StoreNames {
   Article = 'useArticleStore',
   Write = 'useWriteStore',
   Tag = 'useTagStore',
-  Category = 'useCategoryStore'
+  Category = 'useCategoryStore',
+  View = 'useViewStore'
 }

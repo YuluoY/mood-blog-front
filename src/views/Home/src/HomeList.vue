@@ -46,10 +46,10 @@
               <svg-icon name="view" />
               <span class="y-ml-6">{{ item.views.length }}</span>
             </div>
-            <div class="y-flex y-f-align-center y-mr-10">
+            <!-- <div class="y-flex y-f-align-center y-mr-10">
               <svg-icon name="like" />
               <span class="y-ml-6">{{ item.likes.length }}</span>
-            </div>
+            </div> -->
             <div class="y-flex y-f-align-center y-mr-10">
               <svg-icon name="comment" />
               <span class="y-ml-6">{{ item.comments.length }}</span>

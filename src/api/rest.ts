@@ -2,20 +2,31 @@ import { IRest } from '@/types/api/rest.ts'
 import request from '@/utils/request.ts'
 import axios from 'axios'
 
-export const prefix = '/rest'
+// eslint-disable-next-line no-shadow
+// export enum  ApiNamespace {
+//   ARTICLE = 'Article',
+//   CATEOGRY = 'Category',
+//   TAG = 'Tag',
+//   USER = 'User',
+//   VIEW = 'View'
+// }
 
-export const get: IRest['get'] = (model, unique) => request.get(`${prefix}/${model}`, unique)
+// export const prefix = '/rest'
 
-export const create: IRest['create'] = (model, data) => request.post(`${prefix}/${model}`, data)
+export const get: IRest['get'] = (model, unique) => request.get(`/${model}/all`, unique)
 
-export const update: IRest['update'] = (model, id, data) => request.put(`${prefix}/${model}/${id}`, data)
+export const getCount: IRest['getCount'] = (module) => request.get(`/${module}/count`); 
 
-export const deleteById: IRest['deleteById'] = (model, id) => request.delete(`${prefix}/${model}`, { id })
+export const create: IRest['create'] = (model, data) => request.post(`/${model}/add`, data)
 
-export const getList: IRest['getList'] = (model) => request.get(`${prefix}/${model}`)
+export const update: IRest['update'] = (model, id, data) => request.put(`/${model}/${id}`, data)
+
+export const deleteById: IRest['deleteById'] = (model, id) => request.delete(`/${model}`, { id })
+
+export const getList: IRest['getList'] = (model) => request.get(`/${model}`)
 
 export const getListByPage: IRest['getListByPage'] = (model, page, pageSize) =>
-  request.get(`${prefix}/${model}/pagation/${page}/${pageSize}`)
+  request.get(`/${model}/pagation/${page}/${pageSize}`)
 
 export const getCode: IRest['getCode'] = () => request.get(`/code`)
 

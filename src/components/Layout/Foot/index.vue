@@ -7,11 +7,11 @@
         </div>
         <el-divider direction="vertical"></el-divider>
         <div class="ip-count">
-          <span>访问人数：{{ 0 }}</span>
+          <span>访问人数：{{ globalStore.visitorCount }}</span>
         </div>
         <el-divider direction="vertical"></el-divider>
         <div class="view-count">
-          <span>访问次数：{{ 0 }}</span>
+          <span>访问次数：{{ globalStore.viewCount }}</span>
         </div>
       </div>
       <div class="y-flex y-f-justify-center y-f-align-center y-mt-10 y-f-w">
@@ -65,10 +65,12 @@
   </div>
 </template>
 <script setup lang="ts" name="Foot">
+import { useGlobalStore } from '@/store/globalStore.ts';
 import { dateDiffNow } from '@/utils/dayjs.ts'
 
 const runningTime = ref(dateDiffNow('2023-12-23 00:00:00'))
 const runningTimer = ref(null)
+const globalStore = useGlobalStore();
 
 onMounted(() => {
   clearInterval(runningTimer.value)
