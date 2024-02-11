@@ -1,9 +1,9 @@
 <template>
   <div class="m-comment__form">
     <el-form inline :style="{ display: 'flex' }">
-      <slot name="prev"></slot>
+      <slot name="prev" :QQ="QQ"></slot>
       <el-form-item
-        v-for="(item, index) in form"
+        v-for="item in form"
         :class="`m-comment__form--${item.prop}`"
         :style="{ flex: 1 }"
         :key="item.prop"
@@ -18,9 +18,10 @@
         >
           <el-input
             :type="item.input.type"
-            v-model="formModelValues[index][item.prop]"
+            v-model="formModelValues[item.prop]"
             :autofocus="item.input.autofocus"
             :placeholder="item.input.placeholder"
+            @blur="() => handleInputBlur(item as MCommentFormPropsItem)"
           ></el-input>
         </el-tooltip>
       </el-form-item>
@@ -34,6 +35,7 @@ import axios from 'axios'
 export interface MCommentFormPropsItem {
   prop: string
   value: string
+  type: 'input' | 'switch' | 'button'
   tooltip: Partial<import('element-plus').ElTooltipProps>
   input: Partial<import('element-plus').InputProps & import('element-plus').InputEmits>
   formItem: Partial<import('element-plus').FormItemProps>
@@ -58,11 +60,6 @@ const props = withDefaults(defineProps<MCommentFormProps>(), {
         type: 'text',
         autofocus: true,
         placeholder: '昵称（必填）',
-        blur: (item) => {
-          console.log(item)
-
-          return true
-        },
       },
     },
     {
@@ -76,7 +73,7 @@ const props = withDefaults(defineProps<MCommentFormProps>(), {
       },
       input: {
         type: 'text',
-        placeholder: '邮箱（可选）',
+        placeholder: '邮箱（必填）',
       },
     },
     {
@@ -95,32 +92,47 @@ const props = withDefaults(defineProps<MCommentFormProps>(), {
     },
   ],
 })
+const QQ = ref('')
 
-const formModelValues = reactive<{
+const formModelValues: {
   [key: string]: any
-}>(
-  props.form.map((item) => {
-    return {
-      [item.prop]: '',
-    }
-  })
-)
+} = reactive({})
+props.form.forEach((item) => {
+  formModelValues[item.prop] = ''
+})
 
 const getQQInfo = (
   qq: string
 ): Promise<{
-  code: number
-  msg: string
   data: {
-    name: string
-    imgUrl: string
+    code: number
+    msg: string
+    data: {
+      name: string
+      imgUrl: string
+    }
   }
 }> => {
   return axios.get(`https://api.kit9.cn/api/qq_material/api.php?qq=${qq}`)
 }
+const handleInputBlur = (item: MCommentFormPropsItem) => {
+  if (item.prop === 'nickname') {
+    return (async () => {
+      const qq = formModelValues[item.prop]
+      if (!/^\d+$/.test(qq)) return
+      QQ.value = qq
+      const res = (await getQQInfo(qq)).data
+      if (res.data.name.trim()) {
+        formModelValues[item.prop] = res.data.name
+      }
+    })()
+  }
+  return true
+}
 
 defineExpose({
   formModelValues,
+  QQ,
 })
 </script>
 <style scoped lang="scss">
