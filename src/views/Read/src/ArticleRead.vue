@@ -19,16 +19,10 @@
         </div>
         <div class="y-read__progress y-text-center">阅读进度：{{ progress }}%</div>
       </div>
-      <div
-        class="y-read__content"
-        :style="{
-          width: `calc(100% - 250px)`,
-          marginLeft: toc.length ? '250px' : '0',
-        }"
-      >
+      <div class="y-read__content" :style="readContentStyles">
         <MdPreview :editorId="'article_id'" v-model="article.content" />
       </div>
-      <MComment></MComment>
+      <MComment :style="readContentStyles"></MComment>
     </div>
   </div>
 </template>
@@ -55,6 +49,13 @@ const { toc, progress } = useCatalog({
   catalogLinkActive: 'el-link--active',
   catalogScrollSelector: 'y-catalog__inner',
   html: article.value.content,
+})
+
+const readContentStyles = computed(() => {
+  return {
+    width: `calc(100% - 250px)`,
+    marginLeft: toc.value.length ? '250px' : '0',
+  } as import('vue').CSSProperties
 })
 
 const progressWatcher = watch(

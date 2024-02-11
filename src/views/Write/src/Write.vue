@@ -95,6 +95,7 @@ import { useUserStore } from '@/store/userStore.ts'
 import { Emoji } from '@vavt/v3-extension'
 import { useWritePage } from '../hooks/index.ts'
 import '@vavt/v3-extension/lib/asset/Emoji.css'
+import 'md-editor-v3/lib/style.css'
 
 const editorRef = ref<ExposeParam | null>()
 const uploadRef = ref<InstanceType<(typeof import('element-plus'))['ElUpload']>>()

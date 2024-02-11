@@ -11,7 +11,6 @@
 import { MFormItemConfig } from '@/components/global/MForm/types/index.ts';
 import { useWriteStore } from '@/store/writeStore.ts'
 import { ExposeParam, ToolbarNames } from 'md-editor-v3'
-import 'md-editor-v3/lib/style.css'
 import { ElMessage, ElUpload, UploadFile, UploadFiles, UploadUserFile } from 'element-plus';
 import { IResponseTemplate } from '@/types/core/index.ts'
 import { preText, toTrim, deepClone } from '@/utils/core.ts';
