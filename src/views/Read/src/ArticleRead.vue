@@ -22,7 +22,7 @@
       <div class="y-read__content" :style="readContentStyles">
         <MdPreview :editorId="'article_id'" v-model="article.content" />
       </div>
-      <MComment :style="readContentStyles"></MComment>
+      <MComment :style="readContentStyles" :articleId="article.id"></MComment>
     </div>
   </div>
 </template>

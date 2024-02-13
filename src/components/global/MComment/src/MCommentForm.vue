@@ -63,7 +63,7 @@ const props = withDefaults(defineProps<MCommentFormProps>(), {
       },
     },
     {
-      prop: 'address',
+      prop: 'email',
       formItem: { label: '' },
       tooltip: {
         content: '用于接收回复邮件',

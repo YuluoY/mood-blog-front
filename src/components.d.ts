@@ -66,6 +66,7 @@ declare module 'vue' {
     MCommentArea: typeof import('./components/global/MComment/src/MCommentArea.vue')['default']
     MCommentDisplay: typeof import('./components/global/MComment/src/MCommentDisplay.vue')['default']
     MCommentDIsplay: typeof import('./components/global/MComment/src/MCommentDIsplay.vue')['default']
+    MCommentDisplayItem: typeof import('./components/global/MComment/src/MCommentDisplayItem.vue')['default']
     MCommentEditor: typeof import('./components/global/MComment/src/MCommentEditor.vue')['default']
     MCommentForm: typeof import('./components/global/MComment/src/MCommentForm.vue')['default']
     MCommentFormItem: typeof import('./components/global/MComment/src/MCommentFormItem.vue')['default']

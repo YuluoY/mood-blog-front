@@ -20,7 +20,7 @@
               </el-tooltip>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" plain @click="handlePublishComment">发布评论</el-button>
+              <el-button type="primary" @click="handlePublishNewComment" plain>发布评论</el-button>
             </el-form-item>
           </template>
         </MCommentForm>
@@ -40,11 +40,25 @@
 <script setup lang="ts">
 import { useUserStore } from '@/store/userStore.ts'
 import { getImageUrl } from '@/utils/core.ts'
+import { IComment, ICreateComment } from '@/types/api/comment.ts'
+import { useGlobalStore } from '@/store/globalStore.ts'
+import { create } from '@/api/rest.ts'
+import { DatabaseTableName } from '@/types/core/index.ts'
+import { ElMessage } from 'element-plus'
 import MCommentForm from './MCommentForm.vue'
 import MCommentDisplay from './MCommentDisplay.vue'
 import MCommentArea from './MCommentArea.vue'
 
+export interface MCommentProps {
+  articleId: string
+}
+
+const props = withDefaults(defineProps<MCommentProps>(), {
+  articleId: '',
+})
+
 const userStore = useUserStore()
+const globalStore = useGlobalStore()
 
 const avatar = (qq: string) => {
   if (qq) {
@@ -56,9 +70,33 @@ const avatar = (qq: string) => {
 const commentContent = ref('')
 const mCommentFormRef = ref<InstanceType<typeof MCommentForm>>()
 const isSubscribe = ref(false)
-const handlePublishComment = () => {
-  // console.log(mCommentFormRef.value.formModelValues, isSubscribe.value, mCommentFormRef.value.QQ)
-  console.log(commentContent.value)
+const handlePublishNewComment = async () => {
+  console.log(mCommentFormRef.value.formModelValues)
+
+  const commentForm: ICreateComment = {
+    qq: mCommentFormRef.value.QQ,
+    avatar: avatar(mCommentFormRef.value.QQ || null),
+    content: commentContent.value,
+    nickname: mCommentFormRef.value.formModelValues.nickname || '',
+    email: mCommentFormRef.value.formModelValues.email || '',
+    website: mCommentFormRef.value.formModelValues.website || '',
+    isSubscribe: isSubscribe.value,
+    article: { id: props.articleId },
+  }
+  if (globalStore.loginStatus) {
+    commentForm.user = { id: userStore.id }
+  } else {
+    commentForm.visitor = { id: globalStore.visitor.id }
+  }
+
+  const res = await create<ICreateComment, IComment>(DatabaseTableName.COMMENT, commentForm)
+  if (res.success) {
+    ElMessage({
+      type: 'success',
+      message: '评论发表成功！',
+    })
+    commentContent.value = ''
+  }
 }
 </script>
 <style scoped lang="scss">
