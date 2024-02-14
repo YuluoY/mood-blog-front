@@ -1,7 +1,12 @@
 <template>
   <div class="m-comment__form">
     <el-form inline :style="{ display: 'flex' }">
-      <slot name="prev" :QQ="QQ"></slot>
+      <!-- <slot name="prev" :QQ="QQ"></slot> -->
+      <el-form-item :style="{ marginRight: '20px' }">
+        <div class="m-comment__form--avatar">
+          <img v-lazy="getAvatarByQQ(QQ)" loading="lazy" alt="评论头像" />
+        </div>
+      </el-form-item>
       <el-form-item
         v-for="item in form"
         :class="`m-comment__form--${item.prop}`"
@@ -25,12 +30,23 @@
           ></el-input>
         </el-tooltip>
       </el-form-item>
-      <slot name="suffix"></slot>
+      <el-form-item label="订阅回复">
+        <el-tooltip content="开启后会通过邮箱通知你被回复了喔~" effect="light">
+          <el-switch v-model="isSubscribe"></el-switch>
+        </el-tooltip>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="() => $emit('handlePublishNewComment')" plain>
+          发布评论
+        </el-button>
+      </el-form-item>
     </el-form>
   </div>
 </template>
 <script setup lang="ts">
 import axios from 'axios'
+// eslint-disable-next-line import/no-cycle
+import { commentFormMock } from '../mock/index.ts'
 
 export interface MCommentFormPropsItem {
   prop: string
@@ -44,55 +60,13 @@ export interface MCommentFormPropsItem {
 export interface MCommentFormProps {
   form?: Partial<MCommentFormPropsItem>[]
 }
-
+defineEmits(['handlePublishNewComment'])
+const getAvatarByQQ = inject('getAvatarByQQ') as Function
 const props = withDefaults(defineProps<MCommentFormProps>(), {
-  form: () => [
-    {
-      prop: 'nickname',
-      formItem: { label: '', required: true },
-      tooltip: {
-        content: '输入QQ号将自动拉取昵称和头像喔~',
-        trigger: 'click',
-        placement: 'bottom-start',
-        effect: 'light',
-      },
-      input: {
-        type: 'text',
-        autofocus: true,
-        placeholder: '昵称（必填）',
-      },
-    },
-    {
-      prop: 'email',
-      formItem: { label: '' },
-      tooltip: {
-        content: '用于接收回复邮件',
-        trigger: 'click',
-        placement: 'bottom-start',
-        effect: 'light',
-      },
-      input: {
-        type: 'text',
-        placeholder: '邮箱（必填）',
-      },
-    },
-    {
-      prop: 'website',
-      formItem: { label: '' },
-      tooltip: {
-        content: '可以给我参观一下你的博客站吗？🤭',
-        trigger: 'click',
-        placement: 'bottom-start',
-        effect: 'light',
-      },
-      input: {
-        type: 'text',
-        placeholder: 'http://（可选）',
-      },
-    },
-  ],
+  form: () => commentFormMock,
 })
 const QQ = ref('')
+const isSubscribe = ref(false)
 
 const formModelValues: {
   [key: string]: any
@@ -133,11 +107,20 @@ const handleInputBlur = (item: MCommentFormPropsItem) => {
 defineExpose({
   formModelValues,
   QQ,
+  isSubscribe
 })
 </script>
 <style scoped lang="scss">
 .m-comment__form {
   padding-top: 20px;
+
+  .m-comment__form--avatar {
+    border-radius: 5px;
+    overflow: hidden;
+    width: 35px;
+    height: 35px;
+    margin-left: 10px;
+  }
 }
 
 :deep(.el-form) {

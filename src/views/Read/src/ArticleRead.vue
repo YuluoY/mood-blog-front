@@ -22,7 +22,14 @@
       <div class="y-read__content" :style="readContentStyles">
         <MdPreview :editorId="'article_id'" v-model="article.content" />
       </div>
-      <MComment :style="readContentStyles" :articleId="article.id"></MComment>
+      <div class="y-read__commentArea" :style="{ width: '100%' }">
+        <MComment
+          :style="readContentStyles"
+          :articleId="article.id"
+          v-if="article.isComment"
+        ></MComment>
+        <p v-else :style="readContentStyles" class="y-pt-20 y-pb-20 y-fs-20">评论暂时关闭！</p>
+      </div>
     </div>
   </div>
 </template>

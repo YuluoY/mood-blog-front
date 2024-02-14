@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios'
-import { DatabaseTableName, IPaginationResponse, IResponseTemplate } from '../core/index.ts'
+import { DatabaseTableName, IPaginationResponse, IQueryFindManyOptions, IResponseTemplate } from '../core/index.ts'
 
 // rest common CRUD
 export interface IRest {
@@ -18,7 +18,8 @@ export interface IRest {
   getListByPage<T>(
     model: DatabaseTableName,
     page: number | string,
-    pageSize: number | string
+    pageSize: number | string,
+    query?: Partial<IQueryFindManyOptions<Partial<T>>>
   ): Promise<IResponseTemplate<IPaginationResponse<T>>>
 
   // 验证码

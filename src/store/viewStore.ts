@@ -19,7 +19,6 @@ export const useViewStore = defineStore(StoreNames.View, {
         view.visitorId = globalStore.visitor.id;
       }
       const res = await create<Partial<ICreateView>, any>(DatabaseTableName.VIEW, Object.assign(view, data));
-      console.log(res.data);
     }
   }
 })

@@ -26,14 +26,22 @@ const props = withDefaults(defineProps<Partial<MCommentAreaProps>>(), {
   modelValue: '',
   rows: 8,
   placeholder: '请开始你的表演~',
-  maxLength: 300,
-  showWordLimit: true
+  maxLength: 1000,
+  showWordLimit: true,
 })
 
 const value = ref(props.modelValue)
 
+watchEffect(() => {
+  value.value = props.modelValue
+})
+
 const handleChange = () => {
   emit('modelValue:update', value.value)
 }
+
+defineExpose({
+  content: value.value,
+})
 </script>
 <style scoped lang="scss"></style>

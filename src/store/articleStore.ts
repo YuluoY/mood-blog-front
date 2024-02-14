@@ -32,7 +32,6 @@ export const useArticleStore = defineStore(StoreNames.Article, {
       });
       const { success, data, message } = res;
       if (success) {
-
         this.articleList = data.list.map(item => {
           item.author = item.user.username;
           return item

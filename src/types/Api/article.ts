@@ -26,6 +26,8 @@ interface IBaseArticle {
   author?: string
   isRecommend: boolean | Ref<boolean> // 推荐
   isTop: boolean | Ref<boolean>   // 置顶
+  isOriginal?: boolean | Ref<boolean> // 是否原创
+  isComment?:boolean | Ref<boolean> // 是否开启评论区
 }
 
 export interface ICreateArticle extends Partial<IExractArticle>, Partial<IBaseArticle> {

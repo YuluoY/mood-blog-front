@@ -25,8 +25,8 @@ export const deleteById: IRest['deleteById'] = (model, id) => request.delete(`/$
 
 export const getList: IRest['getList'] = (model) => request.get(`/${model}`)
 
-export const getListByPage: IRest['getListByPage'] = (model, page, pageSize) =>
-  request.get(`/${model}/pagation/${page}/${pageSize}`)
+export const getListByPage: IRest['getListByPage'] = (model, page, pageSize, query) =>
+  request.get(`/${model}/pagination/${page}/${pageSize}`, query)
 
 export const getCode: IRest['getCode'] = () => request.get(`/code`)
 

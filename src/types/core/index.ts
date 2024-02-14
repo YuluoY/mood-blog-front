@@ -57,9 +57,7 @@ export const enum DatabaseTableName {
   TAG = 'tag',
   CATEGORY = 'category',
   COMMENT = 'comment',
-  ROLE = 'role',
   LIKE = 'like',
-  ROUTER = 'router',
   VIEW = 'view',
   VISITOR = 'visitor'
 }
@@ -79,6 +77,7 @@ export interface IQueryFindManyOptions<T = any> extends Partial<IResponseBaseDat
   order?: 'ASC' | 'DESC'
   withDeleted?: boolean
   where?: T
+  relations?: DatabaseTableName[keyof DatabaseTableName][]
 }
 export interface IBaseApi {
   add: <T, D = any>(data: T & object) => Promise<IResponseTemplate<D | T>>
