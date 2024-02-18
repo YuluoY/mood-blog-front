@@ -11,6 +11,7 @@
     </div>
     <div class="m-comment__display--pagination">
       <el-pagination
+        v-if="commentList.length && total > limit"
         background
         layout="prev, pager, next"
         :total="total"
@@ -24,25 +25,30 @@
 <script setup lang="ts">
 import { IComment } from '@/types/api/comment.ts'
 
-export interface MCommentDisplayItem extends IComment {}
-
 export interface MCommentDisplayProps {
   total: number
   page: number
   limit: number
-  commentList: MCommentDisplayItem[]
+  isPagination: boolean
+  commentList: IComment[]
 }
 
 defineEmits(['changePage'])
 
 const props = withDefaults(defineProps<Partial<MCommentDisplayProps>>(), {
   total: 0,
+  isPagination: true,
 })
 const com = reactive({ ...props })
+const commentList = reactive([...props.commentList])
 
 watchEffect(() => {
   com.page = props.page
+  commentList.length = 0
+  commentList.push(...(props.commentList as any))
 })
+
+provide('commentList', commentList)
 </script>
 <style scoped lang="scss">
 .m-comment__display {
@@ -50,6 +56,10 @@ watchEffect(() => {
     padding: 20px 20px 10px 0;
     font-size: 2em;
     border-bottom: 1px solid var(--el-border-color);
+  }
+
+  .m-comment__row--sub {
+    padding-bottom: 10px;
   }
 
   .m-comment__display--pagination {

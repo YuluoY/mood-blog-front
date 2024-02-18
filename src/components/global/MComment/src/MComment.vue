@@ -1,20 +1,11 @@
 <template>
   <div class="m-comment">
     <div class="m-comment__inner">
-      <div class="m-comment__title">
+      <div class="m-comment__title" v-show="isShowMainCommentFrom">
         <h2>发表评论</h2>
       </div>
       <div class="m-comment__form--box">
-        <MCommentForm
-          ref="mCommentFormRef"
-          @handlePublishNewComment="handlePublishNewComment"
-        ></MCommentForm>
-      </div>
-      <div class="m-comment__area--box">
-        <MCommentArea
-          v-model="commentContent"
-          @model-value:update="(val) => (commentContent = val)"
-        ></MCommentArea>
+        <MCommentForm @handlePublishNewComment="handlePublishNewComment" v-show="isShowMainCommentFrom"></MCommentForm>
       </div>
       <div class="m-comment__display--box">
         <MCommentDisplay
@@ -38,7 +29,6 @@ import { DatabaseTableName, IQueryFindManyOptions } from '@/types/core/index.ts'
 import { ElMessage } from 'element-plus'
 import MCommentForm from './MCommentForm.vue'
 import MCommentDisplay from './MCommentDisplay.vue'
-import MCommentArea from './MCommentArea.vue'
 
 export interface MCommentProps {
   articleId: string
@@ -54,8 +44,18 @@ const props = withDefaults(defineProps<MCommentProps>(), {
 
 const userStore = useUserStore()
 const globalStore = useGlobalStore()
+const cacheForm = reactive({
+  qq: '',
+  nickname: userStore.nickname || userStore.username || '',
+  email: userStore.email || '',
+  website: '',
+})
+const isShowMainCommentFrom = ref(true)
 
 const getAvatarByQQ = (qq: string) => {
+  if (globalStore.loginStatus) {
+    return userStore.avatar;
+  }
   if (qq) {
     return `https://q.qlogo.cn/headimg_dl?dst_uin=${qq}&spec=100&t=${Date.now()}`
   } else {
@@ -63,19 +63,7 @@ const getAvatarByQQ = (qq: string) => {
   }
 }
 
-const commentContent = ref('')
-const mCommentFormRef = ref<InstanceType<typeof MCommentForm>>()
-const commentForm: ICreateComment = {
-  qq: mCommentFormRef.value.QQ,
-  avatar: getAvatarByQQ(mCommentFormRef.value.QQ || null),
-  content: commentContent.value,
-  nickname: mCommentFormRef.value.formModelValues.nickname || '',
-  email: mCommentFormRef.value.formModelValues.email || '',
-  website: mCommentFormRef.value.formModelValues.website || '',
-  isSubscribe: mCommentFormRef.value.isSubscribe,
-  article: { id: props.articleId },
-}
-const handlePublishNewComment = async (form: ICreateComment) => {
+const handlePublishNewComment = async (form: ICreateComment, successCb?: Function) => {
   if (globalStore.loginStatus) {
     form.user = { id: userStore.id }
   } else {
@@ -87,9 +75,7 @@ const handlePublishNewComment = async (form: ICreateComment) => {
       type: 'success',
       message: '评论发表成功！',
     })
-    // commentContent.value = ''
-
-    mCommentFormRef.value.isSubscribe = false
+    successCb && successCb()
   }
 }
 
@@ -126,6 +112,9 @@ watchEffect(() => {
 
 provide('getAvatarByQQ', getAvatarByQQ)
 provide('articleId', com.articleId)
+provide('cacheForm', cacheForm)
+provide('isShowMainCommentFrom', isShowMainCommentFrom)
+provide('handlePublishNewComment', handlePublishNewComment)
 </script>
 <style scoped lang="scss">
 .m-comment {

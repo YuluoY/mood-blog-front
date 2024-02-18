@@ -9,12 +9,15 @@ export interface ICreateComment {
   website: string
   isSubscribe: boolean
   isTop?: false
+
   user?: Partial<import('./user.ts').IUser>
   visitor?: Partial<import('./visitor.ts').IVisitor>
   article?: Partial<import('./article.ts').IArticle>
   parent?: Partial<import('@/types/api/comment.ts').IComment>
+  reply?: Partial<import('@/types/api/comment.ts').IComment>
 }
 
 export interface IComment extends Partial<ICreateComment>, IResponseBaseData {
-  children: Partial<import('@/types/api/comment.ts').IComment>[]
+  children?: import('@/types/api/comment.ts').IComment[]
+  isReply?: boolean
 }

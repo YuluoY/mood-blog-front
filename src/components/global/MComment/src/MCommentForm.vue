@@ -4,7 +4,7 @@
       <!-- <slot name="prev" :QQ="QQ"></slot> -->
       <el-form-item :style="{ marginRight: '20px' }">
         <div class="m-comment__form--avatar">
-          <img v-lazy="getAvatarByQQ(QQ)" loading="lazy" alt="评论头像" />
+          <img v-lazy="getAvatarByQQ(cacheForm.qq)" loading="lazy" alt="评论头像" />
         </div>
       </el-form-item>
       <el-form-item
@@ -36,16 +36,16 @@
         </el-tooltip>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="() => $emit('handlePublishNewComment')" plain>
-          发布评论
-        </el-button>
+        <el-button type="primary" @click="onPublishNewComment" plain>发布评论</el-button>
       </el-form-item>
     </el-form>
+    <MCommentArea v-model="content" @model-value:update="(val) => (content = val)"></MCommentArea>
   </div>
 </template>
 <script setup lang="ts">
 import axios from 'axios'
 // eslint-disable-next-line import/no-cycle
+import { IComment, ICreateComment } from '@/types/api/comment.ts'
 import { commentFormMock } from '../mock/index.ts'
 
 export interface MCommentFormPropsItem {
@@ -58,21 +58,27 @@ export interface MCommentFormPropsItem {
 }
 
 export interface MCommentFormProps {
+  comment: IComment
+  commentId: string
   form?: Partial<MCommentFormPropsItem>[]
 }
 defineEmits(['handlePublishNewComment'])
-const getAvatarByQQ = inject('getAvatarByQQ') as Function
-const props = withDefaults(defineProps<MCommentFormProps>(), {
+const props = withDefaults(defineProps<Partial<MCommentFormProps>>(), {
   form: () => commentFormMock,
 })
+const { emit } = getCurrentInstance()
+const getAvatarByQQ = inject('getAvatarByQQ') as Function
+const articleId = inject('articleId') as string
+const cacheForm = inject('cacheForm') as any
 const QQ = ref('')
 const isSubscribe = ref(false)
+const content = ref('')
 
 const formModelValues: {
   [key: string]: any
 } = reactive({})
 props.form.forEach((item) => {
-  formModelValues[item.prop] = ''
+  formModelValues[item.prop] = cacheForm[item.prop] || ''
 })
 
 const getQQInfo = (
@@ -89,6 +95,7 @@ const getQQInfo = (
 }> => {
   return axios.get(`https://api.kit9.cn/api/qq_material/api.php?qq=${qq}`)
 }
+
 const handleInputBlur = (item: MCommentFormPropsItem) => {
   if (item.prop === 'nickname') {
     return (async () => {
@@ -104,10 +111,46 @@ const handleInputBlur = (item: MCommentFormPropsItem) => {
   return true
 }
 
+const onPublishNewComment = (form: Partial<ICreateComment> = {}) => {
+  const defaultForm: Partial<ICreateComment> = {
+    qq: QQ.value,
+    avatar: getAvatarByQQ(QQ.value),
+    content: content.value,
+    ...formModelValues,
+    isSubscribe: isSubscribe.value,
+    article: { id: articleId },
+  }
+  if (!props.comment || props.comment?.children) {
+    defaultForm.parent = props.comment ? { id: props?.comment?.id } : null
+  } else {
+    defaultForm.reply = { id: props.comment.id }
+    defaultForm.parent = { id: props.comment.parent?.id }
+  }
+
+  if (props.comment?.parent?.id) {
+    defaultForm.parent = { id: props.comment?.parent?.id }
+  } else if (props.comment) {
+    defaultForm.parent = { id: props.comment.id }
+  }
+
+  emit('handlePublishNewComment', defaultForm, () => {
+    isSubscribe.value = false
+    content.value = ''
+  })
+}
+
+const cacheFormWatcher = watch(formModelValues, (newVal) => {
+  Object.assign(cacheForm, newVal)
+  cacheForm.qq = QQ.value
+})
+
+onBeforeUnmount(() => {
+  cacheFormWatcher()
+})
+
 defineExpose({
   formModelValues,
-  QQ,
-  isSubscribe
+  onPublishNewComment,
 })
 </script>
 <style scoped lang="scss">

@@ -79,7 +79,7 @@
       <div class="y-flex y-f-row">
         <div class="y-card__hsy y-w-100 y-overflow-hidden y-b-radius-50">
           <img
-            v-lazy="`https://q.qlogo.cn/headimg_dl?dst_uin=859018342&spec=100`"
+            v-lazy="hyl"
             loading="lazy"
             alt="she"
           />
@@ -89,7 +89,7 @@
         </div>
         <div class="y-card__hyl y-w-100 y-overflow-hidden y-b-radius-50">
           <img
-            v-lazy="`https://q.qlogo.cn/headimg_dl?dst_uin=568055454&spec=100`"
+            v-lazy="hsy"
             loading="lazy"
             alt="me"
           />
@@ -127,6 +127,9 @@ const categoryStroe = computed(() => useCategoryStore())
 
 await tagStore.value.fetchTags()
 await categoryStroe.value.fetchCategories()
+
+const hyl = `https://q.qlogo.cn/headimg_dl?dst_uin=568055454&spec=100&t=${Date.now()}`
+const hsy = `https://q.qlogo.cn/headimg_dl?dst_uin=859018342&spec=100&t=${Date.now()}`
 
 const props = withDefaults(defineProps<Partial<IHomeSidebarProps>>(), {
   isLoveShow: true,

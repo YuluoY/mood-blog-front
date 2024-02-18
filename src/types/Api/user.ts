@@ -25,6 +25,12 @@ export interface IUserRegister extends IUserLogin {
   socializes?: IUserSocializes // 网站
   location?: string // 地址
   ip?: string // IP
+  windowsOS?: string
+  browser?: string
+  province?: string
+  city?: string
+  district?: string
+  street?: string
   userAgent?: string // 浏览器
   lastLoginAt?: string // 最后登录
 }

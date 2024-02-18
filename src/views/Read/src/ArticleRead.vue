@@ -2,7 +2,7 @@
   <div class="y-article__read y-flex y-f-align-center y-f-col">
     <ArticleReadHero :article="article" />
     <div class="y-read__inner y-flex y-f-justify-center y-f-align-center y-f-col y-w-80">
-      <div class="y-read__catalog y-mr-20" v-if="toc.length">
+      <el-card class="y-read__catalog y-mr-20" v-if="toc.length" shadow="hover">
         <div class="y-catalog__title">文章目录</div>
         <div class="y-catalog__inner y-flex y-f-col">
           <el-link
@@ -18,10 +18,10 @@
           </el-link>
         </div>
         <div class="y-read__progress y-text-center">阅读进度：{{ progress }}%</div>
-      </div>
-      <div class="y-read__content" :style="readContentStyles">
+      </el-card>
+      <el-card class="y-read__content" :style="readContentStyles" shadow="hover">
         <MdPreview :editorId="'article_id'" v-model="article.content" />
-      </div>
+      </el-card>
       <div class="y-read__commentArea" :style="{ width: '100%' }">
         <MComment
           :style="readContentStyles"
@@ -111,6 +111,7 @@ onUnmounted(() => {
     color: var(--el-text-color-primary);
     border-radius: 4px;
     position: absolute;
+    left: 0;
     bottom: 0;
     z-index: -2;
     width: 100%;
@@ -191,9 +192,8 @@ onUnmounted(() => {
   }
 }
 
-.y-read__content,
-.y-read__catalog {
-  box-shadow: var(--el-box-shadow-light);
-  background-color: var(--el-bg-color);
+:deep(.el-card) {
+  padding: 0;
+  overflow: unset;
 }
 </style>
