@@ -13,7 +13,7 @@
       <el-pagination
         background
         layout="prev, pager, next"
-        :total="total"
+        :total="rawTotal"
         :current-page="com.page"
         :page-size="limit"
         @current-change="(val: number) => $emit('changePage', val)"
@@ -26,6 +26,7 @@ import { IComment } from '@/types/api/comment.ts'
 
 export interface MCommentDisplayProps {
   total: number
+  rawTotal: number
   page: number
   limit: number
   isPagination: boolean
@@ -36,6 +37,7 @@ defineEmits(['changePage'])
 
 const props = withDefaults(defineProps<Partial<MCommentDisplayProps>>(), {
   total: 0,
+  rawTotal: 0,
   isPagination: true,
 })
 const com = reactive({ ...props })

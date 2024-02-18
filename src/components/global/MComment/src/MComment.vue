@@ -11,6 +11,7 @@
         <MCommentDisplay
           :comment-list="commentList"
           :total="totalComment"
+          :raw-total="rawTotalComment"
           :page="com.page"
           :limit="com.limit"
           @changePage="handleChangePage"
@@ -63,6 +64,35 @@ const getAvatarByQQ = (qq: string) => {
   }
 }
 
+
+
+const com = reactive({ ...props })
+const commentList = reactive([])
+const totalComment = ref(0)
+const rawTotalComment = ref(0)
+const getCommentsByPage = async (aId: string, currentPage: number, pageSize: number) => {
+  const query: IQueryFindManyOptions = {
+    where: { article: { id: aId } },
+    relations: [],
+  }
+  query.relations.push(globalStore.loginStatus ? 'user' : 'visitor')
+  const res = await getListByPage<IComment>(DatabaseTableName.COMMENT, currentPage, pageSize, query)
+
+  if (res.success) {
+    commentList.length = 0
+    commentList.push(...res.data.list)
+    totalComment.value = res.data.total
+    rawTotalComment.value = res.data.rawTotal
+  }
+}
+
+await getCommentsByPage(com.articleId, com.page, com.limit)
+
+const handleChangePage = async (currentPage: number) => {
+  com.page = currentPage
+  await getCommentsByPage(com.articleId, currentPage, com.limit)
+}
+
 const handlePublishNewComment = async (form: ICreateComment, successCb?: Function) => {
   if (globalStore.loginStatus) {
     form.user = { id: userStore.id }
@@ -76,34 +106,10 @@ const handlePublishNewComment = async (form: ICreateComment, successCb?: Functio
       message: '评论发表成功！',
     })
     successCb && successCb(res.data)
+    await getCommentsByPage(com.articleId, com.page, com.limit);
+    isShowMainCommentFrom.value = true
   }
 }
-
-const com = reactive({ ...props })
-const commentList = reactive([])
-const totalComment = ref(0)
-const getCommentsByPage = async (aId: string, currentPage: number, pageSize: number) => {
-  const query: IQueryFindManyOptions = {
-    where: { article: { id: aId } },
-    relations: [],
-  }
-  query.relations.push(globalStore.loginStatus ? 'user' : 'visitor')
-  const res = await getListByPage<IComment>(DatabaseTableName.COMMENT, currentPage, pageSize, query)
-
-  if (res.success) {
-    commentList.length = 0
-    commentList.push(...res.data.list)
-    totalComment.value = res.data.total
-  }
-}
-
-await getCommentsByPage(com.articleId, com.page, com.limit)
-
-const handleChangePage = async (currentPage: number) => {
-  com.page = currentPage
-  await getCommentsByPage(com.articleId, currentPage, com.limit)
-}
-
 watchEffect(() => {
   com.articleId = props.articleId
   com.page = props.page

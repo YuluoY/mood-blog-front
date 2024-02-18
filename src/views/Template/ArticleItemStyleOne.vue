@@ -45,15 +45,15 @@
           </el-space>
           <el-space class="y-item__info--view y-mr-6">
             <svg-icon name="view" />
-            <span>{{ article.views.length }}</span>
+            <span>{{ article.viewCount }}</span>
           </el-space>
           <el-space class="y-item__info--like y-mr-6">
             <svg-icon name="like" />
-            <span>{{ article.likes.length }}</span>
+            <span>{{ article.likeCount }}</span>
           </el-space>
           <el-space class="y-item__info--comment y-mr-20">
             <svg-icon name="comment" />
-            <span>{{ article.comments.length }}</span>
+            <span>{{ article.commentCount }}</span>
           </el-space>
           <el-text class="y-item__more y-text-right y-flex-1">
             <span

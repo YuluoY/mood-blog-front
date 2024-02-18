@@ -34,19 +34,19 @@
         <div class="view y-flex y-f-align-center">
           <svg-icon name="view"></svg-icon>
           <span class="y-ml-6">阅读量：</span>
-          <span>{{ article.views.length }}</span>
+          <span>{{ article.viewCount }}</span>
         </div>
         <el-divider direction="vertical" />
         <div class="like y-flex y-f-align-center">
           <svg-icon name="like"></svg-icon>
           <span class="y-ml-6">点赞：</span>
-          <span>{{ article.likes.length }}</span>
+          <span>{{ article.likeCount }}</span>
         </div>
         <el-divider direction="vertical" />
         <div class="comment y-flex y-f-align-center">
           <svg-icon name="comment"></svg-icon>
           <span class="y-ml-6">评论数：</span>
-          <span>{{ article.comments.length }}</span>
+          <span>{{ article.commentCount }}</span>
         </div>
         <el-divider direction="vertical" />
 

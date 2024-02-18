@@ -68,6 +68,7 @@ export interface IPaginationRequest {
   limit: number
 }
 export interface IPaginationResponse<T> extends IPaginationRequest {
+  [x: string]: number
   total: number
   list: T[]
 }
