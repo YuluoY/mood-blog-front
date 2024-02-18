@@ -75,7 +75,7 @@ const handlePublishNewComment = async (form: ICreateComment, successCb?: Functio
       type: 'success',
       message: '评论发表成功！',
     })
-    successCb && successCb()
+    successCb && successCb(res.data)
   }
 }
 
@@ -85,7 +85,7 @@ const totalComment = ref(0)
 const getCommentsByPage = async (aId: string, currentPage: number, pageSize: number) => {
   const query: IQueryFindManyOptions = {
     where: { article: { id: aId } },
-    relations: ['parent', 'children'],
+    relations: [],
   }
   query.relations.push(globalStore.loginStatus ? 'user' : 'visitor')
   const res = await getListByPage<IComment>(DatabaseTableName.COMMENT, currentPage, pageSize, query)

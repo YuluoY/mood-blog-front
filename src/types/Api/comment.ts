@@ -9,6 +9,7 @@ export interface ICreateComment {
   website: string
   isSubscribe: boolean
   isTop?: false
+  isAuthorLike?: false
 
   user?: Partial<import('./user.ts').IUser>
   visitor?: Partial<import('./visitor.ts').IVisitor>

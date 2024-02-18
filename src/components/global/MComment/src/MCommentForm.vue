@@ -58,8 +58,7 @@ export interface MCommentFormPropsItem {
 }
 
 export interface MCommentFormProps {
-  comment: IComment
-  commentId: string
+  replyComment: IComment
   form?: Partial<MCommentFormPropsItem>[]
 }
 defineEmits(['handlePublishNewComment'])
@@ -96,6 +95,7 @@ const getQQInfo = (
   return axios.get(`https://api.kit9.cn/api/qq_material/api.php?qq=${qq}`)
 }
 
+// 监听表单input失焦后的操作
 const handleInputBlur = (item: MCommentFormPropsItem) => {
   if (item.prop === 'nickname') {
     return (async () => {
@@ -111,7 +111,8 @@ const handleInputBlur = (item: MCommentFormPropsItem) => {
   return true
 }
 
-const onPublishNewComment = (form: Partial<ICreateComment> = {}) => {
+// 发表评论
+const onPublishNewComment = () => {
   const defaultForm: Partial<ICreateComment> = {
     qq: QQ.value,
     avatar: getAvatarByQQ(QQ.value),
@@ -120,17 +121,17 @@ const onPublishNewComment = (form: Partial<ICreateComment> = {}) => {
     isSubscribe: isSubscribe.value,
     article: { id: articleId },
   }
-  if (!props.comment || props.comment?.children) {
-    defaultForm.parent = props.comment ? { id: props?.comment?.id } : null
-  } else {
-    defaultForm.reply = { id: props.comment.id }
-    defaultForm.parent = { id: props.comment.parent?.id }
-  }
 
-  if (props.comment?.parent?.id) {
-    defaultForm.parent = { id: props.comment?.parent?.id }
-  } else if (props.comment) {
-    defaultForm.parent = { id: props.comment.id }
+  // 回复评论逻辑
+  if (props.replyComment) {
+    if (props.replyComment?.children) {
+      // 一级评论
+      defaultForm.parent = { id: props.replyComment.id }
+    } else {
+      // 二级评论
+      defaultForm.parent = { id: props.replyComment.parent.id }
+      defaultForm.reply = { id: props.replyComment.id }
+    }
   }
 
   emit('handlePublishNewComment', defaultForm, () => {

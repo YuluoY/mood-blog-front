@@ -36,24 +36,27 @@
             <svg-icon name="browser" />
             <span>{{ browser }}</span>
           </el-space>
-          <el-space class="m-comment__info-right" :style="{ marginLeft: 'auto' }">
+          <el-space class="m-comment__info--reply" :style="{ marginLeft: 'auto' }">
             <el-button link type="primary" @click="() => onClickReply(item)">回复</el-button>
           </el-space>
         </div>
         <div class="m-comment__content" :style="{ fontSize: `${contentFontSize}em` }">
           <p>
-            <!-- <a v-if="parent.id" :href="`#${parent?.id}`" class="y-pr-10">@{{ parent?.nickname }}</a> -->
+            <a v-if="item.reply?.id" :href="`#${item.reply?.id}`" class="y-pr-10">
+              @{{ item.reply?.nickname }}
+            </a>
             <span>{{ item.content }}</span>
           </p>
         </div>
         <el-space class="m-comment__footer">
           <el-tag v-if="item.isTop" type="danger" effect="dark">置顶</el-tag>
-          <!-- <el-tag v-if="item.children.find((c) => c?.user?.username === 'yuluo')" effect="dark">
-          作者赞过
-        </el-tag> -->
+          <el-tag v-if="item.isAuthorLike" effect="dark">作者赞过</el-tag>
         </el-space>
         <div class="m-comment__reply" v-if="item.isReply">
-          <MCommentForm :comment="item" @handle-publish-new-comment="handlePublishNewComment"></MCommentForm>
+          <MCommentForm
+            :reply-comment="item"
+            @handle-publish-new-comment="handlePublishNewComment"
+          ></MCommentForm>
         </div>
       </div>
     </div>
@@ -70,7 +73,7 @@
 </template>
 <script setup lang="ts">
 import { dateFormat } from '@/utils/dayjs.ts'
-import { IComment} from '@/types/api/comment.ts'
+import { IComment } from '@/types/api/comment.ts'
 
 const props = withDefaults(
   defineProps<{
@@ -89,6 +92,7 @@ const commentList = inject('commentList') as IComment[]
 const isShowMainCommentFrom = inject('isShowMainCommentFrom') as Ref<boolean>
 const handlePublishNewComment = inject('handlePublishNewComment') as any
 
+// 点击回复评论后端操作，页面上只能出现一个表单
 const onClickReply = (item: IComment) => {
   if (item.isReply) {
     isShowMainCommentFrom.value = true
@@ -155,11 +159,19 @@ const browser = computed(() => props.item?.visitor?.browser || props.item?.user?
           display: flex;
           align-items: end;
         }
+
+        .m-comment__info--reply {
+          margin-right: 0;
+        }
       }
 
       .m-comment__content {
         flex: 1;
         padding: 6px 0;
+
+        p {
+          word-break: break-word;
+        }
       }
 
       .m-comment__footer {

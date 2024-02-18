@@ -11,7 +11,6 @@
     </div>
     <div class="m-comment__display--pagination">
       <el-pagination
-        v-if="commentList.length && total > limit"
         background
         layout="prev, pager, next"
         :total="total"
