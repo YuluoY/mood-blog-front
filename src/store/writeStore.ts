@@ -29,10 +29,16 @@ export const useWriteStore = defineStore(StoreNames.Write, {
       words: 0
     }
 
+    const loaclUploadImages: {
+      rawFile: File,
+      localUrl: string
+    }[] = []
+
     return {
       content: '',
       form,
       editorOptions,  // https://imzbf.github.io/md-editor-v3/zh-CN/docs
+      loaclUploadImages
     }
   },
   actions: {
@@ -53,13 +59,8 @@ export const useWriteStore = defineStore(StoreNames.Write, {
       }
     },
     initForm() {
-
-      console.log(this.rawForm, 'raw');
-
       this.form = this.getRawForm() as any
       this.content = '';
-      console.log(this.form);
-
     },
     getRawForm() {
       return {
@@ -78,7 +79,7 @@ export const useWriteStore = defineStore(StoreNames.Write, {
     }
   },
   getters: {
-  
+
   },
 
   persist: {

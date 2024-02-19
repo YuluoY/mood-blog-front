@@ -14,6 +14,7 @@
         :key="item.prop"
         :label="item.formItem.label"
         :required="item.formItem.required"
+        :rules="item.formItem.rules"
       >
         <el-tooltip
           :content="item.tooltip.content"
@@ -23,7 +24,7 @@
         >
           <el-input
             :type="item.input.type"
-            v-model="formModelValues[item.prop]"
+            v-model.trim="formModelValues[item.prop]"
             :autofocus="item.input.autofocus"
             :placeholder="item.input.placeholder"
             @blur="() => handleInputBlur(item as MCommentFormPropsItem)"
@@ -46,6 +47,8 @@
 import axios from 'axios'
 // eslint-disable-next-line import/no-cycle
 import { IComment, ICreateComment } from '@/types/api/comment.ts'
+import { ElMessage } from 'element-plus'
+import { isEmail } from '@/utils/core.ts'
 import { commentFormMock } from '../mock/index.ts'
 
 export interface MCommentFormPropsItem {
@@ -120,6 +123,29 @@ const onPublishNewComment = () => {
     ...formModelValues,
     isSubscribe: isSubscribe.value,
     article: { id: articleId },
+  }
+  if (!defaultForm.nickname || !defaultForm.email) {
+    ElMessage({
+      type: 'warning',
+      message: '请填将表单填写完整后提交！',
+    })
+    return;
+  }
+  
+  if(!isEmail(defaultForm.email)) {
+    ElMessage({
+      type: 'error',
+      message: '邮箱格式错误！',
+    })
+    return;
+  }
+
+  if (!defaultForm.content) {
+    ElMessage({
+      type: 'warning',
+      message: '您还没有填写评论喔~',
+    })
+    return;
   }
 
   // 回复评论逻辑

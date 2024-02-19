@@ -1,16 +1,15 @@
 <template>
   <MHero classname="read" class="y-f-col" :image-url="article.cover">
-    <div class="y-hero__inner">
-      <h1 class="y-hero__title y-text-center">{{ article.title }}</h1>
-      <div class="y-hero__item y-flex y-f-align-center">
-
+    <div class="m-hero__inner">
+      <h1 class="m-hero__title y-text-center">{{ article.title }}</h1>
+      <div class="m-hero__item y-flex y-f-align-center">
         <div class="author y-flex y-f-align-center">
           <svg-icon name="author"></svg-icon>
           <span class="y-ml-6">作者：</span>
           <span>{{ article.author || article.user.username }}</span>
         </div>
         <el-divider direction="vertical" />
-        
+
         <div class="date y-flex y-f-align-center">
           <svg-icon name="publish-date"></svg-icon>
           <span class="y-ml-6">发表于</span>
@@ -28,9 +27,8 @@
           <span class="y-ml-6">标签：</span>
           <span>{{ article.tags.map((item) => item.tagName).join() }}</span>
         </div>
-      
       </div>
-      <div class="y-hero__item y-flex y-f-align-center y-f-justify-center y-mt-10">
+      <div class="m-hero__item y-flex y-f-align-center y-f-justify-center y-mt-10">
         <div class="view y-flex y-f-align-center">
           <svg-icon name="view"></svg-icon>
           <span class="y-ml-6">阅读量：</span>
@@ -89,21 +87,25 @@ const calculateWords = computed(() => {
 </script>
 <style scoped lang="scss">
 :deep(.el-divider) {
-  border-left: 1px var(--el-text-color-primary) var(--el-border-style);
+  border-left: 1px var(--el-bg-color) var(--el-border-style);
 }
 
-@include b(hero) {
+.m-hero {
   display: flex;
 
-  @include e(inner) {
+  .m-hero__inner {
     margin: auto;
-    color: var(--el-text-color-primary);
-    text-shadow: 0 0 15px var(--el-color-info-light-9);
+
+    // color: var(--el-text-color-primary);
+    color: var(--el-color-white);
+
+    // text-shadow: 0 0 15px var(--el-color-info-light-9);
+    text-shadow: 0 0 30px var(--el-color-black);
   }
 
   .m-icon {
     font-size: 1.2em;
-    fill: var(--el-text-color-primary);
+    fill: var(--el-color-white);
   }
 }
 </style>

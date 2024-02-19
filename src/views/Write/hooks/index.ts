@@ -2,7 +2,7 @@
  * @Author: huyongle 568055454@qq.com
  * @Date: 2023-11-30 00:37:00
  * @LastEditors: huyongle 568055454@qq.com
- * @LastEditTime: 2024-01-30 18:32:51
+ * @LastEditTime: 2024-02-20 04:08:25
  * @FilePath: \mood-blog-front\src\views\Write\hooks\index.ts
  * @Description: 攥写文章的页面。逻辑：攥写文章内容 --> 保存出现弹窗 --> 填写文章的相关表单 --> 校验表单
  * 
@@ -21,6 +21,7 @@ import MForm from '@/components/global/MForm/index.ts';
 import { ITag } from '@/types/api/tag.ts';
 import { ICategory } from '@/types/api/category.ts';
 import { useGlobalStore } from '@/store/globalStore.ts';
+import { addLocalFile } from '@/api/file.ts';
 
 export const useWritePage = async ({
   editorRef,
@@ -159,6 +160,29 @@ export const useWritePage = async ({
   }
 
   /**
+   * @description: 处理文章内容中的图片上传
+   * @param {ICreateArticle} form 表单
+   * @return {Promise<void>}
+   */
+  const processUploadImages = async (form: Partial<ICreateArticle>): Promise<void> => {
+    // 过滤掉被删除的图片
+    const filterNewUploadImages = writeStore.loaclUploadImages.filter(item => form.content.indexOf(item.localUrl) > -1)
+
+    // 上传 返回url
+    const urls = await Promise.all(filterNewUploadImages.map(item => {
+      return new Promise((resolve, reject) => {
+        addLocalFile(item.rawFile).then(res => resolve(res.data))
+      })
+    })) as string[]
+
+    for (let i = 0; i < urls.length; i++) {
+      form.content = form.content.replace(filterNewUploadImages[i].localUrl, urls[i]);
+    }
+
+    writeStore.loaclUploadImages.length = 0;
+  };
+
+  /**
    * @description: 删除文件缩略图
    * @param {UploadFile} file 文件
    * @return {void}
@@ -188,8 +212,11 @@ export const useWritePage = async ({
     ElMessage.info(t(`writeView.fileLimitError`, [files.length.toString()]));
   }
 
-  // 表单校验
-  const handleValidate = async () => {
+  /**
+   * @description: 对文章的表单验证
+   * @return {Promise<void>}
+   */
+  const handleValidate = async (): Promise<void> => {
     if (!writeStore.form.content.length) {
       ElMessage({ type: 'info', message: '文章内容不允许为空哦！' })
       return;
@@ -205,6 +232,8 @@ export const useWritePage = async ({
       })
       formData.category = { id: formData.category } as any
       formData.cover = formData.cover ? formData.cover : useGlobalStore().getDefaultCover;
+
+      await processUploadImages(formData)
       await onSaveArticle(formData);
     }
   }
@@ -236,6 +265,7 @@ export const useWritePage = async ({
   }
 
 
+  // 自动填充表单
   const autoCompleteForm = () => {
     writeStore.form.userId = useUserStore().id;
     const doc = parser.parseFromString(writeStore.form.content, 'text/html');
@@ -263,8 +293,36 @@ export const useWritePage = async ({
     else handleValidate();
   }
 
-  const onHtmlChanged = (h: string) => {
+  /**
+   * @description: 同步内容
+   * @param {string} h  html内容
+   * @return {void}
+   */
+  const onHtmlChanged = (h: string): void => {
     writeStore.form.content = h
+  }
+
+  /**
+   * @description: 文章内容中上传图片
+   * @param {Array} files  图片信息数组
+   * @param {function} callback 
+   * @return {Promise<void>}
+   */
+  const handleUploadImg = async (files: Array<File>, callback: (urls: Array<string>) => void): Promise<void> => {
+    const MAX_SIZE = 2;  // 最大图片上传2MB
+    callback(files.map(file => {
+      if (file.size / 1024 / 1024 < MAX_SIZE) {
+        const localUrl = URL.createObjectURL(file);
+        writeStore.loaclUploadImages.push({
+          rawFile: file,
+          localUrl
+        })
+        return localUrl;
+      } else {
+        ElMessage.info(`图片“${file.name}”超过最大上传大小2MB！`)
+        return '';
+      }
+    }))
   }
 
   return {
@@ -285,6 +343,7 @@ export const useWritePage = async ({
     handleExceed,
     handleSuccess,
     handleError,
-    handleChange
+    handleChange,
+    handleUploadImg
   }
 }

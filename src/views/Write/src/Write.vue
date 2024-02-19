@@ -50,11 +50,7 @@
           </el-dialog>
         </el-form-item>
 
-        <el-form-item
-          label="内容"
-          prop="content"
-          label-width="70"
-        >
+        <el-form-item label="内容" prop="content" label-width="70">
           <MdEditor
             ref="editorRef"
             class="y-write__editor"
@@ -67,6 +63,7 @@
             :code-theme="editorOptions.codeTheme"
             :toolbars="toolbars"
             @on-html-changed="onHtmlChanged"
+            @on-upload-img="handleUploadImg"
           >
             <template #defToolbars>
               <Emoji>
@@ -128,6 +125,7 @@ const {
   handleSuccess,
   handleError,
   handleChange,
+  handleUploadImg
 } = await useWritePage({
   editorRef,
   uploadRef,
@@ -169,5 +167,10 @@ const {
 
 :deep(.emojis li) {
   box-sizing: content-box;
+}
+
+:deep(.md-editor-preview-wrapper img.medium-zoom-image) {
+  display: block;
+  margin: 0 auto;
 }
 </style>

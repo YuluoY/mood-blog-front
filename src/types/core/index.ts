@@ -59,7 +59,8 @@ export const enum DatabaseTableName {
   COMMENT = 'comment',
   LIKE = 'like',
   VIEW = 'view',
-  VISITOR = 'visitor'
+  VISITOR = 'visitor',
+  FILE = 'file'
 }
 
 // pagation 分页
@@ -81,7 +82,7 @@ export interface IQueryFindManyOptions<T = any> extends Partial<IResponseBaseDat
   relations?: DatabaseTableName[keyof DatabaseTableName][]
 }
 export interface IBaseApi {
-  add: <T, D = any>(data: T & object) => Promise<IResponseTemplate<D | T>>
+  add: <T = any, D = any>(data: T & File & object) => Promise<IResponseTemplate<D | T>>
   getAll?: <T>() => Promise<IResponseTemplate<T>>
   getById?: <T = any, D = any>(data: T & object) => Promise<IResponseTemplate<D>>
   update?: <T, D>(id: string, data: T & object) => Promise<IResponseTemplate<T | D>>

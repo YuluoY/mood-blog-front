@@ -66,7 +66,7 @@ const { raw } = useWaterfall({
   width: 300px;
 }
 
-@include b(hero) {
+.m-hero {
   position: relative;
 
   .m-drop {

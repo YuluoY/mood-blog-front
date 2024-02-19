@@ -17,7 +17,14 @@ export const commentFormMock: Partial<import("../src/MCommentForm.vue").MComment
   },
   {
     prop: 'email',
-    formItem: { label: '' },
+    formItem: {
+      label: '',
+      rules: [{
+        message: '请输入正确的邮箱',
+        type: 'email',
+        trigger: ['blur']
+      }] as import('element-plus').FormItemRule[]
+    },
     tooltip: {
       content: '用于接收回复邮件',
       trigger: 'click',

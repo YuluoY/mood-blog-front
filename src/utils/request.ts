@@ -2,7 +2,7 @@
  * @Author: huyongle 568055454@qq.com
  * @Date: 2023-11-25 19:48:49
  * @LastEditors: huyongle 568055454@qq.com
- * @LastEditTime: 2023-12-14 23:31:27
+ * @LastEditTime: 2024-02-20 01:37:43
  * @FilePath: \mood-blog-front\src\utils\request.ts
  * @Description: 基于axios + qs的请求封装
  *
@@ -14,6 +14,7 @@ import Qs from 'qs'
 import { ElMessage } from 'element-plus'
 import { IResponseTemplate } from '@/types/core/index.ts'
 import { useUserStore } from '@/store/userStore.ts'
+import { getType } from './core.ts'
 
 export default new (class Request {
   public instance: AxiosInstance
@@ -38,7 +39,9 @@ export default new (class Request {
     this.instance.interceptors.request.use(
       (config: InternalAxiosRequestConfig) => {
         // qs针对预检请求的处理
-        if (config.method === 'post' && config.data instanceof Object) {
+        const dataType = getType(config.data);
+        const dataTypeBlackList = ['FormData']
+        if (config.method === 'post' && !dataTypeBlackList.includes(dataType)) {
           config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
           config.data = Qs.stringify(config.data)
         }
@@ -105,8 +108,8 @@ export default new (class Request {
     return this.instance.get<T>(url, { params })
   }
 
-  public post<T>(url: string, data?: object): Promise<any> {
-    return this.instance.post<T>(url, data)
+  public post<T>(url: string, data?: object, config?: AxiosRequestConfig): Promise<any> {
+    return this.instance.post<T>(url, data, config)
   }
 
   public put<T>(url: string, data?: object): Promise<any> {

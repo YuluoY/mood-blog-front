@@ -2,7 +2,7 @@
   <div class="m-comment__area">
     <el-input
       type="textarea"
-      v-model="value"
+      v-model.trim="value"
       @input="handleChange"
       :rows="rows"
       :placeholder="placeholder"

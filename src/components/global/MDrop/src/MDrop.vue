@@ -23,7 +23,7 @@ const props = withDefaults(
 )
 
 const handleClick = () => {
-  const heroEl = document.querySelector('.y-hero') as HTMLElement;
+  const heroEl = document.querySelector('.m-hero') as HTMLElement;
   window.scrollBy({
     top: props.dropHeight || heroEl.getBoundingClientRect().height,
     behavior: 'smooth',

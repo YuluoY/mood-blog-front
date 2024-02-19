@@ -1,6 +1,6 @@
 <template>
   <div class="m-comment__row" :id="item.id">
-    <div class="m-comment__row--inner">
+    <div :class="`m-comment__row--inner ${isSub ? 'is-sub' : ''}`">
       <div class="m-comment__left">
         <div class="m-comment__left--avatar">
           <img v-lazy="avatar" :alt="item.nickname" />
@@ -123,21 +123,27 @@ const browser = computed(() => props.item?.visitor?.browser || props.item?.user?
 </script>
 <style scoped lang="scss">
 .m-comment__row {
-  padding: 20px 10px;
-
   .m-comment__sub {
     margin-left: 30px;
     padding-left: 30px;
     border-left: solid 1px var(--el-border-color);
   }
 
+  .m-comment__row--inner.is-sub {
+    padding: 10px;
+    margin: unset;
+    
+  }
+
   .m-comment__row--inner {
     display: flex;
-
+    margin-top: 20px;
+    margin-bottom: 10px;
+  
     .m-comment__left {
       .m-comment__left--avatar {
-        width: 55px;
-        height: 55px;
+        width: 50px;
+        height: 50px;
         border-radius: 10px;
         overflow: hidden;
       }
@@ -176,10 +182,6 @@ const browser = computed(() => props.item?.visitor?.browser || props.item?.user?
 
       .m-comment__footer {
         display: flex;
-      }
-
-      .m-comment__reply {
-        padding-top: 20px;
       }
     }
   }
