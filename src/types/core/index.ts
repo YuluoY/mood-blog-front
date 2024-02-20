@@ -69,7 +69,7 @@ export interface IPaginationRequest {
   limit: number
 }
 export interface IPaginationResponse<T> extends IPaginationRequest {
-  [x: string]: number
+  rawTotal?: number
   total: number
   list: T[]
 }
@@ -82,7 +82,7 @@ export interface IQueryFindManyOptions<T = any> extends Partial<IResponseBaseDat
   relations?: DatabaseTableName[keyof DatabaseTableName][]
 }
 export interface IBaseApi {
-  add: <T = any, D = any>(data: T & File & object) => Promise<IResponseTemplate<D | T>>
+  add: <T = any, D = any>(data: T | any) => Promise<IResponseTemplate<D | T>>
   getAll?: <T>() => Promise<IResponseTemplate<T>>
   getById?: <T = any, D = any>(data: T & object) => Promise<IResponseTemplate<D>>
   update?: <T, D>(id: string, data: T & object) => Promise<IResponseTemplate<T | D>>

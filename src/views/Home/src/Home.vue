@@ -21,7 +21,7 @@ import HomeSidebar from './HomeSidebar.vue'
 import { useWaterfall } from '../hooks/useWaterfall.ts'
 
 const { onLoadMore, onViewArticle } = await useHome()
-const { raw } = useWaterfall({
+useWaterfall({
   container: '.y-homeList__waterfall',
   gap: 40,
   column: 3,

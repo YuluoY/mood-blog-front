@@ -45,7 +45,7 @@ export const useWriteStore = defineStore(StoreNames.Write, {
     setEditorOptions(options: Partial<IEditorOptions>) {
       this.editorOptions = Object.assign(this.editorOptions, options);
     },
-    async onSave<T>(data: T & object) {
+    async onSave<T>(data: T) {
       const res = await addArticle<T>(data);
       console.log(res, 'res');
 

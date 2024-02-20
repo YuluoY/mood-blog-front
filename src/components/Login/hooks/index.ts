@@ -9,7 +9,6 @@ import Mitt from "@/plugins/Mitt/index.ts";
 export const useLogin = () => {
     const loginVisiable = ref(false);
     const { t } = useI18n();
-    const userStore = useUserStore();
 
     const loginForm = reactive<IUserForm>({
         unique: '',

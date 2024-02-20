@@ -128,12 +128,12 @@ const onChangeModifyDialogVisible = () => {
   dialogVisible.modify = !dialogVisible.modify
 }
 
-const handleSizeChange = (val: number) => {
-  emit('handleSizeChange', val)
-}
+// const handleSizeChange = (val: number) => {
+//   emit('handleSizeChange', val)
+// }
 
-const handleCurrentChange = (val: number) => {
-  emit('handleCurrentChange', val)
-}
+// const handleCurrentChange = (val: number) => {
+//   emit('handleCurrentChange', val)
+// }
 </script>
 <style scoped lang="scss"></style>

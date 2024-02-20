@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
-import { IArticle } from '@/types/api/article.ts';
 import { dateDiffNow } from "@/utils/dayjs.ts";
-import { get, getCount, getIp, getPositionByIp } from '@/api/rest.ts';
+import { getCount, getIp, getPositionByIp } from '@/api/rest.ts';
 import { DatabaseTableName, IBaiduMapPosition } from '@/types/core/index.ts';
 import { StoreNames } from './namespace.ts'
 import { useArticleStore } from './articleStore.ts';
@@ -21,7 +20,7 @@ export const useMainStore = defineStore(StoreNames.Main, {
             // 登录完成后的一些处理
             const { pathname } = window.location;
             if (pathname === 'Home' || pathname === '/') {
-                await useArticleStore().fetchArticlesByPage<IArticle>();
+                await useArticleStore().fetchArticlesByPage();
             }
         },
         async fetchIp() {

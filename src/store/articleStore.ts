@@ -23,7 +23,7 @@ export const useArticleStore = defineStore(StoreNames.Article, {
     setArticleState(key: string, value: any) {
       this.$state[key] = value;
     },
-    async fetchArticlesByPage<T extends IArticle>(page?: number, limit?: number) {
+    async fetchArticlesByPage(page?: number, limit?: number) {
       page = page || this.default.page;
       limit = limit || this.default.limit;
       const res = await getArticlesByPage<IArticle>(page, limit, {

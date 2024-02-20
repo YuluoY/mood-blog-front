@@ -114,6 +114,6 @@ export const getChineseMonth = (month: string | number): string => {
         case '10': return '十月';
         case '11': return '十一月';
         case '12': return '十二月';
-        default: return month;
+        default: return month.toString();
     }
 }

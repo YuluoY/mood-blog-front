@@ -73,7 +73,7 @@ const onAddDialogClick = (closeDialogCb: Function) => {
   })
 }
 
-const handleDelete = (index: number, row: ITag, deleteRowCb: Function) => {
+const handleDelete = (_index: number, row: ITag, deleteRowCb: Function) => {
   ElMessageBox({
     type: 'warning',
     title: '警告',

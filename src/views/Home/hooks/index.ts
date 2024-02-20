@@ -4,7 +4,6 @@ import { ElMessage } from "element-plus";
 import { useArticleStore } from '@/store/articleStore.ts'
 import { dateDiffNow } from '@/utils/dayjs.ts'
 import { useMainStore } from "@/store/mainStore.ts";
-import { useGlobalStore } from "@/store/globalStore.ts";
 
 export const useHome = async () => {
 
@@ -13,10 +12,9 @@ export const useHome = async () => {
     const { t } = useI18n();
     const articleStore = useArticleStore();
     const mainStore = useMainStore();
-    const globalStore = useGlobalStore();
     const router = useRouter();
 
-    await articleStore.fetchArticlesByPage<IArticle>(page, limit);
+    await articleStore.fetchArticlesByPage(page, limit);
 
     const onLoadMore = async () => {
         page += 1;

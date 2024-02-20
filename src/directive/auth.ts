@@ -2,7 +2,7 @@ import { useUserStore } from '@/store/userStore.ts'
 import { App, DirectiveBinding } from 'vue'
 import { useGlobalStore } from '@/store/globalStore.ts';
 
-const authVerify = (el: HTMLElement, binding: DirectiveBinding) => {
+const authVerify = (el: HTMLElement, _binding: DirectiveBinding) => {
   // 判断是否登录 
   const userStore = useUserStore();
   if (userStore.expire < Date.now()) {

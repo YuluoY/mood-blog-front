@@ -73,20 +73,20 @@ const init = async () => {
 await init()
 
 // 编辑按钮
-const handleEdit = (index: number, row: Partial<IArticle>) => {
+const handleEdit = (_index: number, row: Partial<IArticle>) => {
   Object.assign(articleEditFormData, row)
 }
 
 // 编辑点击确认后的操作
 const handleEditConfirm = (editorDialogVisible: Ref<boolean>) => {
-  articleEditFormRef.value.validator().then((vaildte: boolean) => {
+  articleEditFormRef.value.validator().then((_vaildte: boolean) => {
     console.log(articleEditFormData)
   })
   editorDialogVisible.value = !editorDialogVisible.value
 }
 
 // 删除
-const handleDelete = (index: number, row: IArticle, deleteTableRowCb: Function) => {
+const handleDelete = (_index: number, row: IArticle, deleteTableRowCb: Function) => {
   ElMessageBox({
     type: 'warning',
     title: '警告',

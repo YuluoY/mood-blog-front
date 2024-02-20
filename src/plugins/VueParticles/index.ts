@@ -7,6 +7,7 @@ export { ParticlesBg }
 
 export default {
   install: (app: App) => {
+    // @ts-ignore
     app.use(Particles, {
       init: async (engine: any) => {
         await loadSlim(engine);

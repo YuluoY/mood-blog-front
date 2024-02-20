@@ -25,6 +25,4 @@ const asyncCommponet = defineAsyncComponent((): any => {
   })
 })
 
-const a = ref(0)
-
 </script>

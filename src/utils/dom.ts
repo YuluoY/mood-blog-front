@@ -23,6 +23,7 @@ export const injectStyle = (el: HTMLElement, key: string | CSSProperties, value?
         el.style[key as any] = value;
     }else {
         Object.keys(key).forEach((k) => {
+            // @ts-ignore
             el.style[k as any] = key[k];
         })
     }
@@ -40,6 +41,7 @@ export const injectProp = (el: HTMLElement, key: string | CSSProperties, value?:
         el.setAttribute(key, value);
     }else {
         Object.keys(key).forEach((k) => {
+            // @ts-ignore
             el.setAttribute(k, key[k]);
         })
     }

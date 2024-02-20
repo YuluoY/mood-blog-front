@@ -2,7 +2,7 @@
  * @Author: huyongle 568055454@qq.com
  * @Date: 2023-11-30 00:37:00
  * @LastEditors: huyongle 568055454@qq.com
- * @LastEditTime: 2024-02-20 04:08:25
+ * @LastEditTime: 2024-02-20 19:37:06
  * @FilePath: \mood-blog-front\src\views\Write\hooks\index.ts
  * @Description: 攥写文章的页面。逻辑：攥写文章内容 --> 保存出现弹窗 --> 填写文章的相关表单 --> 校验表单
  * 
@@ -24,7 +24,6 @@ import { useGlobalStore } from '@/store/globalStore.ts';
 import { addLocalFile } from '@/api/file.ts';
 
 export const useWritePage = async ({
-  editorRef,
   uploadRef,
   useUserStore,
   mFormRef
@@ -170,7 +169,7 @@ export const useWritePage = async ({
 
     // 上传 返回url
     const urls = await Promise.all(filterNewUploadImages.map(item => {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve, _reject) => {
         addLocalFile(item.rawFile).then(res => resolve(res.data))
       })
     })) as string[]
@@ -208,7 +207,7 @@ export const useWritePage = async ({
    * @param {UploadUserFile} uploadFiles 上传的文件列表
    * @return {void}
    */
-  const handleExceed = (files: File[], uploadFiles: UploadUserFile[]): void => {
+  const handleExceed = (files: File[], _uploadFiles: UploadUserFile[]): void => {
     ElMessage.info(t(`writeView.fileLimitError`, [files.length.toString()]));
   }
 
@@ -245,7 +244,7 @@ export const useWritePage = async ({
    * @param {UploadFile} fileList 文件列表
    * @return {void}
    */
-  const handleError = async (err: Error, file: UploadFile, fileList: UploadFile[]): Promise<void> => {
+  const handleError = async (_err: Error, _file: UploadFile, _fileList: UploadFile[]): Promise<void> => {
     ElMessage.error(t('writeView.fileUploadError'));
     handleValidate();
   }
@@ -260,7 +259,7 @@ export const useWritePage = async ({
     handleValidate();
   }
 
-  const handleChange = (uploadFile: UploadFile, uploadFiles: UploadFiles) => {
+  const handleChange = (_uploadFile: UploadFile, _uploadFiles: UploadFiles) => {
     uploadFileChange.value = true;
   }
 

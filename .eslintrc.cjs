@@ -59,7 +59,7 @@ module.exports = {
         "vue/attribute-hyphenation": 0, // 属性名驼峰 
         "vue/v-on-event-hyphenation": 0, // 事件名驼峰
         'no-unused-vars': 'off', // 允许定义未使用的变量
-        'no-console': process.env.NODE_ENV === 'production' ? 2 : 0,
+        // 'no-console': process.env.NODE_ENV === 'production' ? 2 : 0,
         'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
         // 允许空样式表
         'vue/valid-v-slot': ['error', {

@@ -82,7 +82,7 @@ if (res.success) {
   tableData.push(...filterTableData)
 }
 
-const handleDelete = (index: number, row: ICategory, onDeleteTableRowCb: Function) => {
+const handleDelete = (_index: number, row: ICategory, onDeleteTableRowCb: Function) => {
   ElMessageBox({
     type: 'warning',
     title: '警告',

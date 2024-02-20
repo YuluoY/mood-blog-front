@@ -24,7 +24,7 @@
   </div>
 </template>
 <script setup lang="ts" name="Nav">
-import { RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router'
+import { RouteLocationNormalizedLoaded } from 'vue-router'
 import { useNav } from '../hooks/index.ts'
 
 export interface INavPropsRoute {

@@ -33,7 +33,7 @@ const loginRef = ref<Ref | null>(null)
 
 const isShowHead = ref<boolean>(true)
 const headBlackList = ['/admin']
-const particleBgBlackList = ['/write']
+// const particleBgBlackList = ['/write']
 watch(
   () => router.currentRoute.value,
   () => {
@@ -42,9 +42,9 @@ watch(
     )
   }
 )
-const isShowParticleBg = computed(
-  () => !particleBgBlackList.every((path) => router.currentRoute.value.path.indexOf(path) > -1)
-)
+// const isShowParticleBg = computed(
+//   () => !particleBgBlackList.every((path) => router.currentRoute.value.path.indexOf(path) > -1)
+// )
 
  </script>
 
