@@ -108,8 +108,8 @@ const userStore = computed(() => useUserStore())
 
 .y-article__info {
   .y-article__info--avatar {
-    width: 30px;
-    height: 30px;
+    width: 2rem;
+    height: 2rem;
     overflow: hidden;
     border-radius: 50%;
   }

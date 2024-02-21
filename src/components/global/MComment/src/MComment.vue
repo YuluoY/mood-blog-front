@@ -64,8 +64,6 @@ const getAvatarByQQ = (qq: string) => {
   }
 }
 
-
-
 const com = reactive({ ...props })
 const commentList = reactive([])
 const totalComment = ref(0)
@@ -86,11 +84,11 @@ const getCommentsByPage = async (aId: string, currentPage: number, pageSize: num
   }
 }
 
-await getCommentsByPage(com.articleId, com.page, com.limit)
+await getCommentsByPage(props.articleId, com.page, com.limit)
 
 const handleChangePage = async (currentPage: number) => {
   com.page = currentPage
-  await getCommentsByPage(com.articleId, currentPage, com.limit)
+  await getCommentsByPage(props.articleId, currentPage, com.limit)
 }
 
 const handlePublishNewComment = async (form: ICreateComment, successCb?: Function) => {
@@ -106,18 +104,17 @@ const handlePublishNewComment = async (form: ICreateComment, successCb?: Functio
       message: '评论发表成功！',
     })
     successCb && successCb(res.data)
-    await getCommentsByPage(com.articleId, com.page, com.limit);
+    await getCommentsByPage(props.articleId, com.page, com.limit);
     isShowMainCommentFrom.value = true
   }
 }
 watchEffect(() => {
-  com.articleId = props.articleId
   com.page = props.page
   com.limit = props.limit
 })
 
 provide('getAvatarByQQ', getAvatarByQQ)
-provide('articleId', com.articleId)
+provide('articleId', props.articleId)
 provide('cacheForm', cacheForm)
 provide('isShowMainCommentFrom', isShowMainCommentFrom)
 provide('handlePublishNewComment', handlePublishNewComment)
@@ -131,7 +128,7 @@ provide('handlePublishNewComment', handlePublishNewComment)
   .m-comment__inner {
     .m-comment__title {
       h2 {
-        font-size: 2em;
+        font-size: 2rem
       }
     }
   }

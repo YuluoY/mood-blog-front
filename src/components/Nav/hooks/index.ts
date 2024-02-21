@@ -32,7 +32,7 @@ export const useNav = (
     el && injectStyle(el, 'height', `0px`)
   })
 
-  onUnmounted(() => {
+  onBeforeUnmount(() => {
     subMenuWatcher();
   })
 

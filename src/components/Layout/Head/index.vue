@@ -81,13 +81,11 @@ const handleLogin = () => {
   com.loginRef?.showLogin()
 }
 
-const watchEffectInstance = watchEffect(() => {
+watchEffect(() => {
   com.loginRef = props.loginRef
 })
 
-onUnmounted(() => {
-  watchEffectInstance()
-})
+
 </script>
 
 <style scoped lang="scss">
@@ -103,8 +101,8 @@ onUnmounted(() => {
   }
 
   @include e(avatar) {
-    width: 3.5em;
-    height: 3.5em;
+    width: 3.5rem;
+    height: 3.5rem;
     border-radius: 50%;
     overflow: hidden;
   }

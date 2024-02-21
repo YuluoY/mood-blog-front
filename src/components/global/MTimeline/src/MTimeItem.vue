@@ -36,7 +36,7 @@
           </el-space>
         </el-space>
         <div class="m-timeline-item__desc">
-          <p class="y-ellipsis-clamp y-clamp-3 y-text-center">{{ item.description }}</p>
+          <p class="y-ellipsis-clamp y-clamp-3 y-text-center" v-html="item.description"></p>
         </div>
         <div class="m-timeline-item__more y-mt-10 y-text-center">
           <el-button
@@ -74,7 +74,7 @@ defineEmits(['onMore'])
 
     .m-timeline-item__title {
       h2 {
-        font-size: 2em;
+        font-size: 2rem;
         font-weight: 500;
         font-family: fantasy;
       }

@@ -10,7 +10,7 @@ MProgress.install = (Vue: App) => {
 const useMProgress = (props: MProgressProps = {}) => {
     const vNode = h(MProgress, props);
     render(vNode, document.body);
-    // onUnmounted(() => {
+    // onBeforeUnmount(() => {
     //     render(null, document.body);
     // })
     return () => render(null, document.body)

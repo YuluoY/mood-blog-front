@@ -11,7 +11,7 @@ export const useMDrop = <T extends { toMount: string | HTMLElement }>(props: T) 
   }
   render(VNode, props.toMount);
 
-  onUnmounted(() => {
+  onBeforeUnmount(() => {
     render(null, props.toMount as HTMLElement);
   })
 

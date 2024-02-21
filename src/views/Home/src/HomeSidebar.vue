@@ -157,8 +157,8 @@ onMounted(() => {
 </script>
 <style scoped lang="scss">
 @include be(card, image) {
-  width: 5em;
-  height: 5em;
+  width: 5rem;
+  height: 5rem;
 }
 
 .y-card__loveTime span {

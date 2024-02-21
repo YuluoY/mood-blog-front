@@ -64,6 +64,7 @@ declare module 'vue' {
     MHero: typeof import('./components/global/MHero/src/MHero.vue')['default']
     MMenu: typeof import('./components/global/MMenu/src/MMenu.vue')['default']
     MMenuItem: typeof import('./components/global/MMenu/src/MMenuItem.vue')['default']
+    MobileHead: typeof import('./components/Layout/Head/MobileHead.vue')['default']
     MPagination: typeof import('./components/global/MPagiination/src/MPagination.vue')['default']
     MTable: typeof import('./components/global/MTable/src/MTable.vue')['default']
     MTag: typeof import('./components/global/MTag/src/MTag.vue')['default']

@@ -17,7 +17,7 @@
       </Main>
       <Foot v-if="isShowHead"></Foot>
     </el-container>
-    <Sider></Sider>
+    <!-- <Sider></Sider> -->
     <MBackTop></MBackTop>
   </el-container>
   <!-- <ParticlesBg v-if="isShowHead && isShowParticleBg" /> -->

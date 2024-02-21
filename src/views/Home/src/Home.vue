@@ -1,8 +1,8 @@
 <template>
   <div class="y-home">
-    <MHero>
+    <!-- <MHero>
       <MDrop />
-    </MHero>
+    </MHero> -->
     <div class="y-home__inner">
       <HomeList
         class="y-home__list"

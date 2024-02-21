@@ -77,7 +77,7 @@ onBeforeUnmount(() => {
   line-height: 1;
   color: var(--el-color-white);
   fill: var(--el-color-white);
-  font-size: 0.9em;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 

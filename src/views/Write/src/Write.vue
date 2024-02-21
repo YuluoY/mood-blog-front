@@ -98,7 +98,8 @@ const editorRef = ref<ExposeParam | null>()
 const uploadRef = ref<InstanceType<(typeof import('element-plus'))['ElUpload']>>()
 const mFormRef = ref<InstanceType<typeof MForm>>()
 // const action = `${import.meta.env.VITE_BASE_URL}/file`
-const action = `${import.meta.env.VITE_BASE_URL}/file/localUpload`
+// const action = `${import.meta.env.VITE_BASE_URL}/file/localUpload`
+const action = `${import.meta.env.VITE_BASE_URL}/file/qiniuUpload`
 const headers = computed(() => {
   return { 'x-csrf-token': useUserStore().csrf_token }
 })
@@ -149,7 +150,7 @@ const {
     h2 {
       min-width: 55px;
       display: inline;
-      font-size: 1.5em;
+      font-size: 1.5rem;
       font-weight: 500;
       padding: 20px 0;
     }

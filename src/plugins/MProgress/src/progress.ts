@@ -26,7 +26,7 @@ const setup = (props: MProgressProps, _ctx: SetupContext) => {
         window.addEventListener('scroll', scrollHandle);
     })
 
-    onUnmounted(() => {
+    onBeforeUnmount(() => {
         MProgressPropsWatch();
         window.removeEventListener('scroll', scrollHandle);
     })

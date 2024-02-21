@@ -24,8 +24,12 @@ const props = withDefaults(
 
 const handleClick = () => {
   const heroEl = document.querySelector('.m-hero') as HTMLElement;
+  const headEl = document.querySelector('.y-head') as HTMLElement;
+  if(!heroEl || !headEl) return;
+  const rect = heroEl.getBoundingClientRect();
+  
   window.scrollBy({
-    top: props.dropHeight || heroEl.getBoundingClientRect().height,
+    top: props.dropHeight || (rect.height - Math.abs(rect.top - headEl.clientHeight)),
     behavior: 'smooth',
   })
 }

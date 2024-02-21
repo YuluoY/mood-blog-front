@@ -2,7 +2,8 @@
   padding: 0;
   margin: 0;
   // color: map-get($map: $base-styles, $key: 'color');
-  font-size: 1em;
+  // font-size: 1rem;
+  font-size: inherit;
   font-family: map-get($map: $base-styles, $key: 'font-family');
   font-weight: map-get($map: $base-styles, $key: 'font-weight');
   line-height: map-get($map: $base-styles, $key: 'line-height');
@@ -12,7 +13,7 @@
 
 :root {
   html.dark {
-    --el-bg-color: #1a1a1a;
+    --el-bg-color: #302e2e;
   }
   --m-admin-aside-menu-bg-color: #1f2d3d; // admin 侧边菜单背景色
   --m-admin-aside-sub-menu-bg-color: rgb(48, 65, 86); // admin 有子菜单项的标题背景色
@@ -31,13 +32,14 @@ html.dark {
     fill: var(--el-color-white);
   }
 }
-
+html {
+  font-size: map-get($map: $base-styles, $key: 'font-size') * 1px;
+}
 body {
   overflow-x: hidden;
   overflow-y: auto;
   min-width: 100vw;
   min-height: 100vh;
-  font-size: map-get($map: $base-styles, $key: 'font-size') * 1px;
 }
 
 path {
@@ -97,7 +99,6 @@ a {
 .emojis li {
   box-sizing: content-box;
 }
-
 
 // 预览背景色
 .md-editor-preview-wrapper {

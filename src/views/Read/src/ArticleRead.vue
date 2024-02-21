@@ -3,7 +3,7 @@
     <ArticleReadHero :article="article" />
     <div class="y-read__inner y-flex y-f-justify-center y-f-align-center y-f-col y-w-80">
       <el-card class="y-read__catalog y-mr-20" v-if="toc.length" shadow="hover">
-        <div class="y-catalog__title">文章目录</div>
+        <div class="y-catalog__title">目录</div>
         <div class="y-catalog__inner y-flex y-f-col">
           <el-link
             v-for="(t, index) in toc"
@@ -85,7 +85,7 @@ const progressWatcher = watch(
   }
 )
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   progressWatcher()
 })
 </script>
@@ -122,9 +122,13 @@ onUnmounted(() => {
   }
 
   .y-catalog__title {
-    font-size: 1.4em;
-    padding: 20px;
-    border-bottom: solid 1px var(--el-bg-color-page);
+    font-size: 1.4rem
+    padding: 6px 10px;
+    border-bottom: solid 1px var(--el-border-color);
+
+    // background-color: var(--el-color-primary);
+    color: var(--el-text-color);
+    border-radius: 5px;
   }
 
   .y-catalog__inner {

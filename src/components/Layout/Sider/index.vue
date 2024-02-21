@@ -37,7 +37,7 @@ const themeSwitchWatch = watch(changeThemeFlag, () => {
   switchTheme(changeThemeFlag.value ? 'dark' : '')
 })
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   themeSwitchWatch()
 })
 </script>

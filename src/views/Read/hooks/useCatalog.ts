@@ -2,8 +2,8 @@
  * @Author: huyongle 568055454@qq.com
  * @Date: 2023-12-26 00:59:03
  * @LastEditors: huyongle 568055454@qq.com
- * @LastEditTime: 2023-12-27 21:16:14
- * @FilePath: \mood-blog-front\src\views\Article\components\Read\hooks\useCatalog.ts
+ * @LastEditTime: 2024-02-21 04:05:45
+ * @FilePath: \mood-blog-front\src\views\Read\hooks\useCatalog.ts
  * @Description: markdown 目录生成
  * 
  * Copyright (c) 2023 by 雨落, All Rights Reserved. 
@@ -98,6 +98,8 @@ export const useCatalog = ({
    */
   const processCatalogCeiling = (el: HTMLElement, refer: HTMLElement): void => {
     if (!referIntersectionObserver) {
+      const headEl = document.querySelector('.y-head') as HTMLElement;
+      const headHeight = headEl ? headEl.clientHeight : 59;
       referIntersectionObserver = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
         entries.forEach((entry: IntersectionObserverEntry) => {
           const { top, height } = entry.boundingClientRect;
@@ -107,12 +109,14 @@ export const useCatalog = ({
             // 元素的上边距 / （元素的高度 - 视口高度） * 100
             progress.value = (Math.floor(Math.abs(top) / (height - window.innerHeight) * 100));
           }
-          if (top < -100) {
+          if (top < (headHeight - 100)) {
             el.style.position = 'fixed';
             el.style.left = `${refer.offsetLeft}px`
+            el.style.top = `${headHeight + 20}px`
           } else {
             el.style.position = 'absolute';
             el.style.left = '0';
+            el.style.top = '20px'
           }
           referIntersectionObserver.unobserve(refer);
         })
@@ -128,7 +132,7 @@ export const useCatalog = ({
   const hightlightTitle = (): void => {
     if (isClickLinkTitle) return;
     let index = 0;
-    
+
     if (progress.value >= 100) {
       index = doms.length - 1;
     } else {
@@ -214,7 +218,7 @@ export const useCatalog = ({
     }, 300);
   })
 
-  onUnmounted(() => {
+  onBeforeUnmount(() => {
     window.removeEventListener('resize', handleResize);
     window.removeEventListener('scroll', handleScroll);
     if (catalogClickCb) {

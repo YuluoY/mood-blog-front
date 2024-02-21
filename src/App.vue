@@ -7,12 +7,18 @@
 </template>
 
 <script setup lang="ts">
+import { autoRefresh } from './auto-update.ts'
 
+onMounted(() => {
+  nextTick(() => {
+    if (import.meta.env.MODE !== 'development') autoRefresh()
+  })
+})
 </script>
 <style scoped>
 .logo {
-  height: 6em;
-  padding: 1.5em;
+  height: 6rem;
+  padding: 1.5rem;
   will-change: filter;
   transition: filter 300ms;
 }
@@ -24,5 +30,4 @@
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
 }
-
 </style>

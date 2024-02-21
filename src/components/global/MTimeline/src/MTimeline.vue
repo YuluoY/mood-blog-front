@@ -21,7 +21,7 @@ const direction = computed(() => (props.order === 'DESC' ? 'column-reverse' : 'c
 .m-timeline {
   .m-timeline__title {
     h2 {
-      font-size: 2em;
+      font-size: 2rem;
       font-weight: bold;
     }
   }

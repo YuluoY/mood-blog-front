@@ -184,7 +184,7 @@ export const useWaterfall = (options: Partial<IUseWaterfallOptions>): IUseWaterf
         }, 300);
     })
 
-    onUnmounted(() => {
+    onBeforeUnmount(() => {
         if (opts.isResize) window.removeEventListener('resize', handleResize);
         if (containerObserver) containerObserver.disconnect();
     });

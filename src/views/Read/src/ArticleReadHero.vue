@@ -104,7 +104,7 @@ const calculateWords = computed(() => {
   }
 
   .m-icon {
-    font-size: 1.2em;
+    font-size: 1.2rem
     fill: var(--el-color-white);
   }
 }

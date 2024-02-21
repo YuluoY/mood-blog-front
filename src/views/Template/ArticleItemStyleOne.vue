@@ -120,7 +120,7 @@ const articleStore = useArticleStore()
     .y-item__title {
       h2 {
         line-height: 2;
-        font-size: 1.5em;
+        font-size: 1.5rem
         font-weight: bolder;
       }
     }
@@ -128,7 +128,7 @@ const articleStore = useArticleStore()
     .y-item__desc {
       line-height: 2;
       padding: 10px 0;
-      text-indent: 2em;
+      text-indent: 2rem
     }
 
     .y-item__info {

@@ -46,7 +46,7 @@ onMounted(() => {
   }
   scrollHandle()
 })
-onUnmounted(() => {
+onBeforeUnmount(() => {
   if (props.percent !== 0) window.removeEventListener('scroll', scrollHandle)
 })
 </script>

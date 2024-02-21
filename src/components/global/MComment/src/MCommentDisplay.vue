@@ -1,7 +1,7 @@
 <template>
   <div class="m-comment__display">
     <div class="m-comment__display--title">
-      <p v-if="!$slots.title">共{{ total }}条评论</p>
+      <p v-if="!$slots.title">{{ commentList.length ? `共${total}条评论` : '暂无评论！' }}</p>
       <slot name="title" v-else></slot>
     </div>
     <div class="m-comment__display--content" id="commentDisplayContent">
@@ -11,6 +11,7 @@
     </div>
     <div class="m-comment__display--pagination">
       <el-pagination
+        v-if="commentList.length && rawTotal > limit"
         background
         layout="prev, pager, next"
         :total="rawTotal"
@@ -55,7 +56,7 @@ provide('commentList', commentList)
 .m-comment__display {
   .m-comment__display--title {
     padding: 20px 20px 10px 0;
-    font-size: 2em;
+    font-size: 2rem
     border-bottom: 1px solid var(--el-border-color);
   }
 
