@@ -56,7 +56,7 @@ provide('commentList', commentList)
 .m-comment__display {
   .m-comment__display--title {
     padding: 20px 20px 10px 0;
-    font-size: 2rem
+    font-size: 2rem;
     border-bottom: 1px solid var(--el-border-color);
   }
 

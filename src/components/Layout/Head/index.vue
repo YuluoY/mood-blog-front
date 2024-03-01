@@ -50,28 +50,31 @@ const props = withDefaults(
   }
 )
 
-const navRoutes = ref<INavPropsRoute[]>(
-  router.getRoutes().map((route) => {
+// 类别过滤路由
+const filterRoutes = (route: any) => {
+  if (route.name === 'Category') {
     const newRoute = {
       path: route.path,
       name: route.name,
       meta: { ...route.meta },
       children: route?.children ? [...route.children] : [],
     } as INavPropsRoute
-    if (route.name === 'Category') {
-      cateogryStore.getCategoryRoutes.forEach((r) => {
-        if (!router.hasRoute(r.name)) router.addRoute(r)
+    cateogryStore.getCategoryRoutes.forEach((r) => {
+      if (!newRoute.children.find((child) => child.name === r.name)) {
         newRoute.children.push({
           path: r.path,
           name: r.name as string,
           meta: { ...(r.meta as any) },
           children: r?.children ? [...(r.children as any)] : [],
         })
-      })
-    }
+      }
+    })
     return newRoute
-  })
-)
+  }
+  return route
+}
+
+const navRoutes = ref<INavPropsRoute[]>(router.getRoutes().map(filterRoutes))
 
 const com = reactive({
   loginRef: props.loginRef,
@@ -83,9 +86,10 @@ const handleLogin = () => {
 
 watchEffect(() => {
   com.loginRef = props.loginRef
+
+  // 新增路由后过滤一遍
+  navRoutes.value = router.getRoutes().map(filterRoutes)
 })
-
-
 </script>
 
 <style scoped lang="scss">

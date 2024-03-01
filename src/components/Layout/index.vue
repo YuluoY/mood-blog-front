@@ -34,7 +34,7 @@ const loginRef = ref<Ref | null>(null)
 const isShowHead = ref<boolean>(true)
 const headBlackList = ['/admin']
 // const particleBgBlackList = ['/write']
-watch(
+const currentRouteWatcher = watch(
   () => router.currentRoute.value,
   () => {
     isShowHead.value = !headBlackList.every(
@@ -42,11 +42,15 @@ watch(
     )
   }
 )
+
 // const isShowParticleBg = computed(
 //   () => !particleBgBlackList.every((path) => router.currentRoute.value.path.indexOf(path) > -1)
 // )
 
- </script>
+onBeforeUnmount(() => {
+  currentRouteWatcher()
+})
+</script>
 
 <style scoped lang="scss">
 .y-layout {

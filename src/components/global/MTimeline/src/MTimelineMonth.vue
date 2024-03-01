@@ -6,9 +6,9 @@
   </div>
 </template>
 <script setup lang="ts">
-import { getChineseMonth } from '@/utils/dayjs.ts';
+import { getChineseMonth } from '@/utils/dayjs.ts'
 
-const props =withDefaults(
+const props = withDefaults(
   defineProps<{
     year: string | number
     month: string | number

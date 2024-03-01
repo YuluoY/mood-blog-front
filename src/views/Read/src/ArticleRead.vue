@@ -122,7 +122,7 @@ onBeforeUnmount(() => {
   }
 
   .y-catalog__title {
-    font-size: 1.4rem
+    font-size: 1.4rem;
     padding: 6px 10px;
     border-bottom: solid 1px var(--el-border-color);
 

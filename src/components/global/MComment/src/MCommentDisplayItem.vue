@@ -141,6 +141,9 @@ const browser = computed(() => props.item?.visitor?.browser || props.item?.user?
     margin-bottom: 10px;
   
     .m-comment__left {
+      display: flex;
+      align-items: center;
+
       .m-comment__left--avatar {
         width: 50px;
         height: 50px;
@@ -163,7 +166,7 @@ const browser = computed(() => props.item?.visitor?.browser || props.item?.user?
 
         .m-comment__info--nicknamne {
           display: flex;
-          align-items: end;
+          align-items: center;
         }
 
         .m-comment__info--reply {

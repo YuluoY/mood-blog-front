@@ -72,7 +72,6 @@ const { emit } = getCurrentInstance()
 const getAvatarByQQ = inject('getAvatarByQQ') as Function
 const articleId = inject('articleId') as string
 const cacheForm = inject('cacheForm') as any
-const QQ = ref('')
 const isSubscribe = ref(false)
 const content = ref('')
 
@@ -104,7 +103,7 @@ const handleInputBlur = (item: MCommentFormPropsItem) => {
     return (async () => {
       const qq = formModelValues[item.prop]
       if (!/^\d+$/.test(qq)) return
-      QQ.value = qq
+      cacheForm.qq = qq;
       const res = (await getQQInfo(qq)).data
       if (res.data.name.trim()) {
         formModelValues[item.prop] = res.data.name
@@ -117,8 +116,8 @@ const handleInputBlur = (item: MCommentFormPropsItem) => {
 // 发表评论
 const onPublishNewComment = () => {
   const defaultForm: Partial<ICreateComment> = {
-    qq: QQ.value,
-    avatar: getAvatarByQQ(QQ.value),
+    qq: cacheForm.qq,
+    avatar: getAvatarByQQ(cacheForm.qq),
     content: content.value,
     ...formModelValues,
     isSubscribe: isSubscribe.value,
@@ -129,15 +128,15 @@ const onPublishNewComment = () => {
       type: 'warning',
       message: '请填将表单填写完整后提交！',
     })
-    return;
+    return
   }
-  
-  if(!isEmail(defaultForm.email)) {
+
+  if (!isEmail(defaultForm.email)) {
     ElMessage({
       type: 'error',
       message: '邮箱格式错误！',
     })
-    return;
+    return
   }
 
   if (!defaultForm.content) {
@@ -145,7 +144,7 @@ const onPublishNewComment = () => {
       type: 'warning',
       message: '您还没有填写评论喔~',
     })
-    return;
+    return
   }
 
   // 回复评论逻辑
@@ -168,7 +167,6 @@ const onPublishNewComment = () => {
 
 const cacheFormWatcher = watch(formModelValues, (newVal) => {
   Object.assign(cacheForm, newVal)
-  cacheForm.qq = QQ.value
 })
 
 onBeforeUnmount(() => {

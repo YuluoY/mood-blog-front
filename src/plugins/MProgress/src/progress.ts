@@ -1,4 +1,4 @@
-import { SetupContext, defineComponent, h, onMounted, onUnmounted, ref, watch } from "vue";
+import { SetupContext, defineComponent, h, onMounted, ref, watch } from "vue";
 import { MProgressProps, props } from "../types/index.ts";
 
 // eslint-disable-next-line no-shadow

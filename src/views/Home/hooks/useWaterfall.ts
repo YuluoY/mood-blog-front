@@ -1,4 +1,4 @@
-import { CSSProperties, onUnmounted } from "vue";
+import { CSSProperties } from "vue";
 import { injectStyle, injectProp, getStyle } from '@/utils/dom.ts'
 import { IUseWaterfallOptions, IUseWaterfallResult } from "../types/index.ts";
 

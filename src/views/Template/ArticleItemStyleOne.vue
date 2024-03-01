@@ -2,9 +2,9 @@
   <div class="y-template__itemStyle--one el-card" :data-id="article.id">
     <m-category-tag
       v-if="isCategoryTag"
-      :text="article.category.cateName"
-      :bg-color="article.category.cateColor"
-      @click="() => $emit('hanldeCategoryTagClick', article.category.cateAlias)"
+      :text="article.category?.cateName"
+      :bg-color="article.category?.cateColor"
+      @click="() => $emit('hanldeCategoryTagClick', article.category?.cateAlias)"
     ></m-category-tag>
     <div class="y-item__inner y-flex">
       <div
@@ -32,7 +32,7 @@
         <div class="y-item__info y-flex y-f-align-center y-f-w y-pt-10">
           <el-space class="y-item__info--author y-mr-6">
             <svg-icon name="author" />
-            <span>{{ article.author || article.user.username }}</span>
+            <span>{{ article.author || article.user?.username }}</span>
           </el-space>
           <el-space class="y-item__info--publish y-mr-6" alignment="center">
             <svg-icon name="date" />
@@ -120,7 +120,7 @@ const articleStore = useArticleStore()
     .y-item__title {
       h2 {
         line-height: 2;
-        font-size: 1.5rem
+        font-size: 1.5rem;
         font-weight: bolder;
       }
     }

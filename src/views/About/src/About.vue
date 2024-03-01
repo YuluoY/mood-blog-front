@@ -1,6 +1,5 @@
 <template>
   <div class="y-about">
-    <MHero classname="about"></MHero>
     <div class="y-about__inner">
       <AboutContent>
         <AboutContentRow title="关于我"></AboutContentRow>

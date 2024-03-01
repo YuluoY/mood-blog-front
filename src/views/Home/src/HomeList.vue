@@ -12,7 +12,7 @@
         </div>
         <div class="y-article__info y-flex y-f-align-center y-mt-10">
           <div class="y-article__info--avatar y-mr-6">
-            <img v-lazy="userStore.avatar" :alt="userStore.username" loading="lazy" />
+            <img v-lazy="item.user.avatar" :alt="userStore.username" loading="lazy" />
           </div>
           <div class="y-ml-6">
             <span>{{ userStore.username }}</span>

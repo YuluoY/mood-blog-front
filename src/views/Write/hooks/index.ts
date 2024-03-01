@@ -2,7 +2,7 @@
  * @Author: huyongle 568055454@qq.com
  * @Date: 2023-11-30 00:37:00
  * @LastEditors: huyongle 568055454@qq.com
- * @LastEditTime: 2024-02-21 05:32:53
+ * @LastEditTime: 2024-02-24 13:37:49
  * @FilePath: \mood-blog-front\src\views\Write\hooks\index.ts
  * @Description: 攥写文章的页面。逻辑：攥写文章内容 --> 保存出现弹窗 --> 填写文章的相关表单 --> 校验表单
  * 
@@ -233,7 +233,7 @@ export const useWritePage = async ({
       formData.cover = formData.cover ? formData.cover : useGlobalStore().getDefaultCover;
 
       await processUploadImages(formData)
-      // await onSaveArticle(formData);
+      await onSaveArticle(formData);
     }
   }
 

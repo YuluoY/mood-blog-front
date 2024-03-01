@@ -75,7 +75,9 @@ const onAddDialogClick = (closeDialogCb: Function) => {
   })
 }
 
-const res = await getCategorys<ICategory[]>()
+const res = await getCategorys<ICategory[]>({
+  withDeleted: true,
+})
 if (res.success) {
   const { filterTableData, categoryTableMap } = useFilterCategoryTable(res.data)
   columnLabelMap.push(...categoryTableMap)

@@ -60,7 +60,7 @@ export const enum DatabaseTableName {
   LIKE = 'like',
   VIEW = 'view',
   VISITOR = 'visitor',
-  FILE = 'file'
+  FILE = 'file',
 }
 
 // pagation 分页
@@ -83,12 +83,16 @@ export interface IQueryFindManyOptions<T = any> extends Partial<IResponseBaseDat
 }
 export interface IBaseApi {
   add: <T = any, D = any>(data: T | any) => Promise<IResponseTemplate<D | T>>
-  getAll?: <T>() => Promise<IResponseTemplate<T>>
+  getAll?: <T>(query: Partial<IQueryFindManyOptions<Partial<T>>>) => Promise<IResponseTemplate<T>>
   getById?: <T = any, D = any>(data: T & object) => Promise<IResponseTemplate<D>>
   update?: <T, D>(id: string, data: T & object) => Promise<IResponseTemplate<T | D>>
   remove: <T>(id: string | string[], force?: boolean) => Promise<IResponseTemplate<T>>
   restore: <T>(id: string | string[]) => Promise<IResponseTemplate<T>>
-  pagination: <T>(page: number, limit: number, query?: Partial<IQueryFindManyOptions<Partial<T>>>) => Promise<IResponseTemplate<IPaginationResponse<T>>>
+  pagination: <T>(
+    page: number,
+    limit: number,
+    query?: Partial<IQueryFindManyOptions<Partial<T>>>
+  ) => Promise<IResponseTemplate<IPaginationResponse<T>>>
 }
 
 export interface IBaiduMapPosition {
@@ -98,6 +102,6 @@ export interface IBaiduMapPosition {
   city: string
   district: string
   street: string
-  point: { x: string, y: string },
+  point: { x: string; y: string }
   adcode: string
 }

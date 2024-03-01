@@ -32,7 +32,7 @@
           </el-space>
           <el-space class="m-timeline-info__category">
             <svg-icon name="category" />
-            <span>{{ item.category.cateName }}</span>
+            <span>{{ item.category?.cateName }}</span>
           </el-space>
         </el-space>
         <div class="m-timeline-item__desc">

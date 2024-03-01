@@ -85,7 +85,7 @@ const timelineDataFilter = (data: IArticle[]) => {
       likeCount: item.likeCount,
       viewCount: item.viewCount,
       description: item.description,
-      point: { width: 20, color: item.category.cateColor },
+      point: { width: 20, color: item.category?.cateColor },
       title: item.title,
       year: date.year(),
       month: date.month() + 1,
