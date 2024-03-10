@@ -78,21 +78,13 @@
       </template>
       <div class="y-flex y-f-row">
         <div class="y-card__hsy y-w-100 y-overflow-hidden y-b-radius-50">
-          <img
-            v-lazy="hyl"
-            loading="lazy"
-            alt="she"
-          />
+          <img v-lazy="hyl" loading="lazy" alt="she" />
         </div>
         <div class="y-card__heart y-w-100 y-ml-10 y-mr-10">
           <img v-lazy="heart" loading="lazy" alt="heart" />
         </div>
         <div class="y-card__hyl y-w-100 y-overflow-hidden y-b-radius-50">
-          <img
-            v-lazy="hsy"
-            loading="lazy"
-            alt="me"
-          />
+          <img v-lazy="hsy" loading="lazy" alt="me" />
         </div>
       </div>
       <div class="y-card__loveTime y-text-center y-mt-10">
@@ -156,6 +148,10 @@ onMounted(() => {
 })
 </script>
 <style scoped lang="scss">
+.y-homeSidebar {
+  margin-left: 20px;
+}
+
 @include be(card, image) {
   width: 5rem;
   height: 5rem;
@@ -169,5 +165,11 @@ onMounted(() => {
 .y-card_categoryCount {
   border-left: dashed 1px var(--el-color-info-light-3);
   border-right: dashed 1px var(--el-color-info-light-3);
+}
+
+@media screen and (width <= 768px) {
+  .y-homeSidebar {
+    display: none;
+  }
 }
 </style>

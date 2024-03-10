@@ -130,18 +130,21 @@ export const useWaterfall = (options: Partial<IUseWaterfallOptions>): IUseWaterf
      */
     const processBreakpoint = (): void => {
         if (opts.breakpoint.length) {
+
+            const width = (opts.container as HTMLElement).clientWidth;
+
             opts.breakpoint.forEach(item => {
-                if (window.innerWidth <= item.point) {
+                if (width <= item.point) {
                     opts.column = item.column || options.column;
                     opts.gap = item.gap || options.gap;
                 }
             })
             
             // 如果当前宽度比断点最大值还大，就恢复默认
-            if (window.innerWidth > opts.breakpoint[0].point) {
-                opts.column = options.column;
-                opts.gap = options.gap;
-            }
+            // if (width > opts.breakpoint[0].point) {
+            //     opts.column = options.column;
+            //     opts.gap = options.gap;
+            // }
         }
     }
 

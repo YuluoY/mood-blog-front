@@ -23,19 +23,23 @@ import { useWaterfall } from '../hooks/useWaterfall.ts'
 const { onLoadMore, onViewArticle } = await useHome()
 useWaterfall({
   container: '.y-homeList__waterfall',
-  gap: 40,
+  gap: 20,
   column: 3,
   breakpoint: [
     {
       point: 1500,
-      column: 3,
+      column: 4,
     },
     {
       point: 1200,
-      column: 2,
+      column: 3,
     },
     {
       point: 768,
+      column: 2,
+    },
+    {
+      point: 500,
       column: 1,
     },
   ],
@@ -55,11 +59,16 @@ useWaterfall({
   width: 70%;
   padding: 20px;
   box-sizing: border-box;
+
+  @media screen and (width <= 1200px) {
+    width: 100%;
+  }
 }
 
 @include be(home, list) {
   flex: 1;
-  margin-right: 20px;
+
+  /* margin-right: 20px; */
 }
 
 @include be(home, sidebar) {
@@ -76,3 +85,4 @@ useWaterfall({
   }
 }
 </style>
+import { column } from 'element-plus/es/components/table-v2/src/common';

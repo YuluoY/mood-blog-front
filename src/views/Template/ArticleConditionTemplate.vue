@@ -146,6 +146,12 @@ onBeforeUnmount(() => {
   justify-content: center;
   margin: auto;
 
+  @media screen and (width <= 1200px) {
+    .y-template__sidebar {
+      display: none;
+    }
+  }
+
   .y-template__inner {
     width: 70%;
     height: 100%;
@@ -158,7 +164,6 @@ onBeforeUnmount(() => {
 
     .y-template__sidebar {
       width: 300px;
-      margin-left: 20px;
     }
   }
 }

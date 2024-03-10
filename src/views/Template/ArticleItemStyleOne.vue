@@ -14,7 +14,7 @@
         }"
       >
         <div class="y-item__image">
-          <img v-lazy="article.cover" loading="lazy" :alt="article.title" />
+          <img v-lazy="article.cover" loading="lazy" :alt="article.title" @load="handleLoad" />
         </div>
       </div>
       <div
@@ -105,7 +105,8 @@ const articleStore = useArticleStore()
   }
 
   .y-item__left {
-    height: 200px;
+    min-width: 200px;
+    min-height: 200px;
 
     .y-item__image {
       width: 100%;
@@ -128,7 +129,7 @@ const articleStore = useArticleStore()
     .y-item__desc {
       line-height: 2;
       padding: 10px 0;
-      text-indent: 2rem
+      text-indent: 2rem;
     }
 
     .y-item__info {

@@ -34,22 +34,22 @@ const loginRef = ref<Ref | null>(null)
 const isShowHead = ref<boolean>(true)
 const headBlackList = ['/admin']
 // const particleBgBlackList = ['/write']
-const currentRouteWatcher = watch(
-  () => router.currentRoute.value,
-  () => {
-    isShowHead.value = !headBlackList.every(
-      (path) => router.currentRoute.value.path.indexOf(path) > -1
-    )
-  }
-)
-
+// const currentRouteWatcher = watch(
+//   () => router.currentRoute.value,
+//   () => {
+//     isShowHead.value = !headBlackList.every(
+//       (path) => router.currentRoute.value.path.indexOf(path) > -1
+//     )
+//   }
+// )
+watchEffect(() => {
+  isShowHead.value = !headBlackList.every(
+    (path) => router.currentRoute.value.path.indexOf(path) > -1
+  )
+})
 // const isShowParticleBg = computed(
 //   () => !particleBgBlackList.every((path) => router.currentRoute.value.path.indexOf(path) > -1)
 // )
-
-onBeforeUnmount(() => {
-  currentRouteWatcher()
-})
 </script>
 
 <style scoped lang="scss">
